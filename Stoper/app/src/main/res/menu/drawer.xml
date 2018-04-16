@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="end">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_rides"
+            android:checked="true"
+            android:title="@string/rides" />
+        <item
+            android:id="@+id/navigation_item_search"
+            android:title="@string/search" />
+        <item
+            android:id="@+id/navigation_item_offer_ride"
+            android:title="@string/offer_ride" />
+        <item
+            android:id="@+id/navigation_item_offer_profile"
+            android:title="@string/profile" />
+
+    </group>
+
+<!--    <item android:title="@string/nav_sub_menu">
+        <menu>
+            <item
+                android:icon="@drawable/ic_emoticon"
+                android:title="@string/nav_sub_menu_item01" />
+            <item
+                android:icon="@drawable/ic_emoticon"
+                android:title="@string/nav_sub_menu_item02" />
+        </menu>
+    </item>-->
+
+</menu>
