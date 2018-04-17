@@ -15,9 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import stoper.stoper.R;
+import stoper.stoper.fragments.DestinationFragment;
 import stoper.stoper.fragments.MainFragment;
 import stoper.stoper.fragments.OfferFragment;
 import stoper.stoper.fragments.SearchFragment;
@@ -85,6 +87,7 @@ public class NavigationActivity extends AppCompatActivity
             fragment = new MainFragment();
         } else if (id == R.id.nav_gallery) {
             fragment = new SearchFragment();
+
             Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_slideshow) {
             fragment = new OfferFragment();
@@ -114,4 +117,5 @@ public class NavigationActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

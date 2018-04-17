@@ -12,6 +12,11 @@
 
     <string name="start_destination">Polazim iz...</string>
     <string name="end_destination">Idem u...</string>
+    <string name="date">Datum</string>
+    <string name="departure_after">Polazak posle</string>
+    <string name="start_typing">Pocnite da kucate</string>
+    <string name="my_location">Moja lokacija</string>
+
     <string name="drawer_header_text">Drawer Header</string>
 
     <string name="next">Dalje</string>
