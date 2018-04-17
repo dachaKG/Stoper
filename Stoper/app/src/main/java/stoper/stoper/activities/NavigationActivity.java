@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import stoper.stoper.R;
 import stoper.stoper.fragments.MainFragment;
+import stoper.stoper.fragments.OfferFragment;
 import stoper.stoper.fragments.SearchFragment;
 
 public class NavigationActivity extends AppCompatActivity
@@ -86,7 +87,8 @@ public class NavigationActivity extends AppCompatActivity
             fragment = new SearchFragment();
             Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_slideshow) {
-
+            fragment = new OfferFragment();
+            Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
