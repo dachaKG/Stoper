@@ -26,6 +26,8 @@ import stoper.stoper.activities.NavigationActivity;
 public class SearchFragment extends Fragment {
 
     private Button searchButton;
+    private String startDestination;
+    private EditText endDestination;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -103,24 +105,43 @@ public class SearchFragment extends Fragment {
             e.printStackTrace();
         }
 */
-
-        EditText mEditInit = (EditText) view.findViewById(R.id.start_destination);
         getActivity().setTitle(R.string.find_ride);
-        if(mEditInit==null)
-            Toast.makeText(view.getContext(), "null je jebo ti on mater", Toast.LENGTH_LONG).show();
-        mEditInit.setOnClickListener(new View.OnClickListener() {
+        EditText et=view.findViewById(R.id.start_destination);
+        if(startDestination==null) {
+            System.out.println("nema teksta u destinaciji");
+            et.setText("pocetni tekst");
+            et.setText("nesto drugo");
+        }else{
+            System.out.println(startDestination);
+            et.setText(startDestination);
+            et.setText("bilo sta");
+            System.out.println("dzigi bau");
+            this.endDestination = view.findViewById(R.id.end_destination);
+            endDestination.setText("imao sam");
+        }
+        et.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment f=new DestinationFragment();
+                Fragment f = new DestinationFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_screen, f);
 
                 ft.addToBackStack(null);
                 ft.commit();
+                //getActivity().getSupportFragmentManager().executePendingTransactions();
             }
 
         });
+
+    }
+
+    public String getStartDestination(){
+        return this.startDestination;
+    }
+
+    public void setStartDestination(String startDestination){
+        this.startDestination=startDestination;
     }
 
 }

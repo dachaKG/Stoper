@@ -105,10 +105,12 @@ public class NavigationActivity extends AppCompatActivity
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.main_screen, fragment);
+            ft.replace(R.id.main_screen, fragment, "searchFragment");
 
             ft.addToBackStack(null);
             ft.commit();
+            //getSupportFragmentManager().executePendingTransactions();
+            //fragmentManager.executePendingTransactions();
         }
 
         item.setChecked(true);
