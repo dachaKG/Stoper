@@ -21,13 +21,24 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
@@ -36,12 +47,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import stoper.stoper.R;
 import stoper.stoper.util.HttpDataHandler;
 import stoper.stoper.util.MyService;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +68,8 @@ public class DestinationFragment extends Fragment{
     }
 
     private BroadcastReceiver broadcastReceiver;
+
+    ProgressDialog dialog;
 
     @Override
     public void onResume() {
@@ -77,17 +93,22 @@ public class DestinationFragment extends Fragment{
                         getActivity().stopService(i);
 
                         FragmentManager fragmentManager = getFragmentManager();
-                        SearchFragment f1= (SearchFragment) fragmentManager.findFragmentByTag("searchFragment");
-                        f1.setStartDestination(addresses.get(0).getLocality());
-                        //EditText et=f1.getView().findViewById(R.id.start_destination);
-                        //System.out.println(et);
-                        //et.setText(addresses.get(0).getLocality());
-                        fragmentManager.popBackStack();
-                        /*FragmentTransaction ft = fragmentManager.beginTransaction();
+                        //SearchFragment f1= (SearchFragment) fragmentManager.findFragmentByTag("searchFragment");
+                        //f1.setStartDestination(addresses.get(0).getLocality());
+                        Bundle args = new Bundle();
+                        args.putString("startDestination",addresses.get(0).getLocality());
+                        SearchFragment f1=new SearchFragment();
+                        f1.setArguments(args);
+                        //fragmentManager.popBackStack();
 
-                        ft.replace(R.id.main_screen, new SearchFragment());
-                        ft.addToBackStack(null);
-                        ft.commit();*/
+                        if(dialog.isShowing())
+
+                            dialog.dismiss();
+
+                        FragmentTransaction ft = fragmentManager.beginTransaction();
+                        ft.replace(R.id.main_screen, f1);
+                        //ft.addToBackStack(null);
+                        ft.commit();
                     }
                     else {
                         // do your stuff
@@ -116,65 +137,81 @@ public class DestinationFragment extends Fragment{
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Button mEditInit = (Button) view.findViewById(R.id.my_location);
+        dialog = new ProgressDialog(getContext());
 
         mEditInit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new GetCoordinates().execute("Kikinda");
                 Intent i =new Intent(getContext().getApplicationContext(),MyService.class);
                 getActivity().startService(i);
+
+                dialog.setMessage("Please wait....");
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
                 //Toast.makeText(v.getContext(), "okolo svuda je tama", Toast.LENGTH_LONG).show();
 
             }
         });
+
+        /*PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });*/
+
+        EditText editText = (EditText) view.findViewById(R.id.start_typing);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()>1){
+                    //new GetCoordinates().execute(s.toString());
+                    Geocoder gcd = new Geocoder(getContext(), Locale.getDefault());
+                    List<Address> addresses = null;
+                    //new GetCoordinates().execute(s.toString());
+
+                    /*String[] array= new String[addresses.size()];
+                    for(int i=0;i<addresses.size();i++)
+                    array[i]=addresses.get(i).getLocality();
+                    ArrayList<String> lista=new ArrayList<>();
+                    lista.add("daleko od istine");
+                    System.out.println(addresses.size());
+                    ArrayAdapter<String> adapter=new ArrayAdapter<String>(
+                    getContext(),
+                    R.layout.da_item,
+                    array
+                    );
+                    ListView lw=getView().findViewById(R.id.destination_list);
+                    lw.setAdapter(adapter);*/
+
+                }
+            }
+        });
     }
 
-
-
-    private class GetCoordinates extends AsyncTask<String,Void,String> {
-
-        ProgressDialog dialog = new ProgressDialog(getContext());
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog.setMessage("Please wait....");
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.show();
-        }
-        @Override
-        protected String doInBackground(String... strings) {
-            String response;
-            try {
-                String address = strings[0];
-                HttpDataHandler http = new HttpDataHandler();
-                String url = String.format("https://maps.googleapis.com/maps/api/geocode/json?address=%s", address);
-                response = http.getHTTPData(url);
-                return response;
-            } catch (Exception ex) {
-            }
-            return null;
-        }
-
-
-        @Override
-        protected void onPostExecute(String s) {
-            try{
-                JSONObject jsonObject = new JSONObject(s);
-                String lat = ((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry")
-                        .getJSONObject("location").get("lat").toString();
-                String lng = ((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry")
-                        .getJSONObject("location").get("lng").toString();
-                if(dialog.isShowing())
-
-                    dialog.dismiss();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 }
