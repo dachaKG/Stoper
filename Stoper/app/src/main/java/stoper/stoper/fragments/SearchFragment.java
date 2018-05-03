@@ -7,18 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import stoper.stoper.R;
-import stoper.stoper.activities.NavigationActivity;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +24,7 @@ import stoper.stoper.activities.NavigationActivity;
 public class SearchFragment extends Fragment {
 
     private Button searchButton;
+    private Bundle b;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -38,6 +37,8 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -105,27 +106,49 @@ public class SearchFragment extends Fragment {
 */
         getActivity().setTitle(R.string.find_ride);
 
-        Bundle b = getArguments();
+        b = getArguments();
         EditText et1 = view.findViewById(R.id.start_destination);
+        EditText et2 = view.findViewById(R.id.end_destination);
         if(b!=null) {
             String startDestination = b.getString("startDestination");
             if (startDestination != null) {
                 et1.setText(startDestination);
             }
+            String endDestination = b.getString("endDestination");
+            if(endDestination!=null){
+                et2.setText(endDestination);
+            }
+        }else{
+            b=new Bundle();
         }
+
         et1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment f = new DestinationFragment();
+                b.putString("type","startDestination");
+                f.setArguments(b);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_screen, f);
-
-                //ft.addToBackStack(null);
+                ft.addToBackStack(null);
                 ft.commit();
-                //getActivity().getSupportFragmentManager().executePendingTransactions();
             }
 
+        });
+        et2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Fragment f = new DestinationFragment();
+                b.putString("type","endDestination");
+                f.setArguments(b);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.main_screen, f);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
         });
 
     }

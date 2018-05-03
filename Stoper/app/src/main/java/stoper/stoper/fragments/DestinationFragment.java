@@ -70,6 +70,9 @@ public class DestinationFragment extends Fragment{
     private BroadcastReceiver broadcastReceiver;
 
     ProgressDialog dialog;
+    private static View view;
+
+    private Bundle b;
 
     @Override
     public void onResume() {
@@ -95,10 +98,12 @@ public class DestinationFragment extends Fragment{
                         FragmentManager fragmentManager = getFragmentManager();
                         //SearchFragment f1= (SearchFragment) fragmentManager.findFragmentByTag("searchFragment");
                         //f1.setStartDestination(addresses.get(0).getLocality());
-                        Bundle args = new Bundle();
-                        args.putString("startDestination",addresses.get(0).getLocality());
+                        if(b.getString("type").equals("startDestination"))
+                            b.putString("startDestination",addresses.get(0).getLocality());
+                        else if(b.getString("type").equals("endDestination"))
+                            b.putString("endDestination",addresses.get(0).getLocality());
                         SearchFragment f1=new SearchFragment();
-                        f1.setArguments(args);
+                        f1.setArguments(b);
                         //fragmentManager.popBackStack();
 
                         if(dialog.isShowing())
@@ -142,6 +147,7 @@ public class DestinationFragment extends Fragment{
 
         Button mEditInit = (Button) view.findViewById(R.id.my_location);
         dialog = new ProgressDialog(getContext());
+        b=getArguments();
 
         mEditInit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,41 +181,18 @@ public class DestinationFragment extends Fragment{
         });*/
 
         EditText editText = (EditText) view.findViewById(R.id.start_typing);
-        editText.addTextChangedListener(new TextWatcher() {
+        editText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            public void onClick(View v) {
+                Fragment f = new PlacesFragment();
+                f.setArguments(b);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.main_screen, f);
+                ft.addToBackStack(null);
+                ft.commit();
             }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length()>1){
-                    //new GetCoordinates().execute(s.toString());
-                    Geocoder gcd = new Geocoder(getContext(), Locale.getDefault());
-                    List<Address> addresses = null;
-                    //new GetCoordinates().execute(s.toString());
-
-                    /*String[] array= new String[addresses.size()];
-                    for(int i=0;i<addresses.size();i++)
-                    array[i]=addresses.get(i).getLocality();
-                    ArrayList<String> lista=new ArrayList<>();
-                    lista.add("daleko od istine");
-                    System.out.println(addresses.size());
-                    ArrayAdapter<String> adapter=new ArrayAdapter<String>(
-                    getContext(),
-                    R.layout.da_item,
-                    array
-                    );
-                    ListView lw=getView().findViewById(R.id.destination_list);
-                    lw.setAdapter(adapter);*/
-
-                }
-            }
         });
     }
 
