@@ -16,6 +16,14 @@
     <string name="departure_after">Polazak posle</string>
     <string name="start_typing">Pocnite da kucate</string>
     <string name="my_location">Moja lokacija</string>
+    <string name="number_of_passengers">Broj putnika</string>
+    <string name="register">Registruj se</string>
+    <string name="login">Prijavi se</string>
+    <string name="intro">Deljenje prevoza Vam olaksava putovanje.</string>
+    <string name="connect_with_facebook">Povezi se s fejsbukom</string>
+    <string name="register_with_mail">Registruj se preko mejla</string>
+    <string name="regulations">Registracijom putem e-mail ili Fejsbuk naloga, prihvatate Odredbe i uslove i Politiku
+    privatnosti</string>
 
     <string name="drawer_header_text">Drawer Header</string>
 

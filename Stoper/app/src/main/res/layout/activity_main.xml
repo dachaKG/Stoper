@@ -26,22 +26,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
-            android:id="@+id/linear_layout_main"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_weight="0.7"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content">
-            <!--<fragment
-                android:id="@+id/fragment_main"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:name="stoper.stoper.fragments.MainFragment">
 
-            </fragment>-->
-        </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

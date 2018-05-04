@@ -1,6 +1,8 @@
 package stoper.stoper.fragments;
 
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,8 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.TimePicker;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import stoper.stoper.R;
 
@@ -25,6 +34,7 @@ public class SearchFragment extends Fragment {
 
     private Button searchButton;
     private Bundle b;
+    private NumberPicker nmpck;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -44,66 +54,6 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-/*
-        profilePicture = (ImageView) view.findViewById(R.id.profilePicture);
-        profileName = (TextView) view.findViewById(R.id.profileName);
-        profileName.setEnabled(false);
-        QRcodeView = (ImageView) view.findViewById(R.id.qr_code);
-        profileBirthday = (EditText) view.findViewById(R.id.profileBirthday);
-        profileBirthday.setEnabled(false);
-*/
-//        profileBirthday.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//
-//            }
-//        });
-/*
-        Log.i("userID",UserPreference.readLoggedInUser(getActivity()));
-
-        profileName.setText(loggedInUser.getName());
-
-        if(loggedInUser.getDate().equals("00-00-0000")) {
-            profileBirthday.setText("");
-            profileName.setGravity(Gravity.CENTER);
-
-        } else {
-            profileBirthday.setText(loggedInUser.getDate());
-        }
-
-
-        new DownloadImageTask(profilePicture)
-                .execute(loggedInUser.getImageURL());
-
-        // generisanje QR coda
-        QRCodeWriter writer = new QRCodeWriter();
-        try {
-            BitMatrix bitMatrix = writer.encode(userID, BarcodeFormat.QR_CODE, 512, 512);
-            int width = bitMatrix.getWidth();
-            int height = bitMatrix.getHeight();
-            Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
-                }
-            }
-            QRcodeView.setImageBitmap(bmp);
-
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
-*/
         getActivity().setTitle(R.string.find_ride);
 
         b = getArguments();
@@ -150,6 +100,76 @@ public class SearchFragment extends Fragment {
                 ft.commit();
             }
         });
+
+        /**
+         * Date picker
+         */
+        final Calendar myCalendar = Calendar.getInstance();
+
+        final EditText et3= (EditText) view.findViewById(R.id.date);
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+            private void updateLabel() {
+                String myFormat = "MM/dd/yy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                et3.setText(sdf.format(myCalendar.getTime()));
+            }
+
+        };
+
+        et3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(getContext(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
+        /**
+         * Time picker
+         */
+        final EditText et4=view.findViewById(R.id.departure_after);
+        et4.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        et4.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
+        /**
+         * Number picker
+         */
+        nmpck=view.findViewById(R.id.numberPicker);
+        nmpck.setMaxValue(3);
+        nmpck.setMinValue(1);
+        nmpck.setWrapSelectorWheel(false);
+        nmpck.setOrientation(0);
 
     }
 

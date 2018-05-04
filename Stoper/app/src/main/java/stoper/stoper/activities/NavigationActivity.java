@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,10 +24,15 @@ import stoper.stoper.R;
 import stoper.stoper.fragments.DestinationFragment;
 import stoper.stoper.fragments.MainFragment;
 import stoper.stoper.fragments.OfferFragment;
+import stoper.stoper.fragments.PlacesFragment;
+import stoper.stoper.fragments.RegistrationFragment;
 import stoper.stoper.fragments.SearchFragment;
+import stoper.stoper.fragments.StarterFragment;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,14 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.main_screen, new StarterFragment(), "starterFragment");
+
+        ft.addToBackStack(null);
+        ft.commit();
+
     }
 
     @Override
@@ -105,7 +120,7 @@ public class NavigationActivity extends AppCompatActivity
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.main_screen, fragment, "searchFragment");
+            ft.replace(R.id.main_screen, fragment, "starterFragment");
 
             ft.addToBackStack(null);
             ft.commit();
