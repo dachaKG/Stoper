@@ -2,18 +2,33 @@ package stoper.stoper.fragments;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import stoper.stoper.R;
 
@@ -34,8 +49,13 @@ public class RegistrationFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private Button register_with_mail_button;
     private LinearLayout ll;
-    ValueAnimator mAnimatosr;
-
+    private EditText genderEditText;
+    private EditText birthYearEditText;
+    private EditText nameEditText;
+    private EditText lastnameEditText;
+    private EditText passwordEditText;
+    private EditText repeatPaswordEditText;
+    private EditText mailEditText;
     //private OnFragmentInteractionListener mListener;
 
     public RegistrationFragment() {
@@ -79,17 +99,82 @@ public class RegistrationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getActivity().setTitle(R.string.register);
-
+        /**
+         * Expand registration form via mail
+         */
         register_with_mail_button = getView().findViewById(R.id.register_with_mail);
         register_with_mail_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "okolo svuda je tama", Toast.LENGTH_LONG).show();
-                ll.setVisibility(View.VISIBLE);
+                //Toast.makeText(v.getContext(), "okolo svuda je tama", Toast.LENGTH_LONG).show();
+                if(ll.getVisibility()==View.GONE)
+                    ll.setVisibility(View.VISIBLE);
+                else{/*
+                    if(checkFields()){
+                        Toast.makeText(v.getContext(), "dobro je", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(v.getContext(), "Nije dobro", Toast.LENGTH_LONG).show();
+                    }*/
+                    
+                }
             }
         });
         ll=view.findViewById(R.id.popup);
         ll.setVisibility(View.GONE);
+
+        /**
+         * Gender choice
+         */
+
+        genderEditText=view.findViewById(R.id.gender);
+        genderEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CharSequence genders[] = new CharSequence[] {"Muski", "Zenski"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setItems(genders, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // the user clicked on colors[which]
+                        genderEditText.setText(genders[which]);
+                        TextInputLayout til = getView().findViewById(R.id.textInputLayout1);
+                        til.setErrorEnabled(false);
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        /**
+         * Birth year choice
+         */
+        birthYearEditText=view.findViewById(R.id.birth_year);
+        birthYearEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ArrayList<String> years=new ArrayList<>();
+                int maxYear=Calendar.getInstance().get(Calendar.YEAR);
+                for(int i=maxYear-18;i>maxYear-100;i--){
+                    years.add(Integer.toString(i));
+                }
+
+                final CharSequence[] charSequenceItems = years.toArray(new CharSequence[years.size()]);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setItems(years.toArray(new CharSequence[years.size()]), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // the user clicked on colors[which]
+                        birthYearEditText.setText(charSequenceItems[which]);
+                        TextInputLayout til = getView().findViewById(R.id.textInputLayout4);
+                        til.setErrorEnabled(false);
+                    }
+                });
+                builder.show();
+            }
+        });
+
         //mAnimatosr.start();
     }
 
@@ -132,4 +217,64 @@ public class RegistrationFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }*/
+    private boolean checkFields(){
+        nameEditText= getView().findViewById(R.id.name);
+        lastnameEditText=getView().findViewById(R.id.lastname);
+        mailEditText=getView().findViewById(R.id.e_mail);
+        passwordEditText=getView().findViewById(R.id.password);
+        repeatPaswordEditText=getView().findViewById(R.id.repeat_password);
+        TextInputLayout til2 = getView().findViewById(R.id.textInputLayout2);
+        TextInputLayout til3 = getView().findViewById(R.id.textInputLayout3);
+        TextInputLayout til5 = getView().findViewById(R.id.textInputLayout5);
+        TextInputLayout til6 = getView().findViewById(R.id.textInputLayout6);
+        TextInputLayout til7 = getView().findViewById(R.id.textInputLayout7);
+        if(genderEditText.getText().length()==0){
+            TextInputLayout til1 = getView().findViewById(R.id.textInputLayout1);
+            til1.setError("Ovo polje je obavezno");
+            return false;
+        }else if(nameEditText.getText().length()==0){
+
+            til2.setError("Ovo polje je obavezno");
+            return false;
+        }else {
+            til2.setErrorEnabled(false);
+        }
+        if(lastnameEditText.getText().length()==0){
+            til3.setError("Ovo polje je obavezno");
+            return false;
+        }else {
+            til3.setErrorEnabled(false);
+        }
+        if(birthYearEditText.getText().length()==0){
+            TextInputLayout til = (TextInputLayout) getView().findViewById(R.id.textInputLayout4);
+            til.setError("Ovo polje je obavezno");
+            return false;
+        }else if(!isEmailValid(mailEditText.getText().toString())){
+            til5.setError("Molimo Vas unesite vazecu e-mail adresu");
+            return false;
+        }else {
+            til5.setErrorEnabled(false);
+        }
+        if(passwordEditText.getText().length()<8){
+            til6.setError("Izaberite lozinku od najmanje 8 znakova");
+            return false;
+        }else {
+            til6.setErrorEnabled(false);
+        }
+        if(!(repeatPaswordEditText.getText().toString().equals(passwordEditText.getText().toString()))){
+            til7.setError("Lozinke se moraju podudarati");
+            return false;
+        }else{
+            til7.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 }

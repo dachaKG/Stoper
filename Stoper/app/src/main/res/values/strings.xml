@@ -24,6 +24,14 @@
     <string name="register_with_mail">Registruj se preko mejla</string>
     <string name="regulations">Registracijom putem e-mail ili Fejsbuk naloga, prihvatate Odredbe i uslove i Politiku
     privatnosti</string>
+    <string name="gender">Pol</string>
+    <string name="name">Ime</string>
+    <string name="lastname">Prezime</string>
+    <string name="birth_year">Godina rodjenja</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Lozinka</string>
+    <string name="repeat_password">Ponovi lozinku</string>
+    <string name="newsletter">Zelim da me obavestavate o novostima, ponudama i poklonima!</string>
 
     <string name="drawer_header_text">Drawer Header</string>
 

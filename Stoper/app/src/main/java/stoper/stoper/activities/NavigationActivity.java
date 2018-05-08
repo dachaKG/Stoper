@@ -55,13 +55,14 @@ public class NavigationActivity extends AppCompatActivity
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.main_screen, new StarterFragment(), "starterFragment");
 
-        ft.addToBackStack(null);
+        //ft.addToBackStack(null);
         ft.commit();
 
     }
 
     @Override
     public void onBackPressed() {
+        System.out.println(getSupportFragmentManager().getBackStackEntryCount());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -121,7 +122,6 @@ public class NavigationActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.main_screen, fragment, "starterFragment");
-
             ft.addToBackStack(null);
             ft.commit();
             //getSupportFragmentManager().executePendingTransactions();
