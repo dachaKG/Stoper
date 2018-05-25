@@ -15,7 +15,7 @@
             android:title="@string/offer_ride" />
         <item
             android:id="@+id/navigation_item_offer_profile"
-            android:title="@string/profile" />
+            android:title="@string/menu_profile_title" />
 
     </group>
 

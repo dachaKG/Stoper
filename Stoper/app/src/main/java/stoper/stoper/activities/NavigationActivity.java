@@ -3,9 +3,12 @@ package stoper.stoper.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,6 +28,9 @@ import stoper.stoper.fragments.DestinationFragment;
 import stoper.stoper.fragments.MainFragment;
 import stoper.stoper.fragments.OfferFragment;
 import stoper.stoper.fragments.PlacesFragment;
+import stoper.stoper.fragments.ProfileAccountFragment;
+import stoper.stoper.fragments.ProfileDetailsFragment;
+import stoper.stoper.fragments.ProfileFragment;
 import stoper.stoper.fragments.RegistrationFragment;
 import stoper.stoper.fragments.SearchFragment;
 import stoper.stoper.fragments.StarterFragment;
@@ -99,23 +105,30 @@ public class NavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
-        if (id == R.id.nav_camera) {
-            fragment = new MainFragment();
-        } else if (id == R.id.nav_gallery) {
-            fragment = new SearchFragment();
-
-            Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
-        } else if (id == R.id.nav_slideshow) {
-            fragment = new OfferFragment();
-            Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch(id){
+            case R.id.nav_camera:
+                fragment = new MainFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_home);
+                break;
+            case R.id.nav_gallery:
+                fragment = new SearchFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_offer);
+                Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_slideshow:
+                fragment = new OfferFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_demand);
+                Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_profile:
+                fragment = new ProfileFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_profile);
+                break;
+            case R.id.nav_share:
+                break;
+            case R.id.nav_send:
+                break;
         }
-
 
         if(fragment != null){
 
@@ -134,5 +147,4 @@ public class NavigationActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }
