@@ -39,7 +39,7 @@ public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-
+    private int activeItem = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +56,24 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        Fragment fragment = null;
+        if(savedInstanceState != null){
+            activeItem = savedInstanceState.getInt("activeItem");
+        }
+        fragment = getFragmentToShow(activeItem);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.main_screen, new StarterFragment(), "starterFragment");
+        ft.replace(R.id.main_screen, fragment, "starterFragment");
 
         //ft.addToBackStack(null);
         ft.commit();
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("activeItem", activeItem);
     }
 
     @Override
@@ -104,31 +114,8 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = null;
-        switch(id){
-            case R.id.nav_camera:
-                fragment = new MainFragment();
-                getSupportActionBar().setTitle(R.string.app_bar_home);
-                break;
-            case R.id.nav_gallery:
-                fragment = new SearchFragment();
-                getSupportActionBar().setTitle(R.string.app_bar_offer);
-                Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
-                break;
-            case R.id.nav_slideshow:
-                fragment = new OfferFragment();
-                getSupportActionBar().setTitle(R.string.app_bar_demand);
-                Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
-                break;
-            case R.id.nav_profile:
-                fragment = new ProfileFragment();
-                getSupportActionBar().setTitle(R.string.app_bar_profile);
-                break;
-            case R.id.nav_share:
-                break;
-            case R.id.nav_send:
-                break;
-        }
+        activeItem = item.getItemId();
+        Fragment fragment = getFragmentToShow(id);
 
         if(fragment != null){
 
@@ -137,8 +124,6 @@ public class NavigationActivity extends AppCompatActivity
             ft.replace(R.id.main_screen, fragment, "starterFragment");
             ft.addToBackStack(null);
             ft.commit();
-            //getSupportFragmentManager().executePendingTransactions();
-            //fragmentManager.executePendingTransactions();
         }
 
         item.setChecked(true);
@@ -146,5 +131,36 @@ public class NavigationActivity extends AppCompatActivity
         drawer.findViewById(R.id.nav_view);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private Fragment getFragmentToShow(int id) {
+        Fragment fragment = null;
+        switch (id) {
+            case R.id.nav_camera:
+                fragment = new MainFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_home);
+                break;
+            case R.id.nav_gallery:
+                fragment = new SearchFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_offer);
+                //Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_slideshow:
+                fragment = new OfferFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_demand);
+                //Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_profile:
+                fragment = new ProfileFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_profile);
+                break;
+           /* case R.id.nav_share:
+                break;
+            case R.id.nav_send:
+                break;*/
+           default:
+               fragment = new StarterFragment();
+        }
+        return fragment;
     }
 }
