@@ -46,28 +46,26 @@ public class NavigationActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Fragment fragment = null;
-        if(savedInstanceState != null){
+        if(savedInstanceState == null) {
+            fragment = getFragmentToShow(activeItem);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.main_screen, fragment, "starterFragment");
+            //ft.addToBackStack(null);
+            ft.commit();
+
+        }else{
             activeItem = savedInstanceState.getInt("activeItem");
+            fragment = getFragmentToShow(activeItem);
         }
-        fragment = getFragmentToShow(activeItem);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.main_screen, fragment, "starterFragment");
-
-        //ft.addToBackStack(null);
-        ft.commit();
-
     }
 
     @Override
@@ -138,11 +136,11 @@ public class NavigationActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_camera:
                 fragment = new MainFragment();
-                getSupportActionBar().setTitle(R.string.app_bar_home);
+                getSupportActionBar().setTitle(R.string.app_bar_offer);
                 break;
             case R.id.nav_gallery:
                 fragment = new SearchFragment();
-                getSupportActionBar().setTitle(R.string.app_bar_offer);
+                getSupportActionBar().setTitle(R.string.app_bar_search);
                 //Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_slideshow:
@@ -160,6 +158,7 @@ public class NavigationActivity extends AppCompatActivity
                 break;*/
            default:
                fragment = new StarterFragment();
+               getSupportActionBar().setTitle(R.string.app_bar_home);
         }
         return fragment;
     }

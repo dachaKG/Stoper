@@ -7,19 +7,19 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="@string/menu_title_offer" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/search" />
+            android:title="@string/menu_title_search" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/offer" />
+            android:title="@string/menu_title_rides" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_account_circle"
-            android:title="@string/menu_profile_title" />
+            android:title="@string/menu_title_profile" />
     </group>
 
     <item android:title="Communicate">

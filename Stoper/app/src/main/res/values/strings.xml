@@ -5,10 +5,10 @@
     <string name="find_ride">Pronadji prevoz</string>
     <string name="action_settings">Podesavanja</string>
 
-    <string name="offer">Ponudi</string>
-    <string name="rides">Voznje</string>
-    <string name="search">Pretrazi</string>
-    <string name="menu_profile_title">Profil</string>
+    <string name="menu_title_offer">Ponudi</string>
+    <string name="menu_title_rides">Vožnje</string>
+    <string name="menu_title_search">Pretraži</string>
+    <string name="menu_title_profile">Profil</string>
 
     <string name="start_destination">Polazim iz...</string>
     <string name="end_destination">Idem u...</string>
@@ -52,11 +52,15 @@
     <!--APP BAR TITLE-->
     <string name="app_bar_home">Početna</string>
     <string name="app_bar_offer">Ponuda vožnje</string>
-    <string name="app_bar_demand">Pretraga vožnje</string>
+    <string name="app_bar_search">Pretraga vožnje</string>
+    <string name="app_bar_demand">Tražnja vožnje</string>
     <string name="app_bar_profile">Profil</string>
 
     <!--PROFILE TABS-->
     <string name="profile_details_tab">Detalji</string>
     <string name="profile_account_tab">Nalog</string>
+    <string name="details_first_title">O Vama</string>
+    <string name="link_to_biography_edit_title">Napišite svoju mini biografiju</string>
+    <string name="link_to_settings_edit_title">Dodaj moja željena podešavanja</string>
 
 </resources>
