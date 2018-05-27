@@ -1,6 +1,7 @@
 package stoper.stoper.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import stoper.stoper.R;
 
@@ -28,7 +32,14 @@ public class StarterFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static  EditText usernameText = null;
+    private static  EditText  passwordText = null;
+    private static TextView counterText=null;
+
     private Button registerButton;
+    private Button loginButton;
+    int counter = 3;
 
     // TODO: Rename and change types of parameters
 
@@ -73,6 +84,13 @@ public class StarterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
+        usernameText= view.findViewById(R.id.usernameID);
+        passwordText= view.findViewById(R.id.passwordID);
+        counterText = view.findViewById(R.id.counterID);
+        counterText.setVisibility(View.GONE);
+
         getActivity().setTitle(R.string.find_ride);
         registerButton = view.findViewById(R.id.register);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +104,27 @@ public class StarterFragment extends Fragment {
                 ft.commit();
             }
         });
+
+        loginButton = view.findViewById(R.id.login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(usernameText.getText().toString().equals("admin") &&
+                        passwordText.getText().toString().equals("123")) {
+                    usernameText.setBackgroundColor(Color.GREEN);
+                }else{
+                    usernameText.setBackgroundColor(Color.RED);
+                    counter--;
+                    counterText.setText("Tries left " + Integer.toString(counter));
+                    counterText.setVisibility(View.VISIBLE);
+                    if (counter == 0) {
+                        loginButton.setEnabled(false);
+                    }
+                }
+            }
+        });
+
     }
 /*
     // TODO: Rename method, update argument and hook method into UI event

@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/linear_layout_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="498dp"
         android:layout_gravity="center"
         android:layout_weight="0.7"
         android:gravity="center"
@@ -16,23 +16,49 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="217dp"
+            android:layout_height="169dp"
             android:src="@drawable/golf2" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="@string/intro"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="@string/intro" />
+
+        <EditText
+            android:id="@+id/usernameID"
+            android:layout_width="252dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Username" />
+
+        <EditText
+            android:id="@+id/passwordID"
+            android:layout_width="253dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:text="Password" />
+
+        <TextView
+            android:id="@+id/counterID"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
         <Button
             android:id="@+id/register"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="42dp"
             android:text="@string/register" />
+
         <Button
             android:id="@+id/login"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="49dp"
             android:text="@string/login" />
+
     </LinearLayout>
 
 </FrameLayout>
