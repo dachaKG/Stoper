@@ -108,7 +108,7 @@ public class OfferPriceFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Ride... rides) {
-            try{
+            try {
                 String apiUrl = "http://172.16.96.187:8080/proba";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
