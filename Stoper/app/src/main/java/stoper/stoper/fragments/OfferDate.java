@@ -31,6 +31,7 @@ public class OfferDate extends Fragment {
     private Button nextButton;
     private FragmentActivity myContext;
     private Fragment fragment;
+    Bundle bundle;
 
     public OfferDate() {
         // Required empty public constructor
@@ -49,17 +50,24 @@ public class OfferDate extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        datePicker = view.findViewById(R.id.start_date);
+        bundle = getArguments();
+        datePicker = view.findViewById(R.id.start_date_offer);
 
         datePicker.setMinDate(minDate);
 
         nextButton = view.findViewById(R.id.button_offer2_id);
+        System.out.println("Pocetna adresa: " + bundle.getString("endDestinationOffer"));
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fragment = new OfferTimeFragment();
-
+                int day = datePicker.getDayOfMonth();
+                int month = datePicker.getMonth() + 1;
+                int year = datePicker.getYear();
+                bundle.putInt("dayOffer", day);
+                bundle.putInt("monthOffer", month);
+                bundle.putInt("yearOffer", year);
+                fragment.setArguments(bundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_screen, fragment);

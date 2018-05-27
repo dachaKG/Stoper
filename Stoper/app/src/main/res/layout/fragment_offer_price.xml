@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.OfferPlacesFragment">
+    tools:context=".fragments.OfferPriceFragment">
 
     <LinearLayout
         android:id="@+id/groupNumbers"
@@ -14,17 +14,17 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content">
 
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/number_of_passengers"></NumberPicker>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/price_offer"
+        android:inputType="number"/>
 
-        <Button
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_offer_passengers_id"
-            android:text="@string/next"/>
-
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_offer_finish_id"
+        android:text="@string/finish_offer"/>
     </LinearLayout>
 
 </FrameLayout>

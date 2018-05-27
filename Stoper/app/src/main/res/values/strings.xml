@@ -36,6 +36,7 @@
     <string name="drawer_header_text">Drawer Header</string>
 
     <string name="next">Dalje</string>
+    <string name="finish_offer">Zavrsi</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
