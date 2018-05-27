@@ -1,15 +1,11 @@
 package com.example.StoperJava.model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @Entity
 public class User {
@@ -37,8 +33,8 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(Long id, int gender, String firstName, String lastName, int yearOfBirth, String email, String password){
-			//,List<String> reviews) {
+	public User(Long id, int gender, String firstName, String lastName, int yearOfBirth, String email, String password
+			,List<String> reviews) {
 		super();
 		this.id = id;
 		this.gender = gender;
@@ -47,7 +43,7 @@ public class User {
 		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
-		//this.reviews = reviews;
+		this.reviews = reviews;
 	}
 
 	public Long getId() {
