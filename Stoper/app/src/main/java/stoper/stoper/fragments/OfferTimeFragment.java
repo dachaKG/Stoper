@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TimePicker;
 
 import stoper.stoper.R;
 
@@ -21,7 +22,8 @@ public class OfferTimeFragment extends Fragment {
 
     private Button nextButton;
     private Fragment fragment;
-
+    private Bundle bundle;
+    private TimePicker timePicker;
 
     public OfferTimeFragment() {
         // Required empty public constructor
@@ -40,13 +42,18 @@ public class OfferTimeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        bundle = getArguments();
+        timePicker = view.findViewById(R.id.time_picker_id);
         nextButton = view.findViewById(R.id.button_offer_time_id);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fragment = new OfferPlacesFragment();
-
+                int hour = timePicker.getCurrentHour();
+                int minute = timePicker.getCurrentMinute();
+                bundle.putInt("hourOffer", hour);
+                bundle.putInt("minuteOffer", minute);
+                fragment.setArguments(bundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_screen, fragment);

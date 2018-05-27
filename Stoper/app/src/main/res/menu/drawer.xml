@@ -6,16 +6,16 @@
         <item
             android:id="@+id/navigation_item_rides"
             android:checked="true"
-            android:title="@string/rides" />
+            android:title="@string/menu_title_rides" />
         <item
             android:id="@+id/navigation_item_search"
-            android:title="@string/search" />
+            android:title="@string/menu_title_search" />
         <item
             android:id="@+id/navigation_item_offer_ride"
-            android:title="@string/offer_ride" />
+            android:title="@string/menu_title_offer" />
         <item
             android:id="@+id/navigation_item_offer_profile"
-            android:title="@string/profile" />
+            android:title="@string/menu_title_profile" />
 
     </group>
 

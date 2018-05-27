@@ -17,12 +17,12 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/start_destination"
+            android:id="@+id/start_destination_offer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/start_destination" />
         <EditText
-            android:id="@+id/end_destination"
+            android:id="@+id/end_destination_offer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/end_destination" />

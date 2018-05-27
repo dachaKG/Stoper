@@ -3,9 +3,12 @@ package stoper.stoper.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,6 +28,9 @@ import stoper.stoper.fragments.DestinationFragment;
 import stoper.stoper.fragments.MainFragment;
 import stoper.stoper.fragments.OfferFragment;
 import stoper.stoper.fragments.PlacesFragment;
+import stoper.stoper.fragments.ProfileAccountFragment;
+import stoper.stoper.fragments.ProfileDetailsFragment;
+import stoper.stoper.fragments.ProfileFragment;
 import stoper.stoper.fragments.RegistrationFragment;
 import stoper.stoper.fragments.SearchFragment;
 import stoper.stoper.fragments.StarterFragment;
@@ -33,35 +39,44 @@ public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-
+    private int activeItem = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Fragment fragment = null;
+        if(savedInstanceState == null) {
+            fragment = getFragmentToShow(activeItem);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.main_screen, fragment, "starterFragment");
+            //ft.addToBackStack(null);
+            ft.commit();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.main_screen, new StarterFragment(), "starterFragment");
+        }else{
+            activeItem = savedInstanceState.getInt("activeItem");
+            fragment = getFragmentToShow(activeItem);
+        }
+    }
 
-        ft.addToBackStack(null);
-        ft.commit();
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("activeItem", activeItem);
     }
 
     @Override
     public void onBackPressed() {
+        System.out.println(getSupportFragmentManager().getBackStackEntryCount());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -97,35 +112,16 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = null;
-        if (id == R.id.nav_camera) {
-            fragment = new MainFragment();
-        } else if (id == R.id.nav_gallery) {
-            fragment = new SearchFragment();
-
-            Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
-        } else if (id == R.id.nav_slideshow) {
-            fragment = new OfferFragment();
-            Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
+        activeItem = item.getItemId();
+        Fragment fragment = getFragmentToShow(id);
 
         if(fragment != null){
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.main_screen, fragment, "starterFragment");
-
             ft.addToBackStack(null);
             ft.commit();
-            //getSupportFragmentManager().executePendingTransactions();
-            //fragmentManager.executePendingTransactions();
         }
 
         item.setChecked(true);
@@ -135,4 +131,35 @@ public class NavigationActivity extends AppCompatActivity
         return true;
     }
 
+    private Fragment getFragmentToShow(int id) {
+        Fragment fragment = null;
+        switch (id) {
+            case R.id.nav_camera:
+                fragment = new MainFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_offer);
+                break;
+            case R.id.nav_gallery:
+                fragment = new SearchFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_search);
+                //Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_slideshow:
+                fragment = new OfferFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_demand);
+                //Toast.makeText(NavigationActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_profile:
+                fragment = new ProfileFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_profile);
+                break;
+           /* case R.id.nav_share:
+                break;
+            case R.id.nav_send:
+                break;*/
+           default:
+               fragment = new StarterFragment();
+               getSupportActionBar().setTitle(R.string.app_bar_home);
+        }
+        return fragment;
+    }
 }
