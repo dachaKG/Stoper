@@ -14,6 +14,27 @@ public class User {
 
     private String password;
 
+    private String biography;
+
+    private String phoneNumber;
+
+    private boolean confirmed;
+
+    private String level;
+
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level) {
+        this.gender = gender;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.yearOfBirth = yearOfBirth;
+        this.email = email;
+        this.password = password;
+        this.biography = biography;
+        this.phoneNumber = phoneNumber;
+        this.confirmed = confirmed;
+        this.level = level;
+    }
+
     public int getGender() {
         return gender;
     }
@@ -62,4 +83,35 @@ public class User {
         this.password = password;
     }
 
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 }

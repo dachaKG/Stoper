@@ -15,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import stoper.stoper.R;
+import stoper.stoper.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,9 +26,18 @@ import stoper.stoper.R;
 public class ProfileFragment extends Fragment {
 
     private int activeTab = 0;
-
+    private User user = null;
     public ProfileFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        user = new User(0,"Danilo","Acimovic",
+                1994,"da@a.com",
+                "123","Biografija bla bla",
+                "06000000",true, "pocetnik");
     }
 
     @Override
@@ -35,12 +46,18 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         SectionPagerAdapter sectionPagerAdapter = new SectionPagerAdapter(getChildFragmentManager());
+
+        TextView head_name = (TextView) view.findViewById(R.id.profile_head_name);
+        head_name.setText(user.getFirstName());
+        TextView head_level = (TextView) view.findViewById(R.id.profile_head_level);
+        head_level.setText(user.getLevel());
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
         viewPager.setAdapter(sectionPagerAdapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         return view;
     }
+
 
     /*@Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -82,5 +99,9 @@ public class ProfileFragment extends Fragment {
             }
             return null;
         }
+    }
+
+    public User getUser(){
+        return this.user;
     }
 }

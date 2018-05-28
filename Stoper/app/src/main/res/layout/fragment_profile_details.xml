@@ -1,49 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".fragments.ProfileDetailsFragment"
-    android:paddingTop="20dp"
-   >
+    tools:context=".fragments.ProfileDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/details_first_title"
-        android:textColor="@color/black"
-        android:textSize="@dimen/tabs_content_title_font_size"
-        android:paddingLeft="10dp"
-        />
 
-    <TextView
-        android:id="@+id/link_to_biography_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:textColor="@color/colorPrimary"
-        android:paddingLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:textSize="@dimen/tabs_content_link_font_size"
-        android:text="@string/link_to_biography_edit_title"/>
 
-    <TextView
-        android:id="@+id/link_to_settings_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:textColor="@color/colorPrimary"
-        android:paddingLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:textSize="@dimen/tabs_content_link_font_size"
-        android:text="@string/link_to_settings_edit_title"/>
-    <View
-        android:id="@+id/divider"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="?android:attr/listDivider" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        >
 
-</LinearLayout>
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/details_first_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/tabs_content_title_font_size"
+            android:paddingLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/link_to_biography_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:textColor="@color/colorPrimary"
+            android:paddingLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/tabs_content_link_font_size"
+            android:text="@string/link_to_biography_edit_title"/>
+
+        <TextView
+            android:id="@+id/link_to_settings_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:textColor="@color/colorPrimary"
+            android:paddingLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/tabs_content_link_font_size"
+            android:text="@string/link_to_settings_edit_title"/>
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/details_second_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/tabs_content_title_font_size"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/link_to_phone_number_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:textColor="@color/colorPrimary"
+            android:paddingLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/tabs_content_link_font_size"
+            android:text="@string/link_to_settings_edit_title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp">
+
+            <ImageView
+                android:id="@+id/submitted_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_highlight_off_24" />
+            <TextView
+                android:id="@+id/email_address_checked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingLeft="16dp"
+                android:textSize="@dimen/tabs_content_link_font_size"
+                android:text="danilo.acimovci@yahoo.com"/>
+        </LinearLayout>
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/details_third_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/tabs_content_title_font_size"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/link_to_car_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:textColor="@color/colorPrimary"
+            android:paddingLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/tabs_content_link_font_size"
+            android:text="@string/link_to_car_edit_title"/>
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/link_to_show_profil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:clickable="true"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/tabs_content_link_font_size"
+            android:text="@string/link_to_show_profil_title"/>
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

@@ -12,15 +12,29 @@ tools:context="stoper.stoper.fragments.ProfileFragment">
 <de.hdodenhof.circleimageview.CircleImageView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/profile_image"
-    android:layout_width="96dp"
-    android:layout_height="96dp"
+    android:layout_width="76dp"
+    android:layout_height="76dp"
     android:src="@drawable/diavolo"
     app:civ_border_width="2dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     app:civ_border_color="#FF000000"
     android:layout_gravity="center_horizontal"/>
-<android.support.design.widget.TabLayout
+    <TextView
+        android:id="@+id/profile_head_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Danilo"
+        />
+    <TextView
+        android:id="@+id/profile_head_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Početnik"
+        />
+    <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
