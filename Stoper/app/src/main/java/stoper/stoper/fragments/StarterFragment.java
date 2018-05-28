@@ -1,23 +1,33 @@
 package stoper.stoper.fragments;
-
-import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 
 import stoper.stoper.R;
+import stoper.stoper.model.LoginReq;
+
+
+import static java.lang.System.out;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +50,7 @@ public class StarterFragment extends Fragment {
     private Button registerButton;
     private Button loginButton;
     int counter = 3;
+    Bundle bundle;
 
     // TODO: Rename and change types of parameters
 
@@ -84,7 +95,7 @@ public class StarterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        bundle = getArguments();
 
         usernameText= view.findViewById(R.id.usernameID);
         passwordText= view.findViewById(R.id.passwordID);
@@ -106,10 +117,34 @@ public class StarterFragment extends Fragment {
         });
 
         loginButton = view.findViewById(R.id.login);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
+                try {
+                    LoginReq user = new LoginReq();
+                    user.setEmail("Proba email");
+                    user.setPassword("Proba sifra");
+                    Gson gson = new Gson();
+                    String json = gson.toJson(user);
+                    System.out.println(json);
+                    new HttpReqTask().execute(user);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        /////
+        //dummy part
+        ////
+        /*
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if(usernameText.getText().toString().equals("admin") &&
                         passwordText.getText().toString().equals("123")) {
                     usernameText.setBackgroundColor(Color.GREEN);
@@ -124,7 +159,34 @@ public class StarterFragment extends Fragment {
                 }
             }
         });
+        */
+    }
 
+    private class HttpReqTask extends AsyncTask<LoginReq, Void, Boolean> {
+
+
+        @Override
+        protected Boolean doInBackground(LoginReq... users) {
+            try {
+                String apiUrl = "http://192.168.0.11:8080/user/login";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<LoginReq> user = new HttpEntity<>(users[0]);
+                ResponseEntity<Boolean> userTest = restTemplate.exchange(apiUrl, HttpMethod.POST,  user, Boolean.class);
+
+                return userTest.getBody();
+            } catch (Exception ex) {
+                Log.e("..", ex.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            out.println("Vratio je - " + aBoolean);
+        }
     }
 /*
     // TODO: Rename method, update argument and hook method into UI event

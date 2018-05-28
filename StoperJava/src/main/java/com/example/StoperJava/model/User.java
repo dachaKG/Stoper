@@ -26,7 +26,7 @@ public class User {
 	
 	private String password;
 	
-	private List<String> reviews;
+	//private List<String> reviews;
 
 	public User() {
 		super();
@@ -34,7 +34,7 @@ public class User {
 	}
 
 	public User(Long id, int gender, String firstName, String lastName, int yearOfBirth, String email, String password
-			,List<String> reviews) {
+			){//,List<String> reviews) {
 		super();
 		this.id = id;
 		this.gender = gender;
@@ -43,7 +43,7 @@ public class User {
 		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
-		this.reviews = reviews;
+		//this.reviews = reviews;
 	}
 
 	public Long getId() {
@@ -102,13 +102,13 @@ public class User {
 		this.password = password;
 	}
 
-	public List<String> getReviews() {
-		return reviews;
-	}
+	//public List<String> getReviews() {
+	//	return reviews;
+	//}
 
-	public void setReviews(List<String> reviews) {
-		this.reviews = reviews;
-	}
+	//public void setReviews(List<String> reviews) {
+	//	this.reviews = reviews;
+	//}
 	
 	
 	
