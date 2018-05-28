@@ -63,5 +63,11 @@
     <string name="details_first_title">O Vama</string>
     <string name="link_to_biography_edit_title">Napišite svoju mini biografiju</string>
     <string name="link_to_settings_edit_title">Dodaj moja željena podešavanja</string>
+    <string name="details_second_title">Potvrda</string>
+    <string name="link_to_settings_add_phone_number_title">Dodaj moja željena podešavanja</string>
+    <string name="details_third_title">Automobil</string>
+    <string name="link_to_car_edit_title">Dodaj automobil</string>
+    <string name="link_to_show_profil_title">Prikaži moj javni profil</string>
+
 
 </resources>
