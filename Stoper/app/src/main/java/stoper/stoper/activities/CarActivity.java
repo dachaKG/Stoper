@@ -6,15 +6,16 @@ import android.support.v7.widget.Toolbar;
 
 import stoper.stoper.R;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class CarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
+        setContentView(R.layout.activity_car);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.edit_profile_app_bar_title);
+        getSupportActionBar().setTitle(R.string.car_first_page_app_bar_title);
     }
 }
