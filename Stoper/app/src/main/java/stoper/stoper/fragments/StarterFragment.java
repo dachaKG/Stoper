@@ -47,6 +47,10 @@ public class StarterFragment extends Fragment {
     private static  EditText  passwordText = null;
     private static TextView counterText=null;
 
+
+    private static  String usernameArg = " ";
+    private static  String  passwordArg = " ";
+
     private Button registerButton;
     private Button loginButton;
     int counter = 3;
@@ -95,7 +99,7 @@ public class StarterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        bundle = getArguments();
+        //bundle = getArguments();
 
         usernameText= view.findViewById(R.id.usernameID);
         passwordText= view.findViewById(R.id.passwordID);
@@ -121,12 +125,15 @@ public class StarterFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                LoginReq user = new LoginReq();
+                usernameArg=usernameText.getText().toString().trim();
+                passwordArg=passwordText.getText().toString().trim();
+                System.out.println(usernameArg);
+                System.out.println(passwordArg);
                 try {
-                    LoginReq user = new LoginReq();
-                    user.setEmail("Proba email");
-                    user.setPassword("Proba sifra");
+
+                    user.setEmail(usernameArg);
+                    user.setPassword(passwordArg);
                     Gson gson = new Gson();
                     String json = gson.toJson(user);
                     System.out.println(json);

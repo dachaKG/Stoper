@@ -1,5 +1,9 @@
 package com.example.StoperJava.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,9 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.StoperJava.model.LoginRequest;
 import com.example.StoperJava.model.User;
 
+@Controller
 @RestController
 @RequestMapping(value = "/user")
 public class UserControler {
+	
+	private User testUser1=new User(1L,1,"Tesa","Tesanovic",1989,"ttt","123");
+	private User testUser2=new User(2L,1,"Kostas","Mitroglu",1984,"kkk","123");
+	private User testUser3=new User(3L,1,"Scepan","Scekic",1979,"sss","123");
+	
+	private List<User> users = new ArrayList<User>();
 	
 	@GetMapping
 	public String test() {
@@ -20,9 +31,22 @@ public class UserControler {
 	@PostMapping
 	@RequestMapping(value = "/login")
 	public Boolean Login(@RequestBody LoginRequest loginRequest) {
-		
+		Boolean success=false;
+		users.add(testUser1);
+		users.add(testUser2);
+		users.add(testUser3);
 		System.out.println(loginRequest.getEmail());
-		return true;
+		
+		for (int i=0;i<users.size();i++){
+			if (users.get(i).getEmail().equals(loginRequest.getEmail())){
+				if(users.get(i).getPassword().equals(loginRequest.getPassword())){
+					success=true;
+				}
+			}
+		}
+		
+		
+		return success;
 	}
 	
 	@PostMapping
