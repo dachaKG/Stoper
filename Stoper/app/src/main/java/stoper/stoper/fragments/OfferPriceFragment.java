@@ -1,6 +1,8 @@
 package stoper.stoper.fragments;
 
 
+import android.content.AsyncTaskLoader;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,7 +33,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import stoper.stoper.Api;
 import stoper.stoper.R;
+import stoper.stoper.activities.NavigationActivity;
 import stoper.stoper.model.Ride;
 
 import static java.lang.System.out;
@@ -67,6 +71,7 @@ public class OfferPriceFragment extends Fragment {
             public void onClick(View v) {
                 //Editable price = priceOffer.getText();
                 bundle.putInt("priceOffer",Integer.valueOf(priceOffer.getText().toString()));
+
                 try {
                     Ride ride = new Ride();
                     ride.setStartDestination(bundle.getString("startDestinationOffer"));
@@ -94,26 +99,31 @@ public class OfferPriceFragment extends Fragment {
                     System.out.println(json);
                     new HttpReqTask().execute(ride);
 
+                    Intent myIntent = new Intent(getActivity(),NavigationActivity.class);
+                    startActivity(myIntent);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
 
             }
         });
 
     }
 
-    private class HttpReqTask extends AsyncTask<Ride, Void, Boolean> {
+    private class HttpReqTask extends AsyncTask<Ride, Void, Ride> {
 
 
         @Override
-        protected Boolean doInBackground(Ride... rides) {
+        protected Ride doInBackground(Ride... rides) {
             try {
-                String apiUrl = "http://172.16.96.187:8080/proba";
+                String apiUrl = Api.apiUrl + "/proba";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<Ride> ride = new HttpEntity<>(rides[0]);
-                ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.POST,  ride, Boolean.class);
+                ResponseEntity<Ride> proba = restTemplate.exchange(apiUrl, HttpMethod.POST,  ride, Ride.class);
 
                 return proba.getBody();
             } catch (Exception ex) {
@@ -124,10 +134,10 @@ public class OfferPriceFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Boolean aBoolean) {
+        protected void onPostExecute(Ride aBoolean) {
             super.onPostExecute(aBoolean);
 
-            out.println("Boolean jeeeeeee " + aBoolean);
+            out.println("Boolean jeeeeeee " + aBoolean.getId());
         }
     }
 
