@@ -3,6 +3,8 @@ package stoper.stoper.model;
 
 public class Ride {
 
+    private Long id;
+
     private String startDestination;
 
     private String endDestination;
@@ -12,6 +14,14 @@ public class Ride {
     private Integer passengerNumber;
 
     private Integer price;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getStartDestination() {
         return startDestination;
