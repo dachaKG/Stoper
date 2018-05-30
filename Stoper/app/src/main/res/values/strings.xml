@@ -78,9 +78,18 @@
     <string name="first_name_hint">Ime</string>
     <string name="last_name_hint">Prezime</string>
     <string name="birth_year_hint">Godina rodjenja</string>
+    <string name="biography_hint">Mini biografija</string>
+    <string name="email_hint">Email</string>
+    <string name="area_call_hint">Pozivni broj</string>
+    <string name="phone_number_hint">Broj telefona</string>
+
+    <string name="save_data_for_profil_button_title">SAČUVAJ PODATKE ZA PROFIL</string>
+    <string name="save_email_button_title">SAČUVAJ MEJL</string>
+    <string name="save_phone_number_button_title">SAČUVAJ TELEFONSKI BROJ</string>
 
     <!--USER CUSTOIM SETTINGS ACTIVITY-->
     <string name="user_custom_settings_app_bar_title">Izmeni podešavanja</string>
+
 
     <!--PHONE NUMBER ACTIVITIY-->
     <string name="phone_number_app_bar_title">Dodajte broj telefona</string>
