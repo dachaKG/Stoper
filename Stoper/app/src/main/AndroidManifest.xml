@@ -34,10 +34,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activities.EditProfileActivity"
-            android:parentActivityName=".activities.NavigationActivity">
-
-        </activity>
+        <activity
+            android:name=".activities.EditProfileActivity"
+            android:parentActivityName=".activities.NavigationActivity" />
+        <activity
+            android:name=".activities.UserCustomSettings"
+            android:parentActivityName=".activities.NavigationActivity" />
+        <activity
+            android:name=".activities.PhoneNumberActivity"
+            android:parentActivityName=".activities.NavigationActivity" />
+        <activity android:name=".activities.CarActivity"
+            android:parentActivityName=".activities.NavigationActivity"></activity>
     </application>
 
 </manifest>

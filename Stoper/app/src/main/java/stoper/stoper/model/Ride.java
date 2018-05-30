@@ -1,6 +1,5 @@
 package stoper.stoper.model;
 
-import java.util.Date;
 
 public class Ride {
 

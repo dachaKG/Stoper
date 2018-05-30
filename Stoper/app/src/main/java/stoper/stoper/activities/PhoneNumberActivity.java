@@ -6,15 +6,15 @@ import android.support.v7.widget.Toolbar;
 
 import stoper.stoper.R;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class PhoneNumberActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_phone_number);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.edit_profile_app_bar_title);
+        getSupportActionBar().setTitle(R.string.phone_number_app_bar_title);
     }
 }
