@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import stoper.stoper.R;
+import stoper.stoper.activities.CarActivity;
 import stoper.stoper.activities.EditProfileActivity;
+import stoper.stoper.activities.PhoneNumberActivity;
+import stoper.stoper.activities.UserCustomSettings;
 import stoper.stoper.model.User;
 
 /**
@@ -42,6 +45,15 @@ public class ProfileDetailsFragment extends Fragment implements  View.OnClickLis
 
         TextView biography_link = (TextView)view.findViewById(R.id.link_to_biography_edit);
         biography_link.setOnClickListener(this);
+
+        TextView settings_link = (TextView)view.findViewById(R.id.link_to_settings_edit);
+        settings_link.setOnClickListener(this);
+
+        TextView phone_link = (TextView) view.findViewById(R.id.link_to_phone_number_edit);
+        phone_link.setOnClickListener(this);
+
+        TextView car_link = (TextView) view.findViewById(R.id.link_to_car_edit);
+        car_link.setOnClickListener(this);
         return view;
     }
 
@@ -52,6 +64,15 @@ public class ProfileDetailsFragment extends Fragment implements  View.OnClickLis
         switch (id){
             case(R.id.link_to_biography_edit):
                 intent = new Intent(getActivity(), EditProfileActivity.class);
+                break;
+            case(R.id.link_to_settings_edit):
+                intent = new Intent(getActivity(), UserCustomSettings.class);
+                break;
+            case(R.id.link_to_phone_number_edit):
+                intent = new Intent(getActivity(), PhoneNumberActivity.class);
+                break;
+            case(R.id.link_to_car_edit):
+                intent = new Intent(getActivity(), CarActivity.class);
                 break;
         }
 

@@ -222,7 +222,7 @@ public class SearchFragment extends Fragment {
                     }
                 });*/
                 Ride r1=new Ride();
-                r1.setEndDestination("Paragovo");
+                r1.setEndDestination("Paragoooovo");
                 r1.setStartDestination("Fojnica");
                 r1.setPrice(345);
                 Ride r2=new Ride();
@@ -234,6 +234,8 @@ public class SearchFragment extends Fragment {
                 lista.add(r2);
                 Fragment f = new RidesFragment();
                 //f.setArguments(b);
+                b.putParcelableArrayList("rideList",lista);
+                f.setArguments(b);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_screen, f);

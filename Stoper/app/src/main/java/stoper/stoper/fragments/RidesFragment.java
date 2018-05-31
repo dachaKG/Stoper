@@ -43,6 +43,7 @@ public class RidesFragment extends Fragment implements AdapterView.OnItemClickLi
     private String mParam2;
     ListView mylistview;
     ArrayList<Ride> lista=new ArrayList<>();
+    private Bundle bundle;
    // private OnFragmentInteractionListener mListener;
 
     public RidesFragment() {
@@ -85,7 +86,7 @@ public class RidesFragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Ride r1=new Ride();
+        /*Ride r1=new Ride();
         r1.setEndDestination("Paragovo");
         r1.setStartDestination("Fojnica");
         r1.setPrice(345);
@@ -95,8 +96,10 @@ public class RidesFragment extends Fragment implements AdapterView.OnItemClickLi
         r2.setPrice(444);
 
         lista.add(r1);
-        lista.add(r2);
+        lista.add(r2);*/
+        bundle = getArguments();
 
+        lista = bundle.getParcelableArrayList("rideList");
         mylistview = (ListView) view.findViewById(R.id.ridesList);
 
         CustomAdapter adapter = new CustomAdapter(getContext(), lista);

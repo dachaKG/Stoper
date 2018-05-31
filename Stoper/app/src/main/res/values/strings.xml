@@ -64,10 +64,36 @@
     <string name="link_to_biography_edit_title">Napišite svoju mini biografiju</string>
     <string name="link_to_settings_edit_title">Dodaj moja željena podešavanja</string>
     <string name="details_second_title">Potvrda</string>
-    <string name="link_to_settings_add_phone_number_title">Dodaj moja željena podešavanja</string>
+    <string name="link_to_add_phone_number_title">Dodaj moj broj telefona</string>
     <string name="details_third_title">Automobil</string>
     <string name="link_to_car_edit_title">Dodaj automobil</string>
     <string name="link_to_show_profil_title">Prikaži moj javni profil</string>
 
 
+    <!--EDIT PROFIL ACTIVITY-->
+    <string name="edit_profile_app_bar_title">Uredi profil</string>
+    <string name="select_photo_link_title">Odaberite fotografiju za profil</string>
+    <string name="o_vama_title">O vama</string>
+    <string name="gender_hint">Pol</string>
+    <string name="first_name_hint">Ime</string>
+    <string name="last_name_hint">Prezime</string>
+    <string name="birth_year_hint">Godina rodjenja</string>
+    <string name="biography_hint">Mini biografija</string>
+    <string name="email_hint">Email</string>
+    <string name="area_call_hint">Pozivni broj</string>
+    <string name="phone_number_hint">Broj telefona</string>
+
+    <string name="save_data_for_profil_button_title">SAČUVAJ PODATKE ZA PROFIL</string>
+    <string name="save_email_button_title">SAČUVAJ MEJL</string>
+    <string name="save_phone_number_button_title">SAČUVAJ TELEFONSKI BROJ</string>
+
+    <!--USER CUSTOIM SETTINGS ACTIVITY-->
+    <string name="user_custom_settings_app_bar_title">Izmeni podešavanja</string>
+
+
+    <!--PHONE NUMBER ACTIVITIY-->
+    <string name="phone_number_app_bar_title">Dodajte broj telefona</string>
+
+    <!--CAR ACTIVITY-->
+    <string name="car_first_page_app_bar_title">Informacije o Vašem automobilu</string>
 </resources>

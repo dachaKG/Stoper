@@ -1,7 +1,9 @@
 package stoper.stoper.model;
 
 
-public class Ride {
+public class Ride implements android.os.Parcelable {
+
+    private Long id;
 
     private String startDestination;
 
@@ -12,6 +14,42 @@ public class Ride {
     private Integer passengerNumber;
 
     private Integer price;
+
+    private String note;
+
+    private int mData;
+
+    public int describeContents() {
+         return 0;
+     }
+
+    public void writeToParcel(android.os.Parcel out, int flags) {
+         out.writeInt(mData);
+     }
+
+    public static final android.os.Parcelable.Creator<Ride> CREATOR
+             = new android.os.Parcelable.Creator<Ride>() {
+         public Ride createFromParcel(android.os.Parcel in) {
+             return new Ride(in);
+         }
+
+         public Ride[] newArray(int size) {
+             return new Ride[size];
+         }
+    };
+    private Ride(android.os.Parcel in) {
+         mData = in.readInt();
+    }
+
+    public Ride(){}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getStartDestination() {
         return startDestination;
@@ -51,5 +89,13 @@ public class Ride {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
