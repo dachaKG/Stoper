@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +29,22 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import stoper.stoper.R;
+import stoper.stoper.model.LoginReq;
 import stoper.stoper.model.RegistrationReq;
+
+import static java.lang.System.out;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -225,7 +236,7 @@ public class RegistrationFragment extends Fragment {
                     Gson gson = new Gson();
                     String json = gson.toJson(user);
                     System.out.println(json);
-                    //new StarterFragment.HttpReqTask().execute(user);
+                    new RegistrationFragment.HttpReqTask().execute(user);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -328,6 +339,36 @@ public class RegistrationFragment extends Fragment {
 
         return true;
     }
+
+    private class HttpReqTask extends AsyncTask<RegistrationReq, Void, Boolean> {
+
+
+        @Override
+        protected Boolean doInBackground(RegistrationReq... users) {
+            try {
+                String apiUrl = "http://192.168.0.11:8080/user/login";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<RegistrationReq> user = new HttpEntity<>(users[0]);
+                ResponseEntity<Boolean> userTest = restTemplate.exchange(apiUrl, HttpMethod.PUT,  user, Boolean.class);
+
+                return userTest.getBody();
+            } catch (Exception ex) {
+                Log.e("..", ex.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if(aBoolean) {
+                out.println("Uspesna reg");
+            }
+        }
+    }
+
 
     public static boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
