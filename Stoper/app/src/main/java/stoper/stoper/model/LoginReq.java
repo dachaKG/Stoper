@@ -9,7 +9,7 @@ public class LoginReq {
 
     public LoginReq() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 

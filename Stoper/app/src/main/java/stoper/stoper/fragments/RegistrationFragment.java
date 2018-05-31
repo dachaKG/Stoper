@@ -25,12 +25,15 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import stoper.stoper.R;
+import stoper.stoper.model.RegistrationReq;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +49,7 @@ public class RegistrationFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private Button submitRegButton;
     // TODO: Rename and change types of parameters
     private Button register_with_mail_button;
     private LinearLayout ll;
@@ -57,6 +61,15 @@ public class RegistrationFragment extends Fragment {
     private EditText repeatPaswordEditText;
     private EditText mailEditText;
     //private OnFragmentInteractionListener mListener;
+
+    private static  String nameArg = " ";
+    private static  String  lastnameArg = " ";
+    private static  int genderArg = 0;
+    private static  String  emailArg = " ";
+    private static  int yearOfBirthArg = 0;
+    private static  String  passwordArg = " ";
+    private static  String usernameArg = " ";
+
 
     public RegistrationFragment() {
         // Required empty public constructor
@@ -156,7 +169,7 @@ public class RegistrationFragment extends Fragment {
 
                 ArrayList<String> years=new ArrayList<>();
                 int maxYear=Calendar.getInstance().get(Calendar.YEAR);
-                for(int i=maxYear-18;i>maxYear-100;i--){
+                for(int i=maxYear-18;i>maxYear-90;i--){
                     years.add(Integer.toString(i));
                 }
 
@@ -175,6 +188,51 @@ public class RegistrationFragment extends Fragment {
             }
         });
 
+
+        nameEditText= view.findViewById(R.id.name);
+		lastnameEditText= view.findViewById(R.id.lastname);
+		mailEditText= view.findViewById(R.id.e_mail);
+		passwordEditText= view.findViewById(R.id.password);
+		birthYearEditText= view.findViewById(R.id.birth_year);
+		genderEditText= view.findViewById(R.id.gender);
+		
+        submitRegButton = view.findViewById(R.id.submitReg);
+        submitRegButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegistrationReq user = new RegistrationReq();
+                checkFields();
+				nameArg=nameEditText.getText().toString().trim();
+				lastnameArg=lastnameEditText.getText().toString().trim();
+				emailArg=mailEditText.getText().toString().trim();
+				passwordArg=passwordEditText.getText().toString().trim();
+                yearOfBirthArg=Integer.valueOf(birthYearEditText.getText().toString());
+                if((genderEditText.getText().toString()).equals("Muski")){
+                    genderArg=1;
+                }else
+                {
+                    genderArg=2;
+                }
+
+                try {
+
+                    user.setEmail(usernameArg);
+                    user.setPassword(passwordArg);
+                    user.setFirstName(nameArg);
+                    user.setLastName(lastnameArg);
+                    user.setGender(genderArg);
+                    user.setPassword(passwordArg);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(user);
+                    System.out.println(json);
+                    //new StarterFragment.HttpReqTask().execute(user);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
         //mAnimatosr.start();
     }
 

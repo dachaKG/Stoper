@@ -133,18 +133,27 @@
                         android:inputType="textPassword"
                         android:hint="@string/password"/>
                 </android.support.design.widget.TextInputLayout>
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textInputLayout7"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="134dp"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/TextLabel">
+
+                    <Button
+                        android:id="@+id/submitReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Potvrdi" />
+
                     <EditText
                         android:id="@+id/repeat_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:hint="@string/repeat_password"/>
+                        android:hint="@string/repeat_password"
+                        android:inputType="textPassword" />
                 </android.support.design.widget.TextInputLayout>
                 <LinearLayout
                     android:layout_width="fill_parent"
