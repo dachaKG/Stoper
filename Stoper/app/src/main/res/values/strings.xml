@@ -74,6 +74,10 @@
     <string name="edit_profile_app_bar_title">Uredi profil</string>
     <string name="select_photo_link_title">Odaberite fotografiju za profil</string>
     <string name="o_vama_title">O vama</string>
+    <string name="email_title">Email</string>
+
+    <string name="phone_number_title">Broj telefona</string>
+
     <string name="gender_hint">Pol</string>
     <string name="first_name_hint">Ime</string>
     <string name="last_name_hint">Prezime</string>

@@ -120,6 +120,16 @@
             android:layout_marginRight="10dp"/>
     </android.support.design.widget.TextInputLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email_title"
+        android:paddingTop="30dp"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -147,8 +157,17 @@
         android:layout_marginTop="30dp"
         android:background="@color/colorPrimary"
         android:text="@string/save_data_for_profil_button_title"
-        android:textColor="@color/white" />
-
+        android:textColor="@color/white"
+        android:onClick="onClickSaveDataForProfil"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone_number_title"
+        android:paddingTop="30dp"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -179,9 +198,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/save_email_button_title"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"/>
 
@@ -221,8 +237,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp"
         android:text="@string/save_phone_number_button_title"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"/>
