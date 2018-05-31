@@ -60,7 +60,8 @@ public class UserControler {
 	@RequestMapping(value = "/register")
 	public Boolean Register(@RequestBody User user) {
 		
-		System.out.println(user.getGender());
+		System.out.println(user.getEmail());
+		userService.saveUser(user);
 		return true;
 	}
 
