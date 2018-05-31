@@ -28,9 +28,9 @@ public class ProbaController {
 	public ResponseEntity<Ride> addRide(@RequestBody Ride ride) {
 		
 		
-		System.out.println(ride.getStartDestination());
-		Ride newRide = rideService.saveRide(ride);
 		
+		Ride newRide = rideService.saveRide(ride);
+		System.out.println(newRide.toString());
 		return new ResponseEntity<Ride>(newRide, HttpStatus.OK);
 	}
 

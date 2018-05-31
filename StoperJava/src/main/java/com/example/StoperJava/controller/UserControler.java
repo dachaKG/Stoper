@@ -3,19 +3,25 @@ package com.example.StoperJava.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.StoperJava.model.LoginRequest;
 import com.example.StoperJava.model.User;
+import com.example.StoperJava.service.UserService;
 
 @Controller
 @RestController
 @RequestMapping(value = "/user")
 public class UserControler {
+	
+	@Autowired
+	UserService userService;
 	
 	private User testUser1=new User(1L,1,"Tesa","Tesanovic",1989,"ttt","123");
 	private User testUser2=new User(2L,1,"Kostas","Mitroglu",1984,"kkk","123");

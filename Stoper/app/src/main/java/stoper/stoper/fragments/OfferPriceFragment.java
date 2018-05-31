@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +51,9 @@ public class OfferPriceFragment extends Fragment {
     Button finishButton;
     EditText priceOffer;
 
+    private Button nextButton;
+    private Fragment fragment;
+
     public OfferPriceFragment() {
         // Required empty public constructor
     }
@@ -65,46 +70,23 @@ public class OfferPriceFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         bundle = getArguments();
         priceOffer = view.findViewById(R.id.price_offer);
-        finishButton = view.findViewById(R.id.button_offer_finish_id);
-        finishButton.setOnClickListener(new View.OnClickListener() {
+        nextButton = view.findViewById(R.id.button_offer_price_id);
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Editable price = priceOffer.getText();
-                bundle.putInt("priceOffer",Integer.valueOf(priceOffer.getText().toString()));
 
-                try {
-                    Ride ride = new Ride();
-                    ride.setStartDestination(bundle.getString("startDestinationOffer"));
-                    ride.setEndDestination(bundle.getString("endDestinationOffer"));
-                    ride.setPassengerNumber(bundle.getInt("numberOfPassengers"));
-                    ride.setPrice(bundle.getInt("priceOffer"));
-                    String rideDate = String.valueOf(bundle.getInt("yearOffer")) + "-" + String.valueOf(bundle.getInt("monthOffer")) + "-" + String.valueOf(bundle.getInt("dayOffer")) + "T" +
-                            String.valueOf(bundle.getInt("hourOffer")) + ":" + String.valueOf(bundle.getInt("minuteOffer")) + ":00";
+                fragment = new OfferNoteFragment();
+                bundle.putInt("priceOffer", Integer.valueOf(priceOffer.getText().toString()));
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.main_screen, fragment);
 
-                    out.println("Vremeeeee: " + rideDate);
-                    //String dtStart = "2010-10-15T09:27:37Z";
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                    SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date d = sdf.parse(rideDate);
-                    String formattedTime = output.format(d);
+                ft.addToBackStack(null);
+                ft.commit();
 
 
-                    //Date date = format.parse(rideDate);
-                    ride.setRideDate(formattedTime);
 
-                    Gson gson = new Gson();
-                    String json = gson.toJson(ride);
-                    System.out.println(json);
-                    new HttpReqTask().execute(ride);
-
-                    Intent myIntent = new Intent(getActivity(),NavigationActivity.class);
-                    startActivity(myIntent);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
 
 
@@ -113,32 +95,6 @@ public class OfferPriceFragment extends Fragment {
 
     }
 
-    private class HttpReqTask extends AsyncTask<Ride, Void, Ride> {
 
-
-        @Override
-        protected Ride doInBackground(Ride... rides) {
-            try {
-                String apiUrl = Api.apiUrl + "/proba";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                HttpEntity<Ride> ride = new HttpEntity<>(rides[0]);
-                ResponseEntity<Ride> proba = restTemplate.exchange(apiUrl, HttpMethod.POST,  ride, Ride.class);
-
-                return proba.getBody();
-            } catch (Exception ex) {
-                Log.e("", ex.getMessage());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Ride aBoolean) {
-            super.onPostExecute(aBoolean);
-
-            out.println("Boolean jeeeeeee " + aBoolean.getId());
-        }
-    }
 
 }
