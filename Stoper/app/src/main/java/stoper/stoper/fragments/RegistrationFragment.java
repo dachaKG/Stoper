@@ -346,7 +346,7 @@ public class RegistrationFragment extends Fragment {
         @Override
         protected Boolean doInBackground(RegistrationReq... users) {
             try {
-                String apiUrl = "http://192.168.0.11:8080/user/login";
+                String apiUrl = "http://192.168.0.11:8080/user/register";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<RegistrationReq> user = new HttpEntity<>(users[0]);
