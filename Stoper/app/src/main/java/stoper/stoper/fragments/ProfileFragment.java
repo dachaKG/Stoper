@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import stoper.stoper.R;
 import stoper.stoper.model.User;
+import stoper.stoper.util.MockData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +35,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = new User(0,"Danilo","Acimovic",
-                1994,"da@a.com",
-                "123","Biografija bla bla",
-                "06000000",true, "pocetnik");
+        user = MockData.UsersDatabase().get(0);
     }
 
     @Override

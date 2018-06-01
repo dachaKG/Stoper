@@ -2,6 +2,8 @@ package stoper.stoper.model;
 
 public class User {
 
+    private Long id;
+
     private int gender;
 
     private String firstName;
@@ -18,11 +20,13 @@ public class User {
 
     private String phoneNumber;
 
+    private String areaCall;
+
     private boolean confirmed;
 
     private String level;
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level) {
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,6 +37,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.confirmed = confirmed;
         this.level = level;
+        this.areaCall = areaCall;
     }
 
     public int getGender() {
@@ -113,5 +118,21 @@ public class User {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public Long getId(){
+        return this.id;
+    }
+
+    public void setId(Long idd){
+        this.id = id;
+    }
+
+    public String getAreaCall() {
+        return areaCall;
+    }
+
+    public void setAreaCall(String areaCall) {
+        this.areaCall = areaCall;
     }
 }

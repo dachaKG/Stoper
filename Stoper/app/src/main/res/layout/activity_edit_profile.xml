@@ -50,6 +50,7 @@
         android:textColor="@color/black"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:layout_marginBottom="10dp"
         />
 
     <android.support.design.widget.TextInputLayout
@@ -65,10 +66,11 @@
             android:backgroundTint="@color/colorPrimary"
             android:textCursorDrawable="@null"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:focusable="false"
+            />
     </android.support.design.widget.TextInputLayout>
-
-
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -83,10 +85,10 @@
             android:backgroundTint="@color/colorPrimary"
             android:textCursorDrawable="@null"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            />
     </android.support.design.widget.TextInputLayout>
-
-
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -101,7 +103,9 @@
             android:backgroundTint="@color/colorPrimary"
             android:textCursorDrawable="@null"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -117,18 +121,10 @@
             android:backgroundTint="@color/colorPrimary"
             android:textCursorDrawable="@null"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:focusable="false"/>
     </android.support.design.widget.TextInputLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/email_title"
-        android:paddingTop="30dp"
-        android:textColor="@color/black"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -145,7 +141,8 @@
             android:layout_marginLeft="10dp"
             android:lines="4"
             android:gravity="top"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"/>
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -159,14 +156,16 @@
         android:text="@string/save_data_for_profil_button_title"
         android:textColor="@color/white"
         android:onClick="onClickSaveDataForProfil"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/phone_number_title"
+        android:text="@string/email_title"
         android:paddingTop="30dp"
         android:textColor="@color/black"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:layout_marginBottom="10dp"
         />
 
     <android.support.design.widget.TextInputLayout
@@ -182,7 +181,8 @@
             android:backgroundTint="@color/colorPrimary"
             android:textCursorDrawable="@null"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"/>
     </android.support.design.widget.TextInputLayout>
     <TextView
         android:id="@+id/email_status_text_view"
@@ -199,12 +199,24 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/colorPrimary"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:onClick="onClickSaveEmail"
+        android:text="@string/save_email_button_title"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone_number_title"
+        android:paddingTop="30dp"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="10dp"
+        />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <EditText
             android:id="@+id/area_call_text_view"
             android:layout_width="match_parent"
@@ -214,9 +226,10 @@
             android:backgroundTint="@color/colorPrimary"
             android:textCursorDrawable="@null"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
-
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"/>
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -230,8 +243,10 @@
             android:backgroundTint="@color/colorPrimary"
             android:textCursorDrawable="@null"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"/>
     </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/save_phone_number_button"
         android:layout_width="match_parent"
@@ -241,6 +256,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/save_phone_number_button_title"
         android:background="@color/colorPrimary"
+        android:onClick="onClickSavePhoneNumber"
         android:textColor="@color/white"/>
 </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

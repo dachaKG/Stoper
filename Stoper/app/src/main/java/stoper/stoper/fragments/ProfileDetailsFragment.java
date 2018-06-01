@@ -14,7 +14,7 @@ import stoper.stoper.R;
 import stoper.stoper.activities.CarActivity;
 import stoper.stoper.activities.EditProfileActivity;
 import stoper.stoper.activities.PhoneNumberActivity;
-import stoper.stoper.activities.UserCustomSettings;
+import stoper.stoper.activities.UserCustomSettingsActivity;
 import stoper.stoper.model.User;
 
 /**
@@ -66,7 +66,7 @@ public class ProfileDetailsFragment extends Fragment implements  View.OnClickLis
                 intent = new Intent(getActivity(), EditProfileActivity.class);
                 break;
             case(R.id.link_to_settings_edit):
-                intent = new Intent(getActivity(), UserCustomSettings.class);
+                intent = new Intent(getActivity(), UserCustomSettingsActivity.class);
                 break;
             case(R.id.link_to_phone_number_edit):
                 intent = new Intent(getActivity(), PhoneNumberActivity.class);

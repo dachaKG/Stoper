@@ -91,13 +91,24 @@
     <string name="save_email_button_title">SAČUVAJ MEJL</string>
     <string name="save_phone_number_button_title">SAČUVAJ TELEFONSKI BROJ</string>
 
+
     <!--USER CUSTOIM SETTINGS ACTIVITY-->
     <string name="user_custom_settings_app_bar_title">Izmeni podešavanja</string>
-
+    <string-array name="speaking_array">
+        <item>Ja sam tiha osoba</item>
+        <item>Pričam u zavisnosti od respoloženja</item>
+        <item>Volim da pričam</item>
+    </string-array>
 
     <!--PHONE NUMBER ACTIVITIY-->
     <string name="phone_number_app_bar_title">Dodajte broj telefona</string>
 
     <!--CAR ACTIVITY-->
     <string name="car_first_page_app_bar_title">Informacije o Vašem automobilu</string>
+
+
+    <string-array name="gender_array">
+        <item>Muški</item>
+        <item>Ženski</item>
+    </string-array>
 </resources>

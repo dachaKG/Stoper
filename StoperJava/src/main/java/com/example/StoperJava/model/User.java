@@ -24,6 +24,16 @@ public class User {
 	
 	private String password;
 	
+    private String biography;
+
+    private String areaCall;
+    
+    private String phoneNumber;
+
+    private boolean confirmed;
+
+    private String level;
+    
 	//private List<String> reviews;
 
 	public User() {
@@ -44,6 +54,36 @@ public class User {
 		//this.reviews = reviews;
 	}
 
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
+			String biography, String area_call, String phoneNumber, boolean confirmed, String level) {
+		super();
+		this.gender = gender;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.yearOfBirth = yearOfBirth;
+		this.email = email;
+		this.password = password;
+		this.biography = biography;
+		this.areaCall = area_call;
+		this.phoneNumber = phoneNumber;
+		this.confirmed = confirmed;
+		this.level = level;
+	}
+
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
+        this.gender = gender;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.yearOfBirth = yearOfBirth;
+        this.email = email;
+        this.password = password;
+        this.biography = biography;
+        this.phoneNumber = phoneNumber;
+        this.confirmed = confirmed;
+        this.level = level;
+        this.areaCall = areaCall;
+    }
+	
 	public Long getId() {
 		return id;
 	}
@@ -100,6 +140,47 @@ public class User {
 		this.password = password;
 	}
 
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	public String getAreaCall() {
+		return areaCall;
+	}
+
+	public void setAreaCall(String area_call) {
+		this.areaCall = area_call;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	
 	//public List<String> getReviews() {
 	//	return reviews;
 	//}
