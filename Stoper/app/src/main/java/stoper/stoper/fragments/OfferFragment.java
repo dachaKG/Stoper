@@ -53,10 +53,53 @@ public class OfferFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        bundle = new Bundle();
+        //bundle = new Bundle();
         startDestination =  view.findViewById(R.id.start_destination_offer);
         endDestination = view.findViewById(R.id.end_destination_offer);
         nextButton = view.findViewById(R.id.button_offer_id);
+
+        bundle = getArguments();
+        if(bundle!=null) {
+            String startDestination = bundle.getString("startDestination");
+            if (startDestination != null) {
+                this.startDestination.setText(startDestination);
+            }
+            String endDestination = bundle.getString("endDestination");
+            if(endDestination!=null){
+                this.endDestination.setText(endDestination);
+            }
+        }else{
+            bundle=new Bundle();
+        }
+
+        startDestination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment f = new DestinationFragment();
+                bundle.putString("type","startDestination");
+                f.setArguments(bundle);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.main_screen, f);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+
+        });
+        endDestination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment f = new DestinationFragment();
+                bundle.putString("type","startDestination");
+                f.setArguments(bundle);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.main_screen, f);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

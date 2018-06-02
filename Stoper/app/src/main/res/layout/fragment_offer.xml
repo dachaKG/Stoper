@@ -20,12 +20,14 @@
             android:id="@+id/start_destination_offer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/start_destination" />
+            android:hint="@string/start_destination"
+            android:focusable="false"/>
         <EditText
             android:id="@+id/end_destination_offer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/end_destination" />
+            android:hint="@string/end_destination"
+            android:focusable="false"/>
 
         <Button
             android:id="@+id/button_offer_id"
