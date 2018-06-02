@@ -64,12 +64,14 @@ public class ProfileDetailsFragment extends Fragment implements  View.OnClickLis
         switch (id){
             case(R.id.link_to_biography_edit):
                 intent = new Intent(getActivity(), EditProfileActivity.class);
+                intent.putExtra(EditProfileActivity.EXTRA_SCROLL_TO_ELEMENT, R.id.biography_text_view);
                 break;
             case(R.id.link_to_settings_edit):
                 intent = new Intent(getActivity(), UserCustomSettingsActivity.class);
                 break;
             case(R.id.link_to_phone_number_edit):
-                intent = new Intent(getActivity(), PhoneNumberActivity.class);
+                intent = new Intent(getActivity(), EditProfileActivity.class);
+                intent.putExtra(EditProfileActivity.EXTRA_SCROLL_TO_ELEMENT, R.id.area_call_text_view);
                 break;
             case(R.id.link_to_car_edit):
                 intent = new Intent(getActivity(), CarActivity.class);

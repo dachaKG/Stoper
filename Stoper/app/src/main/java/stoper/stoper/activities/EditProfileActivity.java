@@ -2,11 +2,15 @@ package stoper.stoper.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +28,12 @@ import stoper.stoper.util.MockData;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    public static final String EXTRA_SCROLL_TO_ELEMENT = Integer.toString(R.id.first_name_text_view);
+
+    private MockData mockData;
+    private EditText scrollTo;
+    private NestedScrollView scrollView;
+
     String gender = "";
     String firstName = "";
     String lastName = "";
@@ -33,7 +43,6 @@ public class EditProfileActivity extends AppCompatActivity {
     String areaNumber = "";
     String phoneNumber = "";
     private User loggedUser;
-    private MockData mockData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +98,11 @@ public class EditProfileActivity extends AppCompatActivity {
             ((TextView)findViewById(R.id.area_call_text_view)).setText(savedInstanceState.getString("area_number"));
             ((TextView)findViewById(R.id.phone_number_text_view)).setText(savedInstanceState.getString("phone_number"));
         }else{
-             mockData = (MockData) getApplicationContext();
+
+            int focusElement = (int)getIntent().getExtras().get(EXTRA_SCROLL_TO_ELEMENT);
+            EditText b = (EditText) findViewById(focusElement);
+            b.requestFocus();
+            mockData = (MockData) getApplicationContext();
             loggedUser = mockData.UsersDatabase().get(0);
             if(loggedUser.getGender() == 0){
                 ((TextView)findViewById(R.id.gender_text_view)).setText("Muski");
