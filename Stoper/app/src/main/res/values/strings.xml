@@ -94,12 +94,31 @@
 
     <!--USER CUSTOIM SETTINGS ACTIVITY-->
     <string name="user_custom_settings_app_bar_title">Izmeni podešavanja</string>
+    <string name="speaking_spinner_title">Pričljivost</string>
+    <string name="smoking_spinner_title">Pušenje</string>
+    <string name="music_spinner_title">Muzika</string>
+    <string name="pets_spinner_title">Ljubimci</string>
+    <string name="button_submit_custom_settings">Sačuvaj podešavanja</string>
     <string-array name="speaking_array">
         <item>Ja sam tiha osoba</item>
         <item>Pričam u zavisnosti od respoloženja</item>
         <item>Volim da pričam</item>
     </string-array>
-
+    <string-array name="smoking_array">
+        <item>Bez pušenja u automobilu, molim</item>
+        <item>Ne znam</item>
+        <item>Pušenje u automobilu mi ne smeta</item>
+    </string-array>
+    <string-array name="music_array">
+        <item>Tišina je zlato</item>
+        <item>Ne znam</item>
+        <item>Samo nek se vrti</item>
+    </string-array>
+    <string-array name="pets_array">
+        <item>Bez ljubimaca, molim</item>
+        <item>Ne znam</item>
+        <item>Pet friendly!</item>
+    </string-array>
     <!--PHONE NUMBER ACTIVITIY-->
     <string name="phone_number_app_bar_title">Dodajte broj telefona</string>
 

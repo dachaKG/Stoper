@@ -34,12 +34,43 @@ public class User {
 
     private String level;
     
+    private int speaking;
+    
+    private int smoking;
+    
+    private int music;
+    
+    private int pets;
+    
 	//private List<String> reviews;
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
+			String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
+			int smoking, int music, int pets) {
+		super();
+		this.gender = gender;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.yearOfBirth = yearOfBirth;
+		this.email = email;
+		this.password = password;
+		this.biography = biography;
+		this.areaCall = areaCall;
+		this.phoneNumber = phoneNumber;
+		this.confirmed = confirmed;
+		this.level = level;
+		this.speaking = speaking;
+		this.smoking = smoking;
+		this.music = music;
+		this.pets = pets;
+	}
+
+
 
 	public User(Long id, int gender, String firstName, String lastName, int yearOfBirth, String email, String password
 			){//,List<String> reviews) {
@@ -180,6 +211,39 @@ public class User {
 		this.level = level;
 	}
 
+	public int getSpeaking() {
+		return speaking;
+	}
+
+	public void setSpeaking(int speaking) {
+		this.speaking = speaking;
+	}
+
+	public int getSmoking() {
+		return smoking;
+	}
+
+	public void setSmoking(int smoking) {
+		this.smoking = smoking;
+	}
+
+	public int getMusic() {
+		return music;
+	}
+
+	public void setMusic(int music) {
+		this.music = music;
+	}
+
+	public int getPets() {
+		return pets;
+	}
+
+	public void setPets(int pets) {
+		this.pets = pets;
+	}
+
+	
 	
 	//public List<String> getReviews() {
 	//	return reviews;

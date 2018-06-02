@@ -26,7 +26,33 @@ public class User {
 
     private String level;
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
+    private int speaking;
+
+    private int smoking;
+
+    private int music;
+
+    private int pets;
+
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets) {
+        this.gender = gender;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.yearOfBirth = yearOfBirth;
+        this.email = email;
+        this.password = password;
+        this.biography = biography;
+        this.phoneNumber = phoneNumber;
+        this.areaCall = areaCall;
+        this.confirmed = confirmed;
+        this.level = level;
+        this.speaking = speaking;
+        this.smoking = smoking;
+        this.music = music;
+        this.pets = pets;
+    }
+
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level, String areaCall) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -134,5 +160,37 @@ public class User {
 
     public void setAreaCall(String areaCall) {
         this.areaCall = areaCall;
+    }
+
+    public int getSpeaking() {
+        return speaking;
+    }
+
+    public void setSpeaking(int speaking) {
+        this.speaking = speaking;
+    }
+
+    public int getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(int smoking) {
+        this.smoking = smoking;
+    }
+
+    public int getMusic() {
+        return music;
+    }
+
+    public void setMusic(int music) {
+        this.music = music;
+    }
+
+    public int getPets() {
+        return pets;
+    }
+
+    public void setPets(int pets) {
+        this.pets = pets;
     }
 }
