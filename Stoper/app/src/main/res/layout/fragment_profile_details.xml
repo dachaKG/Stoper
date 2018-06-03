@@ -10,70 +10,35 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:paddingBottom="30dp"
+        style="@style/ProfileDetailsLayout"
         >
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/details_first_title"
-            android:textColor="@color/black"
-            android:textSize="@dimen/tabs_content_title_font_size"
-            android:paddingLeft="10dp"
-            />
+            style="@style/ProfileDetailsTitle"
+            android:text="@string/details_first_title" />
 
         <TextView
             android:id="@+id/link_to_biography_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:textColor="@color/colorPrimary"
-            android:paddingLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:textSize="@dimen/tabs_content_link_font_size"
+            style="@style/ProfileDetailsLink"
+
             android:text="@string/link_to_biography_edit_title"/>
 
         <TextView
             android:id="@+id/link_to_settings_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:textColor="@color/colorPrimary"
-            android:paddingLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:textSize="@dimen/tabs_content_link_font_size"
+            style="@style/ProfileDetailsLink"
             android:text="@string/link_to_settings_edit_title"/>
         <View
             android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="?android:attr/listDivider" />
+            style="@style/Divider" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/details_second_title"
-            android:textColor="@color/black"
-            android:textSize="@dimen/tabs_content_title_font_size"
-            android:paddingTop="20dp"
-            android:paddingLeft="10dp"
-            />
+            style="@style/ProfileDetailsTitle"
+            android:text="@string/details_second_title"/>
 
         <TextView
             android:id="@+id/link_to_phone_number_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:textColor="@color/colorPrimary"
-            android:paddingLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:textSize="@dimen/tabs_content_link_font_size"
+            style="@style/ProfileDetailsLink"
             android:text="@string/link_to_add_phone_number_title"/>
 
         <LinearLayout
@@ -98,37 +63,28 @@
         </LinearLayout>
         <View
             android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="?android:attr/listDivider" />
+            style="@style/Divider" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/details_third_title"
-            android:textColor="@color/black"
-            android:textSize="@dimen/tabs_content_title_font_size"
-            android:paddingTop="20dp"
-            android:paddingLeft="10dp"
-            />
+            style="@style/ProfileDetailsTitle" />
 
+        <TextView
+            android:id="@+id/profile_details_car_brand"
+            style="@style/ProfileDetailsCarInfo"/>
+
+        <TextView
+            android:id="@+id/profile_details_car_color"
+            style="@style/ProfileDetailsCarInfo"/>
+        <TextView
+            android:id="@+id/profile_details_car_registration_number"
+            style="@style/ProfileDetailsCarInfo" />
         <TextView
             android:id="@+id/link_to_car_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:textColor="@color/colorPrimary"
-            android:paddingLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:textSize="@dimen/tabs_content_link_font_size"
+            style="@style/ProfileDetailsLink"
             android:text="@string/link_to_car_edit_title"/>
         <View
             android:id="@+id/divider3"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="10dp"
-            android:background="?android:attr/listDivider" />
+            style="@style/Divider" />
 
         <TextView
             android:id="@+id/link_to_show_profil"
@@ -139,7 +95,8 @@
             android:textColor="@color/colorPrimary"
             android:layout_marginTop="10dp"
             android:textSize="@dimen/tabs_content_link_font_size"
-            android:text="@string/link_to_show_profil_title"/>
+            android:text="@string/link_to_show_profil_title"
+           />
 
     </LinearLayout>
 

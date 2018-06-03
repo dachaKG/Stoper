@@ -69,7 +69,9 @@
     <string name="link_to_car_edit_title">Dodaj automobil</string>
     <string name="link_to_show_profil_title">Prikaži moj javni profil</string>
 
-
+    <!--SHOWPROFIL-->
+    <string name="show_profile_app_bar_title">Prikaz profila</string>
+    <string name="show_profile_subitle_custom_settings">O</string>
     <!--EDIT PROFIL ACTIVITY-->
     <string name="edit_profile_app_bar_title">Uredi profil</string>
     <string name="select_photo_link_title">Odaberite fotografiju za profil</string>

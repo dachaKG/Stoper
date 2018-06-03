@@ -27,6 +27,7 @@
             android:textStyle="bold"
             android:text="@string/car_edit_title"/>
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

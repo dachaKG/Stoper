@@ -13,11 +13,15 @@ public class MockData extends Application {
         if(users == null) {
            users = new ArrayList<User>();
             User user = new User(0, "Danilo", "Acimovic", 1994, "danilo.a@yahoo.com", "123",
-                    "Dipl ing, elektroyehnike. Zaposle", "24554745", true, "pocetnik","+381");
+                    "Dipl ing, elektroyehnike. Zaposle","123433", "+381", true,"pocetnik",
+                    1, 1, 1,2,
+                    0,1,1,"lo564ai","Peugeot", "307", 2004);
             user.setId((long) 0);
             users.add(user);
             User user1 = new User(0, "Danilo", "Dimitrijevic", 1994, "danilo.dim@yahoo.com", "123",
-                    "Dipl ing, elektroyehnike. Zaposle", "24554745", true, "pocetnik","+381");
+                    "Dipl ing, elektroyehnike. Zaposle", "24554745", "+381", true,"pocetnik",
+                    0, 1, 1,2,
+                    0,1,1,"kg564ai","Peugeot", "307", 2004);
             user.setId((long) 1);
             users.add(user1);
             User user2 = new User(0, "Nikola", "Smiljanic", 1994, "nikola@gmail.com", "123",

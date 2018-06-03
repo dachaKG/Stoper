@@ -1,5 +1,6 @@
 package stoper.stoper.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,14 +10,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import stoper.stoper.R;
+import stoper.stoper.model.User;
+import stoper.stoper.util.MockData;
 
 public class CarActivity extends AppCompatActivity implements  AdapterView.OnItemSelectedListener{
 
     private int selectedCountry;
     private int selectedColor;
     private int selectedCarType;
+
+    private MockData mockData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,16 +64,21 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
             ((EditText)findViewById(R.id.car_edit_registration_number_text)).setText(savedInstanceState.getString("registratioNumber"));
             ((EditText)findViewById(R.id.car_edit_car_brand)).setText(savedInstanceState.getString("carBrand"));
             ((EditText)findViewById(R.id.car_edit_car_brand_model)).setText(savedInstanceState.getString("carBrandModel"));
-            ((EditText)findViewById(R.id.car_edit_year_text)).setText(savedInstanceState.getInt("carYear"));
+            ((EditText)findViewById(R.id.car_edit_year_text)).setText(savedInstanceState.getString("carYear"));
+        }else{
+            User user = mockData.UsersDatabase().get(0);
+            selectedCarType = user.getCarType();
+            selectedColor = user.getCarColor();
+            selectedCountry = user.getCarCountry();
+            ((EditText)findViewById(R.id.car_edit_registration_number_text)).setText(user.getCarRegistratonNumber());
+            ((EditText)findViewById(R.id.car_edit_car_brand)).setText(user.getCarBrand());
+            ((EditText)findViewById(R.id.car_edit_car_brand_model)).setText(user.getCarBrandModel());
+            ((EditText)findViewById(R.id.car_edit_year_text)).setText(String.valueOf(user.getCarYear()));
         }
 
         spinner.setSelection(selectedCountry);
         color_spinner.setSelection(selectedColor);
         car_types_spinner.setSelection(selectedCarType);
-    }
-
-    public void onClickSaveCar(View view){
-
     }
 
     @Override
@@ -79,7 +90,20 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
         outState.putString("registrationNumber", ((EditText)findViewById(R.id.car_edit_registration_number_text)).getText().toString());
         outState.putString("carBrand", ((EditText)findViewById(R.id.car_edit_car_brand)).getText().toString());
         outState.putString("carBrandModel", ((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString());
-        outState.putInt("carYear", Integer.parseInt(((EditText)findViewById(R.id.car_edit_year_text)).getText().toString()));
+        outState.putString("carYear",((EditText)findViewById(R.id.car_edit_year_text)).getText().toString());
+    }
+
+    public void onClickSaveCar(View view){
+        User user = mockData.UsersDatabase().get(0);
+        user.setCarColor(selectedColor);
+        user.setCarCountry(selectedCountry);
+        user.setCarType(selectedCarType);
+        user.setCarYear(Integer.parseInt(((EditText)findViewById(R.id.car_edit_year_text)).getText().toString()));
+        user.setCarRegistratonNumber(((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString());
+        user.setCarBrand(((EditText)findViewById(R.id.car_edit_car_brand)).getText().toString());
+        user.setCarBrandModel(((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString());
+        showMessageSuccess();
+
     }
 
     @Override
@@ -101,5 +125,14 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private void showMessageSuccess(){
+        Context contex = getApplicationContext();
+        CharSequence text = "Uspešno se izvršili izmenu Vaših podataka";
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(contex, text, duration);
+        toast.show();
     }
 }
