@@ -71,7 +71,7 @@ public class OfferFragment extends Fragment {
         }else{
             bundle=new Bundle();
         }
-
+        bundle.putString("fragment","offer");
         startDestination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +90,7 @@ public class OfferFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment f = new DestinationFragment();
-                bundle.putString("type","startDestination");
+                bundle.putString("type","endDestination");
                 f.setArguments(bundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();

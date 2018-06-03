@@ -102,7 +102,11 @@ public class DestinationFragment extends Fragment{
                             b.putString("startDestination",addresses.get(0).getLocality());
                         else if(b.getString("type").equals("endDestination"))
                             b.putString("endDestination",addresses.get(0).getLocality());
-                        SearchFragment f1=new SearchFragment();
+                        Fragment f1;
+                        if(b.getString("fragment")==null)
+                            f1=new SearchFragment();
+                        else
+                            f1=new OfferFragment();
                         f1.setArguments(b);
                         //fragmentManager.popBackStack();
 
