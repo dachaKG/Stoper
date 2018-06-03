@@ -1,13 +1,28 @@
 package stoper.stoper.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import stoper.stoper.R;
+import stoper.stoper.model.User;
+import stoper.stoper.util.MockData;
 
-public class CarActivity extends AppCompatActivity {
+public class CarActivity extends AppCompatActivity implements  AdapterView.OnItemSelectedListener{
 
+    private int selectedCountry;
+    private int selectedColor;
+    private int selectedCarType;
+
+    private MockData mockData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,5 +32,107 @@ public class CarActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.car_first_page_app_bar_title);
+
+        Spinner spinner = (Spinner) findViewById(R.id.country_spinner);
+        spinner.setOnItemSelectedListener(this);
+        spinner.setLayoutMode(Spinner.MODE_DIALOG);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.countries, R.layout.spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        Spinner color_spinner = (Spinner)findViewById(R.id.color_spinner);
+        color_spinner.setOnItemSelectedListener(this);
+        color_spinner.setLayoutMode(Spinner.MODE_DIALOG);
+        ArrayAdapter<CharSequence> color_adapter = ArrayAdapter.createFromResource(this, R.array.colors, R.layout.spinner_item);
+        color_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        color_spinner.setAdapter(color_adapter);
+
+        Spinner car_types_spinner = (Spinner) findViewById(R.id.car_types_spinner);
+        car_types_spinner.setOnItemSelectedListener(this);
+        car_types_spinner.setLayoutMode(Spinner.MODE_DIALOG);
+        ArrayAdapter<CharSequence> car_types_adapter = ArrayAdapter.createFromResource(this,R.array.car_types, R.layout.spinner_item);
+        car_types_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        car_types_spinner.setAdapter(car_types_adapter);
+
+        if(savedInstanceState != null){
+            selectedCountry = savedInstanceState.getInt("selectedCountry");
+            selectedColor = savedInstanceState.getInt("selectedColor");
+            selectedCarType = savedInstanceState.getInt("selectedCarType");
+            ((EditText)findViewById(R.id.car_edit_registration_number_text)).setText(savedInstanceState.getString("registratioNumber"));
+            ((EditText)findViewById(R.id.car_edit_car_brand)).setText(savedInstanceState.getString("carBrand"));
+            ((EditText)findViewById(R.id.car_edit_car_brand_model)).setText(savedInstanceState.getString("carBrandModel"));
+            ((EditText)findViewById(R.id.car_edit_year_text)).setText(savedInstanceState.getString("carYear"));
+        }else{
+            User user = mockData.UsersDatabase().get(0);
+            selectedCarType = user.getCarType();
+            selectedColor = user.getCarColor();
+            selectedCountry = user.getCarCountry();
+            ((EditText)findViewById(R.id.car_edit_registration_number_text)).setText(user.getCarRegistratonNumber());
+            ((EditText)findViewById(R.id.car_edit_car_brand)).setText(user.getCarBrand());
+            ((EditText)findViewById(R.id.car_edit_car_brand_model)).setText(user.getCarBrandModel());
+            ((EditText)findViewById(R.id.car_edit_year_text)).setText(String.valueOf(user.getCarYear()));
+        }
+
+        spinner.setSelection(selectedCountry);
+        color_spinner.setSelection(selectedColor);
+        car_types_spinner.setSelection(selectedCarType);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("selectedCountry",selectedCountry);
+        outState.putInt("selectedColor",selectedColor);
+        outState.putInt("selectedCarType",selectedCarType);
+        outState.putString("registrationNumber", ((EditText)findViewById(R.id.car_edit_registration_number_text)).getText().toString());
+        outState.putString("carBrand", ((EditText)findViewById(R.id.car_edit_car_brand)).getText().toString());
+        outState.putString("carBrandModel", ((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString());
+        outState.putString("carYear",((EditText)findViewById(R.id.car_edit_year_text)).getText().toString());
+    }
+
+    public void onClickSaveCar(View view){
+        User user = mockData.UsersDatabase().get(0);
+        user.setCarColor(selectedColor);
+        user.setCarCountry(selectedCountry);
+        user.setCarType(selectedCarType);
+        user.setCarYear(Integer.parseInt(((EditText)findViewById(R.id.car_edit_year_text)).getText().toString()));
+        user.setCarRegistratonNumber(((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString());
+        user.setCarBrand(((EditText)findViewById(R.id.car_edit_car_brand)).getText().toString());
+        user.setCarBrandModel(((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString());
+        showMessageSuccess();
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (adapterView.getId()){
+            case R.id.country_spinner:
+                selectedCountry = i;
+                break;
+            case R.id.color_spinner:
+                selectedColor = i;
+                break;
+            case R.id.car_types_spinner:
+                selectedCarType = i;
+                break;
+        }
+        selectedCountry= i;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    private void showMessageSuccess(){
+        Context contex = getApplicationContext();
+        CharSequence text = "Uspešno se izvršili izmenu Vaših podataka";
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(contex, text, duration);
+        toast.show();
     }
 }

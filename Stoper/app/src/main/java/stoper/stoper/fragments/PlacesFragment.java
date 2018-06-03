@@ -88,7 +88,11 @@ public class PlacesFragment extends Fragment {
                     b.putString("startDestination", (String)place.getName());
                 else if(b.getString("type").equals("endDestination"))
                     b.putString("endDestination",(String)place.getName());
-                SearchFragment f1=new SearchFragment();
+                Fragment f1;
+                if(b.getString("fragment")==null)
+                    f1=new SearchFragment();
+                else
+                    f1=new OfferFragment();
                 f1.setArguments(b);
                 android.support.v4.app.FragmentTransaction ft = fragmentManager.beginTransaction();
 

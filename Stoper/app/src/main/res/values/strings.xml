@@ -69,11 +69,17 @@
     <string name="link_to_car_edit_title">Dodaj automobil</string>
     <string name="link_to_show_profil_title">Prikaži moj javni profil</string>
 
-
+    <!--SHOWPROFIL-->
+    <string name="show_profile_app_bar_title">Prikaz profila</string>
+    <string name="show_profile_subitle_custom_settings">O</string>
     <!--EDIT PROFIL ACTIVITY-->
     <string name="edit_profile_app_bar_title">Uredi profil</string>
     <string name="select_photo_link_title">Odaberite fotografiju za profil</string>
     <string name="o_vama_title">O vama</string>
+    <string name="email_title">Email</string>
+
+    <string name="phone_number_title">Broj telefona</string>
+
     <string name="gender_hint">Pol</string>
     <string name="first_name_hint">Ime</string>
     <string name="last_name_hint">Prezime</string>
@@ -87,13 +93,112 @@
     <string name="save_email_button_title">SAČUVAJ MEJL</string>
     <string name="save_phone_number_button_title">SAČUVAJ TELEFONSKI BROJ</string>
 
+
     <!--USER CUSTOIM SETTINGS ACTIVITY-->
     <string name="user_custom_settings_app_bar_title">Izmeni podešavanja</string>
-
-
+    <string name="speaking_spinner_title">Pričljivost</string>
+    <string name="smoking_spinner_title">Pušenje</string>
+    <string name="music_spinner_title">Muzika</string>
+    <string name="pets_spinner_title">Ljubimci</string>
+    <string name="button_submit_custom_settings">Sačuvaj podešavanja</string>
+    <string-array name="speaking_array">
+        <item>Ja sam tiha osoba</item>
+        <item>Pričam u zavisnosti od respoloženja</item>
+        <item>Volim da pričam</item>
+    </string-array>
+    <string-array name="smoking_array">
+        <item>Bez pušenja u automobilu, molim</item>
+        <item>Ne znam</item>
+        <item>Pušenje u automobilu mi ne smeta</item>
+    </string-array>
+    <string-array name="music_array">
+        <item>Tišina je zlato</item>
+        <item>Ne znam</item>
+        <item>Samo nek se vrti</item>
+    </string-array>
+    <string-array name="pets_array">
+        <item>Bez ljubimaca, molim</item>
+        <item>Ne znam</item>
+        <item>Pet friendly!</item>
+    </string-array>
     <!--PHONE NUMBER ACTIVITIY-->
     <string name="phone_number_app_bar_title">Dodajte broj telefona</string>
 
     <!--CAR ACTIVITY-->
     <string name="car_first_page_app_bar_title">Informacije o Vašem automobilu</string>
+    <string name="car_edit_title">Molimo Vas unesite podatke o Vašem automobilu</string>
+    <string name="edit_car_registration_number_country_hint">Država</string>
+    <string name="edit_car_registration_number_hint">Broj registarske tablice.</string>
+    <string name="edit_car_year_hint">Godina prve registracije</string>
+    <string name="edit_car_color_hint">Boja Vašeg automobila</string>
+    <string name="edit_car_types_hint">O kakvom automobilu se radi</string>
+    <string name="edit_car_brand_name_hint">Marka Vašeg atomobila</string>
+    <string name="edit_car_brand_model_hint">Model Vašeg automobila</string>
+    <string name="button_registration_number_continue">Sačuvaj podatke</string>
+
+    <string-array name="gender_array">
+        <item>Muški</item>
+        <item>Ženski</item>
+    </string-array>
+
+    <string-array name="car_types">
+        <item>Hečbek</item>
+        <item>Limuzina</item>
+        <item>Kabriolet</item>
+        <item>Karavan</item>
+        <item>Terenac</item>
+        <item>Kombi</item>
+        <item>Mini-kombi</item>
+        <item>Veliki kombi</item>
+    </string-array>
+    <string-array name="colors">
+        <item>Crna</item>
+        <item>Bela</item>
+        <item>Tamnosiva</item>
+        <item>Siva</item>
+        <item>Bordo</item>
+        <item>Crvena</item>
+        <item>Tamnoplava</item>
+        <item>Plava</item>
+        <item>Tamnozelena</item>
+        <item>Zelena</item>
+        <item>Smedja</item>
+        <item>Bež</item>
+        <item>Narandžasta</item>
+        <item>Žuta</item>
+        <item>Ljubičasta</item>
+        <item>Roze</item>
+    </string-array>
+    <string-array name="countries" formatted="false" translatable="false">
+        <item>Serbia</item>
+        <item>Austria</item>
+        <item>Bosnia and Herzegovina</item>
+        <item>Bulgaria</item>
+        <item>Cyprus</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>Greece</item>
+        <item>Italy</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Macedonia [FYROM]</item>
+        <item>Montenegro</item>
+        <item>Netherlands</item>
+        <item>Norway</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Romania</item>
+        <item>Russia</item>
+        <item>San Marino</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Spain</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Turkey</item>
+        <item>Ukraine</item>
+        <item>United Kingdom</item>
+        <item>United States</item>
+    </string-array>
 </resources>

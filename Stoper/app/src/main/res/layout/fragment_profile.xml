@@ -9,6 +9,15 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context="stoper.stoper.fragments.ProfileFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    >
 <de.hdodenhof.circleimageview.CircleImageView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/profile_image"
@@ -38,6 +47,7 @@ tools:context="stoper.stoper.fragments.ProfileFragment">
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+</LinearLayout>
 <android.support.v4.view.ViewPager
     android:id="@+id/pager"
     android:layout_width="match_parent"
