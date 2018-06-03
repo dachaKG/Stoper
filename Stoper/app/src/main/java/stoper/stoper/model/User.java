@@ -34,6 +34,20 @@ public class User {
 
     private int pets;
 
+    private int carCountry;
+
+    private int carColor;
+
+    private int carType;
+
+    private String carRegistratonNumber;
+
+    private String carBrand;
+
+    private String carBrandModel;
+
+    private int carYear;
+
     public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets) {
         this.gender = gender;
         this.firstName = firstName;
@@ -64,6 +78,31 @@ public class User {
         this.confirmed = confirmed;
         this.level = level;
         this.areaCall = areaCall;
+    }
+
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets, int carCountry, int carColor, int carType, String carRegistratonNumber, String carBrand, String carBrandModel, int carYear) {
+        this.gender = gender;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.yearOfBirth = yearOfBirth;
+        this.email = email;
+        this.password = password;
+        this.biography = biography;
+        this.phoneNumber = phoneNumber;
+        this.areaCall = areaCall;
+        this.confirmed = confirmed;
+        this.level = level;
+        this.speaking = speaking;
+        this.smoking = smoking;
+        this.music = music;
+        this.pets = pets;
+        this.carCountry = carCountry;
+        this.carColor = carColor;
+        this.carType = carType;
+        this.carRegistratonNumber = carRegistratonNumber;
+        this.carBrand = carBrand;
+        this.carBrandModel = carBrandModel;
+        this.carYear = carYear;
     }
 
     public int getGender() {
@@ -192,5 +231,61 @@ public class User {
 
     public void setPets(int pets) {
         this.pets = pets;
+    }
+
+    public int getCarCountry() {
+        return carCountry;
+    }
+
+    public void setCarCountry(int carCountry) {
+        this.carCountry = carCountry;
+    }
+
+    public int getCarColor() {
+        return carColor;
+    }
+
+    public void setCarColor(int carColor) {
+        this.carColor = carColor;
+    }
+
+    public int getCarType() {
+        return carType;
+    }
+
+    public void setCarType(int carType) {
+        this.carType = carType;
+    }
+
+    public String getCarRegistratonNumber() {
+        return carRegistratonNumber;
+    }
+
+    public void setCarRegistratonNumber(String carRegistratonNumber) {
+        this.carRegistratonNumber = carRegistratonNumber;
+    }
+
+    public String getCarBrand() {
+        return carBrand;
+    }
+
+    public void setCarBrand(String carBrand) {
+        this.carBrand = carBrand;
+    }
+
+    public String getCarBrandModel() {
+        return carBrandModel;
+    }
+
+    public void setCarBrandModel(String carBrandModel) {
+        this.carBrandModel = carBrandModel;
+    }
+
+    public int getCarYear() {
+        return carYear;
+    }
+
+    public void setCarYear(int carYear) {
+        this.carYear = carYear;
     }
 }
