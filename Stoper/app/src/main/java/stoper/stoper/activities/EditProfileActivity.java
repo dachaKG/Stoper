@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.vision.text.Line;
 
 import org.w3c.dom.Text;
 
@@ -98,10 +101,9 @@ public class EditProfileActivity extends AppCompatActivity {
             ((TextView)findViewById(R.id.area_call_text_view)).setText(savedInstanceState.getString("area_number"));
             ((TextView)findViewById(R.id.phone_number_text_view)).setText(savedInstanceState.getString("phone_number"));
         }else{
-
             int focusElement = (int)getIntent().getExtras().get(EXTRA_SCROLL_TO_ELEMENT);
             EditText b = (EditText) findViewById(focusElement);
-            b.requestFocus();
+            b.requestFocus();;
             mockData = (MockData) getApplicationContext();
             loggedUser = mockData.UsersDatabase().get(0);
             if(loggedUser.getGender() == 0){
@@ -109,7 +111,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }else{
                 ((TextView)findViewById(R.id.gender_text_view)).setText("Zenski");
-
             }
             ((TextView)findViewById(R.id.first_name_text_view)).setText(loggedUser.getFirstName());
             ((TextView)findViewById(R.id.last_name_text_view)).setText(loggedUser.getLastName());
