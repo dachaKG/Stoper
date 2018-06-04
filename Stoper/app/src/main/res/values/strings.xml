@@ -66,12 +66,28 @@
     <string name="details_second_title">Potvrda</string>
     <string name="link_to_add_phone_number_title">Dodaj moj broj telefona</string>
     <string name="details_third_title">Automobil</string>
-    <string name="link_to_car_edit_title">Dodaj automobil</string>
+    <string name="link_to_car_edit_title">Izmeni automobil</string>
     <string name="link_to_show_profil_title">Prikaži moj javni profil</string>
-
+    <string name="account_statistic_data_title">Vaši statistički podaci</string>
+    <string name="account_statistic_data_link_title">Date ocene</string>
+    <string name="account_settings_title">Podešavanja</string>
+    <string name="account_settings_link_notifications_title">Obaveštenja</string>
+    <string name="account_settings_link_change_password_title">Promena lozinke</string>
+    <string name="account_about_us_title">O nama</string>
+    <string name="account_about_us_help_title">Pomoć</string>
+    <string name="account_about_us_terms_of_service_title">Opšti uslovi korišćenja</string>
+    <string name="account_about_us_privacy_title">Pravila privatnosti</string>
+    <string name="account_logout_title">ODJAVITE SE</string>
     <!--SHOWPROFIL-->
     <string name="show_profile_app_bar_title">Prikaz profila</string>
     <string name="show_profile_subitle_custom_settings">O</string>
+    <string name="show_profile_speking_title">Pričljivost</string>
+    <string name="show_profile_smoking_title">Pušenje</string>
+    <string name="show_profile_pets_title">Kućni ljubimci</string>
+    <string name="show_profile_music_title">Muzika</string>
+    <string name="show_profile_email_status_not_confirmed">Email adresa nije potvrdjena</string>
+    <string name="show_profile_email_status_confirmed">Email adresa je potvrdjena</string>
+
     <!--EDIT PROFIL ACTIVITY-->
     <string name="edit_profile_app_bar_title">Uredi profil</string>
     <string name="select_photo_link_title">Odaberite fotografiju za profil</string>
@@ -135,6 +151,17 @@
     <string name="edit_car_brand_name_hint">Marka Vašeg atomobila</string>
     <string name="edit_car_brand_model_hint">Model Vašeg automobila</string>
     <string name="button_registration_number_continue">Sačuvaj podatke</string>
+
+
+    <!--STATISTIC DATA ACTIVITY-->
+    <string name="statistic_data_app_bar_title">Date ocene</string>
+
+    <!--CHANGE PASSWORD ACTIVITY-->
+    <string name="change_password_app_tar_title">Promena lozinke</string>
+    <string name="change_password_old_hint">Tekuća lozinka</string>
+    <string name="change_password_new_hint">Nova lozinka</string>
+    <string name="change_password_new_confirmed_hint">Potvrdite novu lozinku</string>
+    <string name="change_password_save_button">Sačuvaj novu lozinku</string>
 
     <string-array name="gender_array">
         <item>Muški</item>

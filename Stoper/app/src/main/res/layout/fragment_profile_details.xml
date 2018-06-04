@@ -66,7 +66,8 @@
             style="@style/Divider" />
 
         <TextView
-            style="@style/ProfileDetailsTitle" />
+            style="@style/ProfileDetailsTitle"
+            android:text="@string/details_third_title"/>
 
         <TextView
             android:id="@+id/profile_details_car_brand"
