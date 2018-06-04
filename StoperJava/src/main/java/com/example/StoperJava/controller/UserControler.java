@@ -26,9 +26,9 @@ public class UserControler {
 	UserService userService;
 	
 	private User testUser1=new User(0, "Danilo", "Acimovic", 1994, "danilo.a@yahoo.com", "123",
-            "Dipl ing, elektroyehnike. Zaposle", "24554745", true, "pocetnik","+381");
-	private User testUser2=new User(2L,1,"Kostas","Mitroglu",1984,"kkk","123");
-	private User testUser3=new User(3L,1,"Scepan","Scekic",1979,"sss","123");
+            "Dipl ing, elektroyehnike. Konj", "24554745", true, "pocetnik","+381");
+	//private User testUser2=new User(2L,1,"Kostas","Mitroglu",1984,"kkk","123");
+	//private User testUser3=new User(3L,1,"Scepan","Scekic",1979,"sss","123");
 	
 	private List<User> users = new ArrayList<User>();
 	
@@ -58,16 +58,17 @@ public class UserControler {
 		return success;
 	}
 	
-	@PostMapping
-	@RequestMapping(value = "/getLogedUser")
-	public User GetLogedUser(@RequestBody String email) {
-		return logedUser=userService.findByUsername(email);
-	}
+	//@PostMapping
+	//@RequestMapping(value = "/getLogedUser")
+	//public User GetLogedUser(@RequestBody String email) {
+	//	return logedUser=userService.findByUsername(email);
+	//}
 	
 	@PutMapping
 	@RequestMapping(value = "/register")
 	public Boolean Register(@RequestBody User user) {
 		users=userService.findAll();
+		System.out.println(user.getEmail());
 		for (int i=0;i<users.size();i++){
 			if (users.get(i).getEmail().equals(user.getEmail())){
 				return false;

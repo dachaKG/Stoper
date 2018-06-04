@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -215,7 +217,7 @@ public class RegistrationFragment extends Fragment {
             public void onClick(View v) {
                 RegistrationReq user = new RegistrationReq();
                 checkFields();
-				
+
 
                 try {
 
@@ -295,7 +297,7 @@ public class RegistrationFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }*/
-    private boolean checkFields(){
+    public boolean checkFields(){
         nameEditText= getView().findViewById(R.id.name);
         lastnameEditText=getView().findViewById(R.id.lastname);
         mailEditText=getView().findViewById(R.id.e_mail);
@@ -386,6 +388,15 @@ public class RegistrationFragment extends Fragment {
             super.onPostExecute(aBoolean);
             if(aBoolean) {
                 out.println("Uspesna reg");
+                Fragment f = new StarterFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.main_screen, f);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+            else{
+                out.println("Molimo Vas unesite drugu e-mail adresu");
             }
         }
     }
