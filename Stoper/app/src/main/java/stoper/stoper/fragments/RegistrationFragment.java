@@ -60,6 +60,8 @@ public class RegistrationFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+	private Boolean validInputs=true; // polje ko je ce govoriti da li su sva polja popunjena 
+	//i da li su popunjena kako treba
     private Button submitRegButton;
     // TODO: Rename and change types of parameters
     private Button register_with_mail_button;
@@ -213,31 +215,38 @@ public class RegistrationFragment extends Fragment {
             public void onClick(View v) {
                 RegistrationReq user = new RegistrationReq();
                 checkFields();
-				nameArg=nameEditText.getText().toString().trim();
-				lastnameArg=lastnameEditText.getText().toString().trim();
-				emailArg=mailEditText.getText().toString().trim();
-				passwordArg=passwordEditText.getText().toString().trim();
-                yearOfBirthArg=Integer.valueOf(birthYearEditText.getText().toString());
-                if((genderEditText.getText().toString()).equals("Muski")){
-                    genderArg=1;
-                }else
-                {
-                    genderArg=2;
-                }
+				
 
                 try {
 
-                    user.setEmail(usernameArg);
-                    user.setPassword(passwordArg);
-                    user.setFirstName(nameArg);
-                    user.setLastName(lastnameArg);
-                    user.setGender(genderArg);
-                    user.setPassword(passwordArg);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(user);
-                    System.out.println(json);
-                    new RegistrationFragment.HttpReqTask().execute(user);
+					if(validInputs){
+                        nameArg=nameEditText.getText().toString().trim();
+                        lastnameArg=lastnameEditText.getText().toString().trim();
+                        emailArg=mailEditText.getText().toString().trim();
+                        passwordArg=passwordEditText.getText().toString().trim();
+                        yearOfBirthArg=Integer.valueOf(birthYearEditText.getText().toString());
+                        if((genderEditText.getText().toString()).equals("Muski")){
+                            genderArg=1;
+                        }else
+                        {
+                            genderArg=2;
+                        }
 
+                        System.out.println("Polja ok");
+						Gson gson = new Gson();
+						user.setEmail(usernameArg);
+						user.setPassword(passwordArg);
+						user.setFirstName(nameArg);
+						user.setLastName(lastnameArg);
+						user.setGender(genderArg);
+						user.setPassword(passwordArg);
+						String json = gson.toJson(user);
+						System.out.println(json);
+						new RegistrationFragment.HttpReqTask().execute(user);
+					}
+					else{
+					System.out.println("NOT OK NOT OK NOT OK");
+					}
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -300,40 +309,52 @@ public class RegistrationFragment extends Fragment {
         if(genderEditText.getText().length()==0){
             TextInputLayout til1 = getView().findViewById(R.id.textInputLayout1);
             til1.setError("Ovo polje je obavezno");
+            validInputs=false;
             return false;
         }else if(nameEditText.getText().length()==0){
 
             til2.setError("Ovo polje je obavezno");
+            validInputs=false;
             return false;
         }else {
+            validInputs=true;
             til2.setErrorEnabled(false);
         }
         if(lastnameEditText.getText().length()==0){
             til3.setError("Ovo polje je obavezno");
+            validInputs=false;
             return false;
         }else {
+            validInputs=true;
             til3.setErrorEnabled(false);
         }
         if(birthYearEditText.getText().length()==0){
             TextInputLayout til = (TextInputLayout) getView().findViewById(R.id.textInputLayout4);
             til.setError("Ovo polje je obavezno");
+            validInputs=false;
             return false;
         }else if(!isEmailValid(mailEditText.getText().toString())){
             til5.setError("Molimo Vas unesite vazecu e-mail adresu");
+            validInputs=false;
             return false;
         }else {
+            validInputs=true;
             til5.setErrorEnabled(false);
         }
         if(passwordEditText.getText().length()<8){
             til6.setError("Izaberite lozinku od najmanje 8 znakova");
+            validInputs=false;
             return false;
         }else {
+            validInputs=true;
             til6.setErrorEnabled(false);
         }
         if(!(repeatPaswordEditText.getText().toString().equals(passwordEditText.getText().toString()))){
             til7.setError("Lozinke se moraju podudarati");
+            validInputs=false;
             return false;
         }else{
+            validInputs=true;
             til7.setErrorEnabled(false);
         }
 
