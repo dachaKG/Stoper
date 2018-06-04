@@ -68,11 +68,13 @@ public class ProfileDetailsFragment extends Fragment implements  View.OnClickLis
         if(user.getCarBrand() != null && !user.getCarBrand().equals("")) {
             TextView car_brand_model = (TextView) view.findViewById(R.id.profile_details_car_brand);
             car_brand_model.setText(String.format("%s %s", user.getCarBrand(), user.getCarBrandModel()));
+            car_brand_model.setVisibility(View.VISIBLE);
 
             TextView color = (TextView) view.findViewById(R.id.profile_details_car_color);
             List<String> colors = Arrays.asList(getResources().getStringArray(R.array.colors));
             String color_value = colors.get(user.getCarColor());
             color.setText(color_value);
+            color.setVisibility(View.VISIBLE);
         }
         return view;
     }
