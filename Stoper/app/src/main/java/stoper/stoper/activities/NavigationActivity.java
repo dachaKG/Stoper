@@ -1,5 +1,8 @@
 package stoper.stoper.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import stoper.stoper.R;
@@ -34,11 +39,14 @@ import stoper.stoper.fragments.ProfileFragment;
 import stoper.stoper.fragments.RegistrationFragment;
 import stoper.stoper.fragments.SearchFragment;
 import stoper.stoper.fragments.StarterFragment;
+import stoper.stoper.model.User;
+import stoper.stoper.util.MockData;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    MockData mockData;
     private int activeItem = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,19 @@ public class NavigationActivity extends AppCompatActivity
         }else{
             activeItem = savedInstanceState.getInt("activeItem");
             fragment = getFragmentToShow(activeItem);
+        }
+        User user = mockData.UsersDatabase().get(0);
+        View headerLayout = navigationView.getHeaderView(0);
+        TextView name = (TextView)headerLayout.findViewById(R.id.navigation_header_name);
+        name.setText(String.format("%s %s",user.getFirstName(),user.getLastName()));
+
+        TextView email = (TextView)headerLayout.findViewById(R.id.navigation_header_email);
+        email.setText(user.getEmail());
+
+        ImageView profileImage = (ImageView)headerLayout.findViewById(R.id.navigation_header_image);
+        if(user.getProfileImage() != null){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
+            profileImage.setImageBitmap(bitmap);
         }
     }
 

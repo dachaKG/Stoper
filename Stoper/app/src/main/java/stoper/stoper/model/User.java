@@ -48,6 +48,8 @@ public class User {
 
     private int carYear;
 
+    private byte[] profileImage;
+
     public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets) {
         this.gender = gender;
         this.firstName = firstName;
@@ -287,5 +289,13 @@ public class User {
 
     public void setCarYear(int carYear) {
         this.carYear = carYear;
+    }
+
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
     }
 }

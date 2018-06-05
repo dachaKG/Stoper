@@ -2,7 +2,13 @@ package stoper.stoper.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,6 +26,9 @@ import com.google.android.gms.vision.text.Line;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -32,6 +42,7 @@ import stoper.stoper.util.MockData;
 public class EditProfileActivity extends AppCompatActivity {
 
     public static final String EXTRA_SCROLL_TO_ELEMENT = Integer.toString(R.id.first_name_text_view);
+    private static int RESULT_LOAD_IMAGE = 1;
 
     private MockData mockData;
     private EditText scrollTo;
@@ -55,7 +66,7 @@ public class EditProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.edit_profile_app_bar_title);
 
-        TextView genderView = (TextView)findViewById(R.id.gender_text_view);
+        TextView genderView = (TextView) findViewById(R.id.gender_text_view);
         final List<String> gender_array = Arrays.asList(getResources().getStringArray(R.array.gender_array));
         genderView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,16 +75,16 @@ public class EditProfileActivity extends AppCompatActivity {
                 builder
                         .setItems(R.array.gender_array, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                ((TextView)findViewById(R.id.gender_text_view)).setText(gender_array.get(which));
+                                ((TextView) findViewById(R.id.gender_text_view)).setText(gender_array.get(which));
                             }
                         });
                 builder.show();
             }
         });
-        final TextView year_text = (TextView)findViewById(R.id.birth_year_text_view);
-        ArrayList<String> years=new ArrayList<>();
-        int maxYear= Calendar.getInstance().get(Calendar.YEAR);
-        for(int i=maxYear-18;i>maxYear-90;i--){
+        final TextView year_text = (TextView) findViewById(R.id.birth_year_text_view);
+        ArrayList<String> years = new ArrayList<>();
+        int maxYear = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = maxYear - 18; i > maxYear - 90; i--) {
             years.add(Integer.toString(i));
         }
         final CharSequence[] charSequenceItems = years.toArray(new CharSequence[years.size()]);
@@ -91,37 +102,44 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        if(savedInstanceState != null){
-            ((TextView)findViewById(R.id.gender_text_view)).setText(savedInstanceState.getString("gender"));
-            ((TextView)findViewById(R.id.first_name_text_view)).setText(savedInstanceState.getString("firstName"));
-            ((TextView)findViewById(R.id.last_name_text_view)).setText(savedInstanceState.getString("lastName"));
-            ((TextView)findViewById(R.id.birth_year_text_view)).setText(savedInstanceState.getString("birthYear"));
-            ((TextView)findViewById(R.id.biography_text_view)).setText(savedInstanceState.getString("biography"));
-            ((TextView)findViewById(R.id.email_text_view)).setText(savedInstanceState.getString("email_text"));
-            ((TextView)findViewById(R.id.area_call_text_view)).setText(savedInstanceState.getString("area_number"));
-            ((TextView)findViewById(R.id.phone_number_text_view)).setText(savedInstanceState.getString("phone_number"));
-        }else{
-            int focusElement = (int)getIntent().getExtras().get(EXTRA_SCROLL_TO_ELEMENT);
+        if (savedInstanceState != null) {
+            ((TextView) findViewById(R.id.gender_text_view)).setText(savedInstanceState.getString("gender"));
+            ((TextView) findViewById(R.id.first_name_text_view)).setText(savedInstanceState.getString("firstName"));
+            ((TextView) findViewById(R.id.last_name_text_view)).setText(savedInstanceState.getString("lastName"));
+            ((TextView) findViewById(R.id.birth_year_text_view)).setText(savedInstanceState.getString("birthYear"));
+            ((TextView) findViewById(R.id.biography_text_view)).setText(savedInstanceState.getString("biography"));
+            ((TextView) findViewById(R.id.email_text_view)).setText(savedInstanceState.getString("email_text"));
+            ((TextView) findViewById(R.id.area_call_text_view)).setText(savedInstanceState.getString("area_number"));
+            ((TextView) findViewById(R.id.phone_number_text_view)).setText(savedInstanceState.getString("phone_number"));
+        } else {
+            int focusElement = (int) getIntent().getExtras().get(EXTRA_SCROLL_TO_ELEMENT);
             EditText b = (EditText) findViewById(focusElement);
-            b.requestFocus();;
+            b.requestFocus();
+            ;
             mockData = (MockData) getApplicationContext();
             loggedUser = mockData.UsersDatabase().get(0);
-            if(loggedUser.getGender() == 0){
-                ((TextView)findViewById(R.id.gender_text_view)).setText("Muski");
+            if (loggedUser.getGender() == 0) {
+                ((TextView) findViewById(R.id.gender_text_view)).setText("Muski");
 
-            }else{
-                ((TextView)findViewById(R.id.gender_text_view)).setText("Zenski");
+            } else {
+                ((TextView) findViewById(R.id.gender_text_view)).setText("Zenski");
             }
-            ((TextView)findViewById(R.id.first_name_text_view)).setText(loggedUser.getFirstName());
-            ((TextView)findViewById(R.id.last_name_text_view)).setText(loggedUser.getLastName());
-            ((TextView)findViewById(R.id.birth_year_text_view)).setText(Integer.toString(loggedUser.getYearOfBirth()));
-            ((TextView)findViewById(R.id.biography_text_view)).setText(loggedUser.getBiography());
-            ((TextView)findViewById(R.id.email_text_view)).setText(loggedUser.getEmail());
-            ((TextView)findViewById(R.id.area_call_text_view)).setText(loggedUser.getAreaCall());
-            ((TextView)findViewById(R.id.phone_number_text_view)).setText(loggedUser.getPhoneNumber());
+            ((TextView) findViewById(R.id.first_name_text_view)).setText(loggedUser.getFirstName());
+            ((TextView) findViewById(R.id.last_name_text_view)).setText(loggedUser.getLastName());
+            ((TextView) findViewById(R.id.birth_year_text_view)).setText(Integer.toString(loggedUser.getYearOfBirth()));
+            ((TextView) findViewById(R.id.biography_text_view)).setText(loggedUser.getBiography());
+            ((TextView) findViewById(R.id.email_text_view)).setText(loggedUser.getEmail());
+            ((TextView) findViewById(R.id.area_call_text_view)).setText(loggedUser.getAreaCall());
+            ((TextView) findViewById(R.id.phone_number_text_view)).setText(loggedUser.getPhoneNumber());
+        }
+
+        ImageView imageView = (ImageView) findViewById(R.id.profile_image_view);
+        if (loggedUser.getProfileImage() != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(loggedUser.getProfileImage(), 0, loggedUser.getProfileImage().length);
+
+            imageView.setImageBitmap(bitmap);
         }
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -176,5 +194,36 @@ public class EditProfileActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(contex, text, duration);
         toast.show();
+    }
+
+    public void onClickSelectImage(View view){
+        Intent i = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(i, RESULT_LOAD_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+
+            Uri selectedImage = data.getData();
+            Bitmap bitmap = null;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+            byte[] byteArray = stream.toByteArray();
+            User user = mockData.UsersDatabase().get(0);
+            user.setProfileImage(byteArray);
+            ImageView imageView = (ImageView)findViewById(R.id.profile_image_view);
+            imageView.setImageBitmap(bitmap);
+        }
     }
 }

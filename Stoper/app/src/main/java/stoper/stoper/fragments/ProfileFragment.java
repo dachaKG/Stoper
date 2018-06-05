@@ -1,6 +1,8 @@
 package stoper.stoper.fragments;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -53,6 +55,13 @@ public class ProfileFragment extends Fragment {
         viewPager.setAdapter(sectionPagerAdapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        if(user.getProfileImage() != null && user.getProfileImage().length > 0) {
+            ImageView imageView = (ImageView) view.findViewById(R.id.profile_image);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
+
+            imageView.setImageBitmap(bitmap);
+        }
         return view;
     }
 

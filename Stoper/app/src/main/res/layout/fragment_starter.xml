@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="169dp"
-            android:src="@drawable/golf2" />
+            android:src="@drawable/main_img" />
 
         <TextView
             android:layout_width="match_parent"
