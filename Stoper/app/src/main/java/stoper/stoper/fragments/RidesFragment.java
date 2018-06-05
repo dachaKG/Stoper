@@ -1,27 +1,21 @@
 package stoper.stoper.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import stoper.stoper.R;
+import stoper.stoper.adapter.RideFragmentAdapter;
 import stoper.stoper.model.Ride;
 
 /**
@@ -29,61 +23,65 @@ import stoper.stoper.model.Ride;
  * Activities that contain this fragment must implement the
  * {@link// RidesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RidesFragment#newInstance} factory method to
+ * Use the  factory method to
  * create an instance of this fragment.
  */
-public class RidesFragment extends Fragment implements AdapterView.OnItemClickListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class RidesFragment extends Fragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    ListView mylistview;
-    ArrayList<Ride> lista=new ArrayList<>();
+    ArrayList<Ride> rideList;
     private Bundle bundle;
-   // private OnFragmentInteractionListener mListener;
+    private Fragment fragment;
 
     public RidesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RidesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RidesFragment newInstance(String param1, String param2) {
-        RidesFragment fragment = new RidesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rides, container, false);
+        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycle_view_ride, container, false);
+        rideList = new ArrayList<Ride>();
+        Ride r1=new Ride();
+        r1.setEndDestination("Paragovo");
+        r1.setStartDestination("Fojnica");
+        r1.setPrice(345);
+        Ride r2=new Ride();
+        r2.setEndDestination("Pariz");
+        r2.setStartDestination("Nica");
+        r2.setPrice(444);
+
+        rideList.add(r1);
+        rideList.add(r2);
+
+        bundle = getArguments();
+        if(bundle.getParcelableArrayList("ridesList") == null)
+            bundle.putParcelableArrayList("ridesList", rideList);
+
+
+        RideFragmentAdapter rideFragmentAdapter = new RideFragmentAdapter(bundle.<Ride>getParcelableArrayList("ridesList"));
+        rideFragmentAdapter.setListener(new RideFragmentAdapter.Listener() {
+            @Override
+            public void onClick(int position) {
+                bundle.putParcelable("selectedRide", bundle.<Ride>getParcelableArrayList("ridesList").get(position));
+                fragment = new RideDetailsFragment();
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.main_screen, fragment);
+
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(rideFragmentAdapter);
+        return  recyclerView;
     }
-    @Override
+    /*@Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         /*Ride r1=new Ride();
@@ -95,26 +93,27 @@ public class RidesFragment extends Fragment implements AdapterView.OnItemClickLi
         r2.setStartDestination("Nica");
         r2.setPrice(444);
 
-        lista.add(r1);
-        lista.add(r2);*/
+        rideList.add(r1);
+        rideList.add(r2);//
+
         bundle = getArguments();
 
-        lista = bundle.getParcelableArrayList("rideList");
+        rideList = bundle.getParcelableArrayList("rideList");
         mylistview = (ListView) view.findViewById(R.id.ridesList);
 
-        CustomAdapter adapter = new CustomAdapter(getContext(), lista);
+        CustomAdapter adapter = new CustomAdapter(getContext(), rideList);
         mylistview.setAdapter(adapter);
         mylistview.setOnItemClickListener(this);
 
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
-        String member_name = lista.get(position).getStartDestination();
+        String member_name = rideList.get(position).getStartDestination();
         Toast.makeText(getContext(), "" + member_name,
                 Toast.LENGTH_SHORT).show();
-    }
+    }*/
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         /*if (mListener != null) {
