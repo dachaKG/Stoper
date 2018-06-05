@@ -1,4 +1,4 @@
-package stoper.stoper.fragments;
+package stoper.stoper.adapter;
 
 import android.app.Activity;
 import android.content.Context;
