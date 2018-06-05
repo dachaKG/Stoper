@@ -47,7 +47,11 @@
         <activity
             android:name=".activities.CarActivity"
             android:parentActivityName=".activities.NavigationActivity" />
-        <activity android:name=".activities.ShowProfileActivity"></activity>
+        <activity
+            android:name=".activities.ShowProfileActivity"
+            android:parentActivityName=".activities.NavigationActivity" />
+        <activity android:name=".activities.StatisticDataActivity" />
+        <activity android:name=".activities.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

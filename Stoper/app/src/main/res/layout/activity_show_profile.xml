@@ -1,25 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".activities.ShowProfileActivity">
 
 
-    <include layout="@layout/app_bar_profile_preview"/>
+    <include
+        android:id="@+id/include2"
+        layout="@layout/app_bar_profile_preview" />
 
-    <TextView
-        style="@style/ShowProfileSubtitle"
-        android:text="@string/show_profile_subitle_custom_settings"
-        />
 
-    <View
-        android:id="@+id/divider3"
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/GridLayout1"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        android:background="?android:attr/listDivider" />
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:rowCount="4">
+
+        <TextView
+            style="@style/ShowProfileCustomSettingsTitle"
+            android:text="@string/show_profile_speking_title" />
+
+        <TextView
+            android:id="@+id/show_profile_custom_settings_speking_content"
+            style="@style/ShowProfileCustomSettingsContent"
+            android:layout_height="55dp"
+            android:text="d sda sd ad ads asd adsa da dd a" />
+
+        <TextView
+            style="@style/ShowProfileCustomSettingsTitle"
+            android:text="@string/show_profile_smoking_title" />
+
+        <TextView
+            android:id="@+id/show_profile_custom_settings_smoking_content"
+            style="@style/ShowProfileCustomSettingsContent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/show_profile_speking_title" />
+
+        <TextView
+            style="@style/ShowProfileCustomSettingsTitle"
+            android:layout_height="38dp"
+            android:text="@string/show_profile_music_title" />
+
+        <TextView
+            android:id="@+id/show_profile_custom_settings_music_content"
+            style="@style/ShowProfileCustomSettingsContent"
+            android:text="@string/show_profile_speking_title" />
+
+        <TextView
+            style="@style/ShowProfileCustomSettingsTitle"
+            android:text="@string/show_profile_pets_title" />
+
+        <TextView
+            android:id="@+id/show_profile_custom_settings_pets_content"
+            style="@style/ShowProfileCustomSettingsContent"
+            android:text="@string/show_profile_speking_title" />
+    </GridLayout>
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp">
+
+        <ImageView
+            android:id="@+id/show_profil_submitted_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_highlight_off_24" />
+        <TextView
+            android:id="@+id/show_profile_email_address_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingLeft="16dp"
+            android:textSize="@dimen/tabs_content_link_font_size" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/show_profile_car_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingLeft="50dp"
+        android:textSize="@dimen/tabs_content_link_font_size"
+        android:visibility="gone"
+        android:paddingTop="15dp"/>
+    <View style="@style/Divider" />
+
 </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

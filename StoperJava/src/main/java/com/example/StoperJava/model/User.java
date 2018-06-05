@@ -72,9 +72,9 @@ public class User {
 			int smoking, int music, int pets) {
 		super();
 		this.gender = gender;
-		this.firstName = firstName;
+		this.first_name = firstName;
 		this.lastName = lastName;
-		this.yearOfBirth = yearOfBirth;
+		this.year_of_birth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -106,9 +106,9 @@ public class User {
 			String biography, String area_call, String phoneNumber, boolean confirmed, String level) {
 		super();
 		this.gender = gender;
-		this.firstName = firstName;
+		this.first_name = firstName;
 		this.lastName = lastName;
-		this.yearOfBirth = yearOfBirth;
+		this.year_of_birth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -120,9 +120,9 @@ public class User {
 
     public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
         this.gender = gender;
-        this.firstName = firstName;
+        this.first_name = firstName;
         this.lastName = lastName;
-        this.yearOfBirth = yearOfBirth;
+        this.year_of_birth = yearOfBirth;
         this.email = email;
         this.password = password;
         this.biography = biography;
@@ -138,9 +138,9 @@ public class User {
 			String carBrand, String carBrandModel, int carYear) {
 		super();
 		this.gender = gender;
-		this.firstName = firstName;
+		this.first_name = firstName;
 		this.lastName = lastName;
-		this.yearOfBirth = yearOfBirth;
+		this.year_of_birth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;

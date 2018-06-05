@@ -1,14 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragments.ProfileAccountFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        style="@style/AccountTitle"
+        android:text="@string/account_statistic_data_title" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/account_link_to_statistic_data"
+        style="@style/AccountContent"
+        android:text="@string/account_statistic_data_link_title"/>
+
+    <TextView
+        style="@style/AccountTitle"
+        android:text="@string/account_settings_title" />
+
+    <TextView
+        android:id="@+id/account_link_to_notifications_settings"
+        style="@style/AccountContent"
+        android:text="@string/account_settings_link_notifications_title"/>
+
+    <TextView
+        android:id="@+id/account_link_to_password_change"
+        style="@style/AccountContent"
+        android:text="@string/account_settings_link_change_password_title"/>
+
+    <TextView
+        style="@style/AccountTitle"
+        android:text="@string/account_about_us_title" />
+
+    <TextView
+        android:id="@+id/account_link_to_help"
+        style="@style/AccountContent"
+        android:text="@string/account_about_us_help_title"/>
+
+    <TextView
+        android:id="@+id/account_link_to_terms_of_service_title"
+        style="@style/AccountContent"
+        android:text="@string/account_about_us_terms_of_service_title"/>
+
+    <TextView
+        android:id="@+id/account_link_to_privacy"
+        style="@style/AccountContent"
+        android:text="@string/account_about_us_privacy_title"/>
+
+    <TextView
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:text="@string/account_logout_title"/>
+</LinearLayout>
+</android.support.v4.widget.NestedScrollView>
