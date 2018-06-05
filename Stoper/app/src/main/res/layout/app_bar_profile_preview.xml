@@ -21,11 +21,11 @@
         android:id="@+id/profile_image"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:src="@drawable/diavolo"
+        android:src="@drawable/ic_account_circle"
         app:civ_border_width="2dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        app:civ_border_color="#FF000000"
+        app:civ_border_color="@color/colorPrimary"
         android:layout_gravity="center_horizontal"/>
 
     <TextView

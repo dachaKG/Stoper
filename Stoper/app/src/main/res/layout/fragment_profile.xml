@@ -23,11 +23,11 @@ tools:context="stoper.stoper.fragments.ProfileFragment">
     android:id="@+id/profile_image"
     android:layout_width="76dp"
     android:layout_height="76dp"
-    android:src="@drawable/diavolo"
+    android:src="@drawable/ic_account_circle"
     app:civ_border_width="2dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
-    app:civ_border_color="#FF000000"
+    app:civ_border_color="@c"
     android:layout_gravity="center_horizontal"/>
     <TextView
         android:id="@+id/profile_head_name"
@@ -43,14 +43,17 @@ tools:context="stoper.stoper.fragments.ProfileFragment">
         android:gravity="center"
         android:text="Početnik"
         />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/white"/>
 </LinearLayout>
-<android.support.v4.view.ViewPager
-    android:id="@+id/pager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>

@@ -1,5 +1,7 @@
 package stoper.stoper.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -41,10 +43,10 @@ public class ShowProfileActivity extends AppCompatActivity {
         smokingContent.setText(smoking.get(user.getSmoking()));
 
         TextView musicContent = (TextView) findViewById(R.id.show_profile_custom_settings_music_content);
-        musicContent.setText(smoking.get(user.getMusic()));
+        musicContent.setText(music.get(user.getMusic()));
 
         TextView petsContent = (TextView) findViewById(R.id.show_profile_custom_settings_pets_content);
-        petsContent.setText(smoking.get(user.getPets()));
+        petsContent.setText(pets.get(user.getPets()));
 
         ImageView imageView = (ImageView) findViewById(R.id.show_profil_submitted_image);
         TextView textView = (TextView) findViewById(R.id.show_profile_email_address_status);
@@ -62,6 +64,13 @@ public class ShowProfileActivity extends AppCompatActivity {
             car_model.setText(String.format("%s %s", user.getCarBrand(), user.getCarBrandModel()));
             car_model.setVisibility(View.VISIBLE);
 
+        }
+
+        ImageView profile_image = (ImageView) findViewById(R.id.profile_image);
+        if (user.getProfileImage() != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
+
+            profile_image.setImageBitmap(bitmap);
         }
     }
 }
