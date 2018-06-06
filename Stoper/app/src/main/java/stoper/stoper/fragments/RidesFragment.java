@@ -1,22 +1,37 @@
 package stoper.stoper.fragments;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import stoper.stoper.Api;
 import stoper.stoper.R;
 import stoper.stoper.adapter.RideFragmentAdapter;
 import stoper.stoper.model.Ride;
+
+import static java.lang.System.out;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +46,7 @@ public class RidesFragment extends Fragment {
     ArrayList<Ride> rideList;
     private Bundle bundle;
     private Fragment fragment;
+    RecyclerView recyclerView;
 
     public RidesFragment() {
         // Required empty public constructor
@@ -41,9 +57,9 @@ public class RidesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycle_view_ride, container, false);
+        recyclerView = (RecyclerView) inflater.inflate(R.layout.recycle_view_ride, container, false);
         rideList = new ArrayList<Ride>();
-        Ride r1=new Ride();
+        /*Ride r1=new Ride();
         r1.setEndDestination("Paragovo");
         r1.setStartDestination("Fojnica");
         r1.setPrice(345);
@@ -53,14 +69,15 @@ public class RidesFragment extends Fragment {
         r2.setPrice(444);
 
         rideList.add(r1);
-        rideList.add(r2);
+        rideList.add(r2);*/
+        new HttpReqTask().execute();
 
-        bundle = getArguments();
+       /* bundle = getArguments();
         if(bundle.getParcelableArrayList("ridesList") == null)
-            bundle.putParcelableArrayList("ridesList", rideList);
+            bundle.putParcelableArrayList("ridesList", rideList);*/
 
 
-        RideFragmentAdapter rideFragmentAdapter = new RideFragmentAdapter(bundle.<Ride>getParcelableArrayList("ridesList"));
+        /*RideFragmentAdapter rideFragmentAdapter = new RideFragmentAdapter(bundle.<Ride>getParcelableArrayList("ridesList"));
         rideFragmentAdapter.setListener(new RideFragmentAdapter.Listener() {
             @Override
             public void onClick(int position) {
@@ -74,82 +91,66 @@ public class RidesFragment extends Fragment {
                 ft.addToBackStack(null);
                 ft.commit();
             }
-        });
+        });*/
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        /*LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(rideFragmentAdapter);
-        return  recyclerView;
+        recyclerView.setAdapter(rideFragmentAdapter);*/
+        return recyclerView;
     }
-    /*@Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        /*Ride r1=new Ride();
-        r1.setEndDestination("Paragovo");
-        r1.setStartDestination("Fojnica");
-        r1.setPrice(345);
-        Ride r2=new Ride();
-        r2.setEndDestination("Pariz");
-        r2.setStartDestination("Nica");
-        r2.setPrice(444);
 
-        rideList.add(r1);
-        rideList.add(r2);//
+    private class HttpReqTask extends AsyncTask<Void, Void, Ride[]> {
 
-        bundle = getArguments();
 
-        rideList = bundle.getParcelableArrayList("rideList");
-        mylistview = (ListView) view.findViewById(R.id.ridesList);
+        @Override
+        protected Ride[] doInBackground(Void... voids) {
+            try {
+                String apiUrl = Api.apiUrl + "/ride";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-        CustomAdapter adapter = new CustomAdapter(getContext(), rideList);
-        mylistview.setAdapter(adapter);
-        mylistview.setOnItemClickListener(this);
+                Gson gson = new Gson();
+                Ride[] getRides = (Ride[]) restTemplate.getForObject(apiUrl, Ride[].class);
+                //List<Ride> listRides = (List<Ride>) gson.fromJson(getRides, Ride.class);
+                return getRides;
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
 
-    }*/
-
-    /*@Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        String member_name = rideList.get(position).getStartDestination();
-        Toast.makeText(getContext(), "" + member_name,
-                Toast.LENGTH_SHORT).show();
-    }*/
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        /*if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }*/
-    }
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-       *if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            return null;
         }
+
+        @Override
+        protected void onPostExecute(Ride[] rides) {
+            super.onPostExecute(rides);
+
+            bundle = getArguments();
+            if (bundle.getParcelableArrayList("ridesList") == null)
+                bundle.putParcelableArrayList("ridesList", new ArrayList<>(Arrays.asList(rides)));
+
+            RideFragmentAdapter rideFragmentAdapter = new RideFragmentAdapter(bundle.<Ride>getParcelableArrayList("ridesList"));
+            rideFragmentAdapter.setListener(new RideFragmentAdapter.Listener() {
+                @Override
+                public void onClick(int position) {
+                    bundle.putParcelable("selectedRide", bundle.<Ride>getParcelableArrayList("ridesList").get(position));
+                    fragment = new RideDetailsFragment();
+                    fragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    ft.replace(R.id.main_screen, fragment);
+
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
+            });
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setAdapter(rideFragmentAdapter);
+
+        }
+
+
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }*/
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     *//*
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 }

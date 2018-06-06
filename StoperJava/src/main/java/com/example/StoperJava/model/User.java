@@ -1,5 +1,6 @@
 package com.example.StoperJava.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,36 +29,52 @@ public class User {
 	
 	private String password;
 	
+	@Column(nullable = true)
     private String biography;
 
+	@Column(nullable = true)
     private String areaCall;
-    
+
+	@Column(nullable = true)
     private String phoneNumber;
 
+	@Column(nullable = true)
     private boolean confirmed;
 
+	@Column(nullable = true)
     private String level;
-    
+
+	@Column(nullable = true)
     private int speaking;
-    
+
+	@Column(nullable = true)
     private int smoking;
-    
+
+	@Column(nullable = true)
     private int music;
-    
+
+	@Column(nullable = true)
     private int pets;
-    
+
+	@Column(nullable = true)
     private int carCountry;
-    
+
+	@Column(nullable = true)
     private int carColor;
-    
+
+	@Column(nullable = true)
     private int carType;
-    
+
+	@Column(nullable = true)
     private String carRegistratonNumber;
-    
+
+	@Column(nullable = true)
     private String carBrand;
-    
+
+	@Column(nullable = true)
     private String carBrandModel;
-    
+
+	@Column(nullable = true)
     private int carYear;
     
 	//private List<String> reviews;
@@ -343,6 +360,22 @@ public class User {
 
 	public void setCarYear(int carYear) {
 		this.carYear = carYear;
+	}
+
+	public String getFirst_name() {
+		return first_name;
+	}
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public int getYear_of_birth() {
+		return year_of_birth;
+	}
+
+	public void setYear_of_birth(int year_of_birth) {
+		this.year_of_birth = year_of_birth;
 	}
 
 	
