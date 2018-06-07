@@ -150,28 +150,7 @@ public class StarterFragment extends Fragment {
 
             }
         });
-        /////
-        //dummy part
-        ////
-        /*
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(usernameText.getText().toString().equals("admin") &&
-                        passwordText.getText().toString().equals("123")) {
-                    usernameText.setBackgroundColor(Color.GREEN);
-                }else{
-                    usernameText.setBackgroundColor(Color.RED);
-                    counter--;
-                    counterText.setText("Tries left " + Integer.toString(counter));
-                    counterText.setVisibility(View.VISIBLE);
-                    if (counter == 0) {
-                        loginButton.setEnabled(false);
-                    }
-                }
-            }
-        });
-        */
+      
     }
 
     private class HttpReqTask extends AsyncTask<LoginReq, Void, RegistrationReq> {
@@ -185,11 +164,6 @@ public class StarterFragment extends Fragment {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<LoginReq> user = new HttpEntity<>(users[0]);
                 ResponseEntity<RegistrationReq> userTest = restTemplate.exchange(apiUrl, HttpMethod.POST,  user, RegistrationReq.class);
-
-                //Gson gson = new Gson();
-                //Ride[] getRides = (Ride[]) restTemplate.getForObject(apiUrl, Ride[].class);
-                //List<Ride> listRides = (List<Ride>) gson.fromJson(getRides, Ride.class);
-                //return getRides;
                 return userTest.getBody();
             } catch (Exception ex) {
                 Log.e("..", ex.getMessage());
@@ -204,7 +178,6 @@ public class StarterFragment extends Fragment {
 
 
             String baseName="detailsUSER";
-
             SharedPreferences loggedUserDetails;
             loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
 
@@ -213,8 +186,6 @@ public class StarterFragment extends Fragment {
             edit.putString("lastname", passwordArg);
 
             edit.apply();
-
-
 
             loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
 
