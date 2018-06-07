@@ -25,6 +25,8 @@ import org.springframework.web.client.RestTemplate;
 
 import stoper.stoper.R;
 import stoper.stoper.model.LoginReq;
+import stoper.stoper.model.RegistrationReq;
+import stoper.stoper.model.User;
 
 
 import static java.lang.System.out;
@@ -169,18 +171,22 @@ public class StarterFragment extends Fragment {
         */
     }
 
-    private class HttpReqTask extends AsyncTask<LoginReq, Void, Boolean> {
+    private class HttpReqTask extends AsyncTask<LoginReq, Void, RegistrationReq> {
 
 
         @Override
-        protected Boolean doInBackground(LoginReq... users) {
+        protected RegistrationReq doInBackground(LoginReq... users) {
             try {
                 String apiUrl = "http://192.168.0.11:8080/user/login";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<LoginReq> user = new HttpEntity<>(users[0]);
-                ResponseEntity<Boolean> userTest = restTemplate.exchange(apiUrl, HttpMethod.POST,  user, Boolean.class);
+                ResponseEntity<RegistrationReq> userTest = restTemplate.exchange(apiUrl, HttpMethod.POST,  user, RegistrationReq.class);
 
+                //Gson gson = new Gson();
+                //Ride[] getRides = (Ride[]) restTemplate.getForObject(apiUrl, Ride[].class);
+                //List<Ride> listRides = (List<Ride>) gson.fromJson(getRides, Ride.class);
+                //return getRides;
                 return userTest.getBody();
             } catch (Exception ex) {
                 Log.e("..", ex.getMessage());
@@ -190,9 +196,11 @@ public class StarterFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            out.println("Vratio je - " + aBoolean);
+        protected void onPostExecute(RegistrationReq userLoged) {
+            super.onPostExecute(userLoged);
+            out.println(userLoged.getLastName());
+            out.println(userLoged.getFirst_name());
+            out.println(userLoged.getGender());
         }
     }
 /*

@@ -238,8 +238,9 @@ public class RegistrationFragment extends Fragment {
 						Gson gson = new Gson();
 						user.setEmail(usernameArg);
 						user.setPassword(passwordArg);
-						user.setFirstName(nameArg);
+						user.setfirst_name(nameArg);
 						user.setLastName(lastnameArg);
+						user.setyear_of_birth(yearOfBirthArg);
 						user.setGender(genderArg);
 						user.setPassword(passwordArg);
 						String json = gson.toJson(user);

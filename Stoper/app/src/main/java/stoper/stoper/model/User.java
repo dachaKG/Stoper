@@ -1,5 +1,7 @@
 package stoper.stoper.model;
 
+
+
 public class User{
 
     private Long id;
@@ -342,21 +344,6 @@ public class User{
     public void setProfileImage(byte[] profileImage) {
         this.profileImage = profileImage;
     }
-
-
-
-
-
-
-    //public List<String> getReviews() {
-    //	return reviews;
-    //}
-
-    //public void setReviews(List<String> reviews) {
-    //	this.reviews = reviews;
-    //}
-
-
 
 
 }
