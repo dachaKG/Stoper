@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.StoperJava.dto.UserCarDTO;
+import com.example.StoperJava.dto.UserCustomSettingsDTO;
 import com.example.StoperJava.dto.UserEmailDTO;
+import com.example.StoperJava.dto.UserImageDTO;
+import com.example.StoperJava.dto.UserPasswordDTO;
 import com.example.StoperJava.dto.UserPersonalDataDTO;
 import com.example.StoperJava.dto.UserPhoneNumberDTO;
 import com.example.StoperJava.model.LoginRequest;
@@ -41,6 +45,7 @@ public class UserControler {
 	@GetMapping("/{id}")
 	public User get(@PathVariable Long id){
 		User user = userService.findOne(id).get();
+		
 		return user;
 	}
 	
@@ -104,12 +109,12 @@ public class UserControler {
 	@RequestMapping(value = "/personalData")
 	public Boolean updatePersonalData(@RequestBody UserPersonalDataDTO userPersonalData) {
 		boolean result = false;
-		User user = userService.findByUsername(userPersonalData.getEmail());
+		User user = userService.findByEmail(userPersonalData.getEmail());
 		if(user != null) {
-			user.setfirst_name(userPersonalData.getFirstName());
+			user.setFirstName(userPersonalData.getFirstName());
 			user.setLastName(userPersonalData.getLastName());
 			user.setGender(userPersonalData.getGender());
-			user.setyear_of_birth(userPersonalData.getBirthYear());
+			user.setYearOfBirth(userPersonalData.getBirthYear());
 			user.setBiography(userPersonalData.getBiography());
 			
 			userService.saveUser(user);
@@ -125,7 +130,7 @@ public class UserControler {
 	@RequestMapping(value = "/email")
 	public Boolean updateEmail(@RequestBody UserEmailDTO userEmail) {
 		boolean result = false;
-		User user = userService.findByUsername(userEmail.getOldEmail());
+		User user = userService.findByEmail(userEmail.getOldEmail());
 		if(user != null) {
 			user.setEmail(userEmail.getNewEmail());
 			user.setConfirmed(userEmail.getConfirmed());
@@ -142,10 +147,86 @@ public class UserControler {
 	@RequestMapping(value = "/phoneNumber")
 	public Boolean updatePhoneNumber(@RequestBody UserPhoneNumberDTO userPhoneNumber) {
 		boolean result = false;
-		User user = userService.findByUsername(userPhoneNumber.getEmail());
+		User user = userService.findByEmail(userPhoneNumber.getEmail());
 		if(user != null) {
 			user.setAreaCall(userPhoneNumber.getAreaCall());
 			user.setPhoneNumber(userPhoneNumber.getPhoneNumber());
+			
+			userService.saveUser(user);
+			result = true;
+		}else {
+			result = false;
+		}
+		return result;	
+	}
+	
+	@PutMapping
+	@RequestMapping(value = "/customSettings")
+	public Boolean updateCustomSettings(@RequestBody UserCustomSettingsDTO customSettingsDTO) {
+		boolean result = false;
+		User user = userService.findByEmail(customSettingsDTO.getEmail());
+		if(user != null) {
+			user.setSpeaking(customSettingsDTO.getSpeaking());
+			user.setSmoking(customSettingsDTO.getSmoking());
+			user.setMusic(customSettingsDTO.getMusic());
+			user.setPets(customSettingsDTO.getPets());
+			
+			userService.saveUser(user);
+			result = true;
+		}else {
+			result = false;
+		}
+		return result;	
+	}
+	
+	@PutMapping
+	@RequestMapping(value = "/car")
+	public Boolean updateCar(@RequestBody UserCarDTO carDTO) {
+		boolean result = false;
+		User user = userService.findByEmail(carDTO.getEmail());
+		if(user != null) {
+			user.setCarBrand(carDTO.getCarBrand());
+			user.setCarBrandModel(carDTO.getCarBrandModel());
+			user.setCarColor(carDTO.getCarColor());
+			user.setCarCountry(carDTO.getCarCountry());
+			user.setCarRegistratonNumber(carDTO.getCarRegistratonNumber());
+			user.setCarType(carDTO.getCarType());
+			user.setCarYear(carDTO.getCarYear());
+			userService.saveUser(user);
+			result = true;
+		}else {
+			result = false;
+		}
+		return result;	
+	}
+	
+	@PutMapping
+	@RequestMapping(value = "/password")
+	public Boolean changePassword(@RequestBody UserPasswordDTO passwordDTO) {
+		boolean result = false;
+		User user = userService.findByEmail(passwordDTO.getEmail());
+		if(user != null) {
+			if(user.getPassword().equals(passwordDTO.getOldPassword()) && passwordDTO.getNewPassword().equals(passwordDTO.getConfirmedNewPassword())) {
+				user.setPassword(passwordDTO.getNewPassword());
+				userService.saveUser(user);
+				result = true;
+			}else {
+				result = false;
+			}
+
+		}else {
+			result = false;
+		}
+		return result;	
+	}
+	
+	@PutMapping
+	@RequestMapping(value = "/image")
+	public Boolean updateImage(@RequestBody UserImageDTO imageDTO) {
+		boolean result = false;
+		User user = userService.findByEmail(imageDTO.getEmail());
+		if(user != null) {
+			user.setProfileImage(imageDTO.getImageBytes());
 			
 			userService.saveUser(user);
 			result = true;

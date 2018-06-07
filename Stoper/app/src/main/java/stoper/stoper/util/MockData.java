@@ -1,11 +1,30 @@
 package stoper.stoper.util;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.ImageView;
+
+import com.google.gson.Gson;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import stoper.stoper.Api;
+import stoper.stoper.DTO.UserCustomSettingsDTO;
+import stoper.stoper.R;
+import stoper.stoper.model.Ride;
 import stoper.stoper.model.User;
+
+import static java.lang.System.out;
 
 public class MockData extends Application {
     public static List<User> users;
@@ -40,5 +59,5 @@ public class MockData extends Application {
         return  users;
     }
 
-
 }
+

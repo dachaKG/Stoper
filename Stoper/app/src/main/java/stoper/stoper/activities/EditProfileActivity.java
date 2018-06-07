@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.text.Line;
+import com.google.gson.Gson;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -42,7 +43,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import stoper.stoper.Api;
+import stoper.stoper.DTO.UserCustomSettingsDTO;
 import stoper.stoper.DTO.UserEmailDTO;
+import stoper.stoper.DTO.UserImageDTO;
 import stoper.stoper.DTO.UserPersonalDataDTO;
 import stoper.stoper.DTO.UserPhoneNumberDTO;
 import stoper.stoper.MainActivity;
@@ -148,12 +151,14 @@ public class EditProfileActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.phone_number_text_view)).setText(loggedUser.getPhoneNumber());
         }
 
-        ImageView imageView = (ImageView) findViewById(R.id.profile_image_view);
+        /*ImageView imageView = (ImageView) findViewById(R.id.profile_image_view);
         if (loggedUser.getProfileImage() != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(loggedUser.getProfileImage(), 0, loggedUser.getProfileImage().length);
 
             imageView.setImageBitmap(bitmap);
-        }
+        }*/
+        GetUserDataTask taks = new GetUserDataTask();
+        taks.execute();
     }
 
     @Override
@@ -253,6 +258,10 @@ public class EditProfileActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
             byte[] byteArray = stream.toByteArray();
             User user = mockData.UsersDatabase().get(0);
+            UserImageDTO userImageDTO = new UserImageDTO(user.getEmail(), byteArray);
+            SaveImageDataTask task = new SaveImageDataTask();
+            task.execute(userImageDTO);
+
             user.setProfileImage(byteArray);
             ImageView imageView = (ImageView)findViewById(R.id.profile_image_view);
             imageView.setImageBitmap(bitmap);
@@ -336,4 +345,66 @@ public class EditProfileActivity extends AppCompatActivity {
             out.println("Boolean jeeeeeee " + aBoolean.toString());
         }
     }
+
+    private class SaveImageDataTask extends AsyncTask<UserImageDTO, Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(UserImageDTO... userImageDTO) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/image";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<UserImageDTO> data = new HttpEntity<>(userImageDTO[0]);
+                ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.PUT,  data, Boolean.class);
+
+                return proba.getBody();
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+
+            out.println("Boolean jeeeeeee " + aBoolean.toString());
+        }
+    }
+
+
+
+
+
+    private class GetUserDataTask extends AsyncTask<Void, Void,User> {
+
+        protected User doInBackground(Void... voids) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/1";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+                User user = (User) restTemplate.getForObject(apiUrl,User.class);
+                return user;
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            super.onPostExecute(user);
+            ImageView imageView = (ImageView) findViewById(R.id.profile_image_view);
+            if (user != null && user.getProfileImage() != null && user.getProfileImage().length > 0 ) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
+
+                imageView.setImageBitmap(bitmap);
+            }
+
+        }
+    }
+
+
 }

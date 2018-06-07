@@ -1,29 +1,42 @@
 package com.example.StoperJava.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 
+
+/**
+ * @author Danilo
+ *
+ */
+/**
+ * @author Danilo
+ *
+ */
 @Entity
 @Table(name="users")
-public class User {
+public class User{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private int gender;
+	private Integer gender;
 	
-	private String first_name;
+	private String firstName;
 	
 	private String lastName;
 	
-	private int year_of_birth;
+	private Integer yearOfBirth;
 	
 	private String email;
 	
@@ -39,31 +52,31 @@ public class User {
     private String phoneNumber;
 
 	@Column(nullable = true)
-    private boolean confirmed;
+    private Boolean confirmed;
 
 	@Column(nullable = true)
     private String level;
 
 	@Column(nullable = true)
-    private int speaking;
+    private Integer speaking;
 
 	@Column(nullable = true)
-    private int smoking;
+    private Integer smoking;
 
 	@Column(nullable = true)
-    private int music;
+    private Integer music;
 
 	@Column(nullable = true)
-    private int pets;
+    private Integer pets;
 
 	@Column(nullable = true)
-    private int carCountry;
+    private Integer carCountry;
 
 	@Column(nullable = true)
-    private int carColor;
+    private Integer carColor;
 
 	@Column(nullable = true)
-    private int carType;
+    private Integer carType;
 
 	@Column(nullable = true)
     private String carRegistratonNumber;
@@ -75,8 +88,13 @@ public class User {
     private String carBrandModel;
 
 	@Column(nullable = true)
-    private int carYear;
+    private Integer carYear;
     
+	@Lob
+	 @JsonInclude
+	@Basic(fetch = FetchType.EAGER)
+    private byte[] profileImage;
+
 	//private List<String> reviews;
 
 	public User() {
@@ -84,14 +102,14 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public User(int gender, String firstName, String lastName, int year_of_birth, String email, String password,
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
 			String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
 			int smoking, int music, int pets) {
 		super();
 		this.gender = gender;
-		this.first_name = firstName;
+		this.firstName = firstName;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -111,21 +129,21 @@ public class User {
 		super();
 		//this.id = id;
 		this.gender = gender;
-		this.first_name = first_name;
+		this.firstName = first_name;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.yearOfBirth = year_of_birth;
 		this.email = email;
 		this.password = password;
 		//this.reviews = reviews;
 	}
 
-	public User(int gender, String firstName, String lastName, int year_of_birth, String email, String password,
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
 			String biography, String area_call, String phoneNumber, boolean confirmed, String level) {
 		super();
 		this.gender = gender;
-		this.first_name = firstName;
+		this.firstName = firstName;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -135,11 +153,11 @@ public class User {
 		this.level = level;
 	}
 
-    public User(int gender, String firstName, String lastName, int year_of_birth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
         this.gender = gender;
-        this.first_name = firstName;
+        this.firstName = firstName;
         this.lastName = lastName;
-        this.year_of_birth = year_of_birth;
+        this.yearOfBirth = yearOfBirth;
         this.email = email;
         this.password = password;
         this.biography = biography;
@@ -149,15 +167,15 @@ public class User {
         this.areaCall = areaCall;
     }
     
-	public User(int gender, String firstName, String lastName, int year_of_birth, String email, String password,
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
 			String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
 			int smoking, int music, int pets, int carCountry, int carColor, int carType, String carRegistratonNumber,
 			String carBrand, String carBrandModel, int carYear) {
 		super();
 		this.gender = gender;
-		this.first_name = firstName;
+		this.firstName = firstName;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -186,20 +204,20 @@ public class User {
 		this.id = id;
 	}
 
-	public int getGender() {
+	public Integer getGender() {
 		return gender;
 	}
 
-	public void setGender(int gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
 
-	public String getfirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setfirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -210,12 +228,12 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public int getyear_of_birth() {
-		return year_of_birth;
+	public Integer getYearOfBirth() {
+		return yearOfBirth;
 	}
 
-	public void setyear_of_birth(int year_of_birth) {
-		this.year_of_birth = year_of_birth;
+	public void setYearOfBirth(Integer yearOfBirth) {
+		this.yearOfBirth = yearOfBirth;
 	}
 
 	public String getEmail() {
@@ -246,8 +264,8 @@ public class User {
 		return areaCall;
 	}
 
-	public void setAreaCall(String area_call) {
-		this.areaCall = area_call;
+	public void setAreaCall(String areaCall) {
+		this.areaCall = areaCall;
 	}
 
 	public String getPhoneNumber() {
@@ -258,11 +276,11 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public boolean isConfirmed() {
+	public Boolean getConfirmed() {
 		return confirmed;
 	}
 
-	public void setConfirmed(boolean confirmed) {
+	public void setConfirmed(Boolean confirmed) {
 		this.confirmed = confirmed;
 	}
 
@@ -274,59 +292,59 @@ public class User {
 		this.level = level;
 	}
 
-	public int getSpeaking() {
+	public Integer getSpeaking() {
 		return speaking;
 	}
 
-	public void setSpeaking(int speaking) {
+	public void setSpeaking(Integer speaking) {
 		this.speaking = speaking;
 	}
 
-	public int getSmoking() {
+	public Integer getSmoking() {
 		return smoking;
 	}
 
-	public void setSmoking(int smoking) {
+	public void setSmoking(Integer smoking) {
 		this.smoking = smoking;
 	}
 
-	public int getMusic() {
+	public Integer getMusic() {
 		return music;
 	}
 
-	public void setMusic(int music) {
+	public void setMusic(Integer music) {
 		this.music = music;
 	}
 
-	public int getPets() {
+	public Integer getPets() {
 		return pets;
 	}
 
-	public void setPets(int pets) {
+	public void setPets(Integer pets) {
 		this.pets = pets;
 	}
 
-	public int getCarCountry() {
+	public Integer getCarCountry() {
 		return carCountry;
 	}
 
-	public void setCarCountry(int carCountry) {
+	public void setCarCountry(Integer carCountry) {
 		this.carCountry = carCountry;
 	}
 
-	public int getCarColor() {
+	public Integer getCarColor() {
 		return carColor;
 	}
 
-	public void setCarColor(int carColor) {
+	public void setCarColor(Integer carColor) {
 		this.carColor = carColor;
 	}
 
-	public int getCarType() {
+	public Integer getCarType() {
 		return carType;
 	}
 
-	public void setCarType(int carType) {
+	public void setCarType(Integer carType) {
 		this.carType = carType;
 	}
 
@@ -354,30 +372,25 @@ public class User {
 		this.carBrandModel = carBrandModel;
 	}
 
-	public int getCarYear() {
+	public Integer getCarYear() {
 		return carYear;
 	}
 
-	public void setCarYear(int carYear) {
+	public void setCarYear(Integer carYear) {
 		this.carYear = carYear;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public byte[] getProfileImage() {
+		return profileImage;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setProfileImage(byte[] profileImage) {
+		this.profileImage = profileImage;
 	}
 
-	public int getYear_of_birth() {
-		return year_of_birth;
-	}
 
-	public void setYear_of_birth(int year_of_birth) {
-		this.year_of_birth = year_of_birth;
-	}
 
+	
 	
 	
 	//public List<String> getReviews() {
