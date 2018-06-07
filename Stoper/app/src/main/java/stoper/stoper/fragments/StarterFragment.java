@@ -1,4 +1,6 @@
 package stoper.stoper.fragments;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +31,7 @@ import stoper.stoper.model.RegistrationReq;
 import stoper.stoper.model.User;
 
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.lang.System.out;
 
 /**
@@ -130,8 +133,8 @@ public class StarterFragment extends Fragment {
                 LoginReq user = new LoginReq();
                 usernameArg=usernameText.getText().toString().trim();
                 passwordArg=passwordText.getText().toString().trim();
-                System.out.println(usernameArg);
-                System.out.println(passwordArg);
+
+
                 try {
 
                     user.setEmail(usernameArg);
@@ -198,9 +201,28 @@ public class StarterFragment extends Fragment {
         @Override
         protected void onPostExecute(RegistrationReq userLoged) {
             super.onPostExecute(userLoged);
-            out.println(userLoged.getLastName());
-            out.println(userLoged.getFirst_name());
-            out.println(userLoged.getGender());
+
+
+            String baseName="detailsUSER";
+
+            SharedPreferences loggedUserDetails;
+            loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
+
+            SharedPreferences.Editor edit = loggedUserDetails.edit();
+            edit.putString("first_name", usernameArg);
+            edit.putString("lastname", passwordArg);
+
+            edit.apply();
+
+
+
+            loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
+
+            String userName = loggedUserDetails.getString("first_name", "");
+            String password = loggedUserDetails.getString("lastname", "");
+
+            System.out.println(userName);
+            System.out.println(password);
         }
     }
 /*
