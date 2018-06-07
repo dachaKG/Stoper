@@ -32,11 +32,11 @@ public class User{
 	
 	private Integer gender;
 	
-	private String first_name;
+	private String firstName;
 	
 	private String lastName;
 	
-	private Integer year_of_birth;
+	private Integer yearOfBirth;
 	
 	private String email;
 	
@@ -102,14 +102,14 @@ public class User{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public User(int gender, String first_name, String lastName, int year_of_birth, String email, String password,
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
 			String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
 			int smoking, int music, int pets) {
 		super();
 		this.gender = gender;
-		this.first_name = first_name;
+		this.firstName = firstName;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -129,21 +129,21 @@ public class User{
 		super();
 		//this.id = id;
 		this.gender = gender;
-		this.first_name = first_name;
+		this.firstName = first_name;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.yearOfBirth = year_of_birth;
 		this.email = email;
 		this.password = password;
 		//this.reviews = reviews;
 	}
 
-	public User(int gender, String first_name, String lastName, int year_of_birth, String email, String password,
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
 			String biography, String area_call, String phoneNumber, boolean confirmed, String level) {
 		super();
 		this.gender = gender;
-		this.first_name = first_name;
+		this.firstName = firstName;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -153,11 +153,11 @@ public class User{
 		this.level = level;
 	}
 
-    public User(int gender, String first_name, String lastName, int year_of_birth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
         this.gender = gender;
-        this.first_name = first_name;
+        this.firstName = firstName;
         this.lastName = lastName;
-        this.year_of_birth = year_of_birth;
+        this.yearOfBirth = yearOfBirth;
         this.email = email;
         this.password = password;
         this.biography = biography;
@@ -167,15 +167,15 @@ public class User{
         this.areaCall = areaCall;
     }
     
-	public User(int gender, String first_name, String lastName, int year_of_birth, String email, String password,
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
 			String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
 			int smoking, int music, int pets, int carCountry, int carColor, int carType, String carRegistratonNumber,
 			String carBrand, String carBrandModel, int carYear) {
 		super();
 		this.gender = gender;
-		this.first_name = first_name;
+		this.firstName = firstName;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -213,11 +213,11 @@ public class User{
 	}
 
 	public String getFirstName() {
-		return first_name;
+		return firstName;
 	}
 
-	public void setFirstName(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -229,11 +229,11 @@ public class User{
 	}
 
 	public Integer getYearOfBirth() {
-		return year_of_birth;
+		return yearOfBirth;
 	}
 
-	public void setYearOfBirth(Integer year_of_birth) {
-		this.year_of_birth = year_of_birth;
+	public void setYearOfBirth(Integer yearOfBirth) {
+		this.yearOfBirth = yearOfBirth;
 	}
 
 	public String getEmail() {

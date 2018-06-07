@@ -75,7 +75,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:background="#80000000"
-                    android:src="@drawable/GreenCircle" />
+                    android:src="@drawable/green_circle" />
 
                 <TextView
                     android:id="@+id/added_mark_to_mark_text"

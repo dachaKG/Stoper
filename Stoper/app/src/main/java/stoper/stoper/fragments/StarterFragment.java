@@ -182,10 +182,10 @@ public class StarterFragment extends Fragment {
             loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
 
             SharedPreferences.Editor edit = loggedUserDetails.edit();
-            edit.putString("first_name", userLoged.getfirst_name());
-            edit.putString("lastname", passwordArg.getLastName());
-			edit.putString("email", passwordArg.getEmail());
-			edit.putInt("gender", passwordArg.getGender());
+            edit.putString("first_name", userLoged.getFirst_name());
+            edit.putString("lastname", userLoged.getLastName());
+			edit.putString("email", userLoged.getEmail());
+			edit.putInt("gender", userLoged.getGender());
             
 			edit.apply();
 
