@@ -10,7 +10,7 @@ public class User {
 
     private String lastName;
 
-    private int yearOfBirth;
+    private int year_of_birth;
 
     private String email;
 
@@ -50,11 +50,15 @@ public class User {
 
     private byte[] profileImage;
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets) {
+    public  User() {
+        super();
+    }
+
+    public User(int gender, String firstName, String lastName, int year_of_birth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.yearOfBirth = yearOfBirth;
+        this.year_of_birth = year_of_birth;
         this.email = email;
         this.password = password;
         this.biography = biography;
@@ -68,11 +72,11 @@ public class User {
         this.pets = pets;
     }
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level, String areaCall) {
+    public User(int gender, String firstName, String lastName, int year_of_birth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level, String areaCall) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.yearOfBirth = yearOfBirth;
+        this.year_of_birth = year_of_birth;
         this.email = email;
         this.password = password;
         this.biography = biography;
@@ -82,11 +86,11 @@ public class User {
         this.areaCall = areaCall;
     }
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets, int carCountry, int carColor, int carType, String carRegistratonNumber, String carBrand, String carBrandModel, int carYear) {
+    public User(int gender, String firstName, String lastName, int year_of_birth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets, int carCountry, int carColor, int carType, String carRegistratonNumber, String carBrand, String carBrandModel, int carYear) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.yearOfBirth = yearOfBirth;
+        this.year_of_birth = year_of_birth;
         this.email = email;
         this.password = password;
         this.biography = biography;
@@ -132,11 +136,11 @@ public class User {
     }
 
     public int getYearOfBirth() {
-        return yearOfBirth;
+        return year_of_birth;
     }
 
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
+    public void setYearOfBirth(int year_of_birth) {
+        this.year_of_birth = year_of_birth;
     }
 
     public String getEmail() {

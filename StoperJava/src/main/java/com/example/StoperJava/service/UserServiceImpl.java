@@ -1,5 +1,6 @@
 package com.example.StoperJava.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,8 +38,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		User user=new User();
+		List<User> users = new ArrayList<User>();
+		
+		users=findAll();
+		
+		for (int i=0;i<users.size();i++){
+			if (users.get(i).getEmail().equals(username)){
+					user=users.get(i);			
+			}
+		}
+		
+		return user;
 	}
 
 }

@@ -25,10 +25,9 @@ public class UserControler {
 	@Autowired
 	UserService userService;
 	
-	private User testUser1=new User(0, "Danilo", "Acimovic", 1994, "danilo.a@yahoo.com", "123",
-            "Dipl ing, elektroyehnike. Konj", "24554745", true, "pocetnik","+381");
-	//private User testUser2=new User(2L,1,"Kostas","Mitroglu",1984,"kkk","123");
-	//private User testUser3=new User(3L,1,"Scepan","Scekic",1979,"sss","123");
+	
+	private User logedUser=new User();
+	
 	
 	private List<User> users = new ArrayList<User>();
 	
@@ -43,7 +42,7 @@ public class UserControler {
 	}
 	
 	@PostMapping
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/loginnnnslslsln")
 	public Boolean Login(@RequestBody LoginRequest loginRequest) {
 		users=userService.findAll();
 		Boolean success=false;
@@ -56,6 +55,26 @@ public class UserControler {
 			}
 		}
 		return success;
+	}
+	
+	@PostMapping
+	@RequestMapping(value = "/login")
+	public User LogIn(@RequestBody LoginRequest loginRequest) {
+		
+		users=userService.findAll();
+		Boolean success=false;
+		for (int i=0;i<users.size();i++){
+			
+			if (users.get(i).getEmail().equals(loginRequest.getEmail())){
+				
+				if(users.get(i).getPassword().equals(loginRequest.getPassword())){
+					
+					logedUser=userService.findByUsername(loginRequest.getEmail());
+					System.out.println("ssssssss  ---- "+logedUser.getEmail());
+				}
+			}
+		}
+		return logedUser;
 	}
 	
 	//@PostMapping
