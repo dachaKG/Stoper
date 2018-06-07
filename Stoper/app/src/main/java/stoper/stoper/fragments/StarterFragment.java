@@ -1,4 +1,6 @@
 package stoper.stoper.fragments;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +31,7 @@ import stoper.stoper.model.RegistrationReq;
 import stoper.stoper.model.User;
 
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.lang.System.out;
 
 /**
@@ -130,8 +133,8 @@ public class StarterFragment extends Fragment {
                 LoginReq user = new LoginReq();
                 usernameArg=usernameText.getText().toString().trim();
                 passwordArg=passwordText.getText().toString().trim();
-                System.out.println(usernameArg);
-                System.out.println(passwordArg);
+
+
                 try {
 
                     user.setEmail(usernameArg);
@@ -147,28 +150,7 @@ public class StarterFragment extends Fragment {
 
             }
         });
-        /////
-        //dummy part
-        ////
-        /*
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(usernameText.getText().toString().equals("admin") &&
-                        passwordText.getText().toString().equals("123")) {
-                    usernameText.setBackgroundColor(Color.GREEN);
-                }else{
-                    usernameText.setBackgroundColor(Color.RED);
-                    counter--;
-                    counterText.setText("Tries left " + Integer.toString(counter));
-                    counterText.setVisibility(View.VISIBLE);
-                    if (counter == 0) {
-                        loginButton.setEnabled(false);
-                    }
-                }
-            }
-        });
-        */
+      
     }
 
     private class HttpReqTask extends AsyncTask<LoginReq, Void, RegistrationReq> {
@@ -182,11 +164,6 @@ public class StarterFragment extends Fragment {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<LoginReq> user = new HttpEntity<>(users[0]);
                 ResponseEntity<RegistrationReq> userTest = restTemplate.exchange(apiUrl, HttpMethod.POST,  user, RegistrationReq.class);
-
-                //Gson gson = new Gson();
-                //Ride[] getRides = (Ride[]) restTemplate.getForObject(apiUrl, Ride[].class);
-                //List<Ride> listRides = (List<Ride>) gson.fromJson(getRides, Ride.class);
-                //return getRides;
                 return userTest.getBody();
             } catch (Exception ex) {
                 Log.e("..", ex.getMessage());
@@ -198,9 +175,27 @@ public class StarterFragment extends Fragment {
         @Override
         protected void onPostExecute(RegistrationReq userLoged) {
             super.onPostExecute(userLoged);
-            out.println(userLoged.getLastName());
-            out.println(userLoged.getFirst_name());
-            out.println(userLoged.getGender());
+
+
+            String baseName="detailsUSER";
+            SharedPreferences loggedUserDetails;
+            loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
+
+            SharedPreferences.Editor edit = loggedUserDetails.edit();
+            edit.putString("first_name", userLoged.getfirst_name());
+            edit.putString("lastname", passwordArg.getLastName());
+			edit.putString("email", passwordArg.getEmail());
+			edit.putInt("gender", passwordArg.getGender());
+            
+			edit.apply();
+
+            loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
+
+            String userName = loggedUserDetails.getString("first_name", "");
+            String password = loggedUserDetails.getString("lastname", "");
+
+            System.out.println(userName);
+            System.out.println(password);
         }
     }
 /*
