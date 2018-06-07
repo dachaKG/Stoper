@@ -30,6 +30,7 @@
         <service
             android:name=".util.MyService"
             android:process=":my_service" />
+        <service android:name=".util.MyBroadcastReceiver" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

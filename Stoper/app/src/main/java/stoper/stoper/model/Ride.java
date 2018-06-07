@@ -1,7 +1,9 @@
 package stoper.stoper.model;
 
 
-public class Ride implements android.os.Parcelable {
+import java.io.Serializable;
+
+public class Ride implements android.os.Parcelable, Serializable {
 
     private Long id;
 

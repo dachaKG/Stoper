@@ -1,5 +1,6 @@
 package com.example.StoperJava.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,46 +29,81 @@ public class User {
 	
 	private String password;
 	
-	/**
+	@Column(nullable = true)
     private String biography;
 
+	@Column(nullable = true)
     private String areaCall;
-    
+
+	@Column(nullable = true)
     private String phoneNumber;
 
+	@Column(nullable = true)
     private boolean confirmed;
 
+	@Column(nullable = true)
     private String level;
-    
+
+	@Column(nullable = true)
     private int speaking;
-    
+
+	@Column(nullable = true)
     private int smoking;
-    
+
+	@Column(nullable = true)
     private int music;
-    
+
+	@Column(nullable = true)
     private int pets;
-    
+
+	@Column(nullable = true)
     private int carCountry;
-    
+
+	@Column(nullable = true)
     private int carColor;
-    
+
+	@Column(nullable = true)
     private int carType;
-    
+
+	@Column(nullable = true)
     private String carRegistratonNumber;
-    
+
+	@Column(nullable = true)
     private String carBrand;
-    
+
+	@Column(nullable = true)
     private String carBrandModel;
-    
+
+	@Column(nullable = true)
     private int carYear;
     
 	//private List<String> reviews;
-*/
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
+			String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
+			int smoking, int music, int pets) {
+		super();
+		this.gender = gender;
+		this.first_name = firstName;
+		this.lastName = lastName;
+		this.year_of_birth = yearOfBirth;
+		this.email = email;
+		this.password = password;
+		this.biography = biography;
+		this.areaCall = areaCall;
+		this.phoneNumber = phoneNumber;
+		this.confirmed = confirmed;
+		this.level = level;
+		this.speaking = speaking;
+		this.smoking = smoking;
+		this.music = music;
+		this.pets = pets;
+	}
 
 
 
@@ -82,15 +118,14 @@ public class User {
 		this.password = password;
 		//this.reviews = reviews;
 	}
-	/*
 
-	public User(int gender, String first_name, String lastName, int year_of_birth, String email, String password,
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
 			String biography, String area_call, String phoneNumber, boolean confirmed, String level) {
 		super();
 		this.gender = gender;
-		this.first_name = first_name;
+		this.first_name = firstName;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.year_of_birth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -100,11 +135,11 @@ public class User {
 		this.level = level;
 	}
 
-    public User(int gender, String first_name, String lastName, int year_of_birth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
         this.gender = gender;
-        this.first_name = first_name;
+        this.first_name = firstName;
         this.lastName = lastName;
-        this.year_of_birth = year_of_birth;
+        this.year_of_birth = yearOfBirth;
         this.email = email;
         this.password = password;
         this.biography = biography;
@@ -113,15 +148,16 @@ public class User {
         this.level = level;
         this.areaCall = areaCall;
     }
-    User(int gender, String first_name, String lastName, int year_of_birth, String email, String password,
+    
+	public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
 			String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
 			int smoking, int music, int pets, int carCountry, int carColor, int carType, String carRegistratonNumber,
 			String carBrand, String carBrandModel, int carYear) {
 		super();
 		this.gender = gender;
-		this.first_name = first_name;
+		this.first_name = firstName;
 		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
+		this.year_of_birth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		this.biography = biography;
@@ -142,27 +178,6 @@ public class User {
 		this.carYear = carYear;
 	}
 
-	public User(int gender, String first_name, String lastName, int year_of_birth, String email, String password,
-			String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
-			int smoking, int music, int pets) {
-		super();
-		this.gender = gender;
-		this.first_name = first_name;
-		this.lastName = lastName;
-		this.year_of_birth = year_of_birth;
-		this.email = email;
-		this.password = password;
-		this.biography = biography;
-		this.areaCall = areaCall;
-		this.phoneNumber = phoneNumber;
-		this.confirmed = confirmed;
-		this.level = level;
-		this.speaking = speaking;
-		this.smoking = smoking;
-		this.music = music;
-		this.pets = pets;
-	}
-*/
 	public Long getId() {
 		return id;
 	}
@@ -218,7 +233,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-/*
+
 	public String getBiography() {
 		return biography;
 	}
@@ -347,6 +362,22 @@ public class User {
 		this.carYear = carYear;
 	}
 
+	public String getFirst_name() {
+		return first_name;
+	}
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public int getYear_of_birth() {
+		return year_of_birth;
+	}
+
+	public void setYear_of_birth(int year_of_birth) {
+		this.year_of_birth = year_of_birth;
+	}
+
 	
 	
 	//public List<String> getReviews() {
@@ -357,7 +388,7 @@ public class User {
 	//	this.reviews = reviews;
 	//}
 	
-	*/
+	
 	
 	
 }

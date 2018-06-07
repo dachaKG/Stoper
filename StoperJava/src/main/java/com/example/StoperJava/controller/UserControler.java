@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.StoperJava.dto.UserEmailDTO;
+import com.example.StoperJava.dto.UserPersonalDataDTO;
+import com.example.StoperJava.dto.UserPhoneNumberDTO;
 import com.example.StoperJava.model.LoginRequest;
 import com.example.StoperJava.model.User;
 import com.example.StoperJava.service.UserService;
@@ -97,4 +100,58 @@ public class UserControler {
 		return true;
 	}
 
+	@PutMapping
+	@RequestMapping(value = "/personalData")
+	public Boolean updatePersonalData(@RequestBody UserPersonalDataDTO userPersonalData) {
+		boolean result = false;
+		User user = userService.findByUsername(userPersonalData.getEmail());
+		if(user != null) {
+			user.setfirst_name(userPersonalData.getFirstName());
+			user.setLastName(userPersonalData.getLastName());
+			user.setGender(userPersonalData.getGender());
+			user.setyear_of_birth(userPersonalData.getBirthYear());
+			user.setBiography(userPersonalData.getBiography());
+			
+			userService.saveUser(user);
+			result = true;
+		}else {
+			result = false;
+		}
+		return result;
+		
+	}
+	
+	@PutMapping
+	@RequestMapping(value = "/email")
+	public Boolean updateEmail(@RequestBody UserEmailDTO userEmail) {
+		boolean result = false;
+		User user = userService.findByUsername(userEmail.getOldEmail());
+		if(user != null) {
+			user.setEmail(userEmail.getNewEmail());
+			user.setConfirmed(userEmail.getConfirmed());
+			
+			userService.saveUser(user);
+			result = true;
+		}else {
+			result = false;
+		}
+		return result;	
+	}
+	
+	@PutMapping
+	@RequestMapping(value = "/phoneNumber")
+	public Boolean updatePhoneNumber(@RequestBody UserPhoneNumberDTO userPhoneNumber) {
+		boolean result = false;
+		User user = userService.findByUsername(userPhoneNumber.getEmail());
+		if(user != null) {
+			user.setAreaCall(userPhoneNumber.getAreaCall());
+			user.setPhoneNumber(userPhoneNumber.getPhoneNumber());
+			
+			userService.saveUser(user);
+			result = true;
+		}else {
+			result = false;
+		}
+		return result;	
+	}
 }

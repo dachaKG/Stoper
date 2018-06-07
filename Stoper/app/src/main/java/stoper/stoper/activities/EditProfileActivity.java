@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.widget.NestedScrollView;
@@ -14,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +26,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.vision.text.Line;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
@@ -34,10 +41,18 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import stoper.stoper.Api;
+import stoper.stoper.DTO.UserEmailDTO;
+import stoper.stoper.DTO.UserPersonalDataDTO;
+import stoper.stoper.DTO.UserPhoneNumberDTO;
 import stoper.stoper.MainActivity;
 import stoper.stoper.R;
+import stoper.stoper.fragments.OfferNoteFragment;
+import stoper.stoper.model.Ride;
 import stoper.stoper.model.User;
 import stoper.stoper.util.MockData;
+
+import static java.lang.System.out;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -163,26 +178,43 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     public void onClickSaveDataForProfil(View view){
+        User user = mockData.UsersDatabase().get(0);
         String edited_gender = ((TextView)findViewById(R.id.gender_text_view)).getText().toString();
+        int gender = 0;
+        List<String> gender_array = Arrays.asList(getResources().getStringArray(R.array.gender_array));
+        gender = gender_array.indexOf(edited_gender);
         String edited_first_name = ((TextView)findViewById(R.id.first_name_text_view)).getText().toString();
         String edited_last_name = ((TextView)findViewById(R.id.last_name_text_view)).getText().toString();
         String edited_birth_year = ((TextView)findViewById(R.id.birth_year_text_view)).getText().toString();
+        int year= Integer.parseInt(edited_birth_year);
         String edited_biography = ((TextView)findViewById(R.id.biography_text_view)).getText().toString();
+
+        UserPersonalDataDTO userPersonalDataDTO = new UserPersonalDataDTO(user.getEmail(),gender,edited_first_name,edited_last_name,year,edited_biography);
+        SavePersonalDataTask savePersonalDataTask = new SavePersonalDataTask();
+        savePersonalDataTask.execute(userPersonalDataDTO);
     }
 
     public void onClickSaveEmail(View view){
         String edited_email = ((TextView)findViewById(R.id.email_text_view)).getText().toString();
-        mockData.UsersDatabase().get(0).setEmail(edited_email);
+        User user = mockData.UsersDatabase().get(0);
+        UserEmailDTO userEmailDTO = new UserEmailDTO(user.getEmail(),edited_email, false);
+        user.setEmail(edited_email);
 
+        SaveEmailDataTask saveEmailDataTask = new SaveEmailDataTask();
+        saveEmailDataTask.execute(userEmailDTO);
         showMessageSuccess();
         //to do confirmation new mail
     }
 
     public void onClickSavePhoneNumber(View view){
+        User user = mockData.UsersDatabase().get(0);
         String area_call_edited = ((TextView)findViewById(R.id.area_call_text_view)).getText().toString();
         String phone_number_edited = ((TextView)findViewById(R.id.phone_number_text_view)).getText().toString();
-        mockData.UsersDatabase().get(0).setAreaCall(area_call_edited);
-        mockData.UsersDatabase().get(0).setPhoneNumber(phone_number_edited);
+        UserPhoneNumberDTO userPhoneNumberDTO = new UserPhoneNumberDTO(user.getEmail(),area_call_edited,phone_number_edited);
+        SavePhoneNumberDataTask task = new SavePhoneNumberDataTask();
+        task.execute(userPhoneNumberDTO);
+        user.setAreaCall(area_call_edited);
+        user.setPhoneNumber(phone_number_edited);
 
         showMessageSuccess();
     }
@@ -224,6 +256,84 @@ public class EditProfileActivity extends AppCompatActivity {
             user.setProfileImage(byteArray);
             ImageView imageView = (ImageView)findViewById(R.id.profile_image_view);
             imageView.setImageBitmap(bitmap);
+        }
+    }
+
+    private class SavePersonalDataTask extends AsyncTask<UserPersonalDataDTO, Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(UserPersonalDataDTO... userPersonalDataDTO) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/personalData";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<UserPersonalDataDTO> data = new HttpEntity<>(userPersonalDataDTO[0]);
+                ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.PUT,  data, Boolean.class);
+
+                return proba.getBody();
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+
+            out.println("Boolean jeeeeeee " + aBoolean.toString());
+        }
+    }
+
+    private class SaveEmailDataTask extends AsyncTask<UserEmailDTO, Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(UserEmailDTO... userEmail) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/email";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<UserEmailDTO> data = new HttpEntity<>(userEmail[0]);
+                ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.PUT,  data, Boolean.class);
+
+                return proba.getBody();
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+
+            out.println("Boolean jeeeeeee " + aBoolean.toString());
+        }
+    }
+
+    private class SavePhoneNumberDataTask extends AsyncTask<UserPhoneNumberDTO, Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(UserPhoneNumberDTO... phoneNumber) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/phoneNumber";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<UserPhoneNumberDTO> data = new HttpEntity<>(phoneNumber[0]);
+                ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.PUT,  data, Boolean.class);
+
+                return proba.getBody();
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+
+            out.println("Boolean jeeeeeee " + aBoolean.toString());
         }
     }
 }
