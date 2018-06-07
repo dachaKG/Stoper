@@ -1,16 +1,16 @@
 package stoper.stoper.model;
 
-public class User {
+public class User{
 
     private Long id;
 
-    private int gender;
+    private Integer gender;
 
     private String firstName;
 
     private String lastName;
 
-    private int yearOfBirth;
+    private Integer yearOfBirth;
 
     private String email;
 
@@ -18,27 +18,27 @@ public class User {
 
     private String biography;
 
-    private String phoneNumber;
-
     private String areaCall;
 
-    private boolean confirmed;
+    private String phoneNumber;
+
+    private Boolean confirmed;
 
     private String level;
 
-    private int speaking;
+    private Integer speaking;
 
-    private int smoking;
+    private Integer smoking;
 
-    private int music;
+    private Integer music;
 
-    private int pets;
+    private Integer pets;
 
-    private int carCountry;
+    private Integer carCountry;
 
-    private int carColor;
+    private Integer carColor;
 
-    private int carType;
+    private Integer carType;
 
     private String carRegistratonNumber;
 
@@ -46,11 +46,21 @@ public class User {
 
     private String carBrandModel;
 
-    private int carYear;
+    private Integer carYear;
 
     private byte[] profileImage;
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets) {
+    //private List<String> reviews;
+
+    public User() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
+                String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
+                int smoking, int music, int pets) {
+        super();
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,8 +68,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.biography = biography;
-        this.phoneNumber = phoneNumber;
         this.areaCall = areaCall;
+        this.phoneNumber = phoneNumber;
         this.confirmed = confirmed;
         this.level = level;
         this.speaking = speaking;
@@ -68,7 +78,37 @@ public class User {
         this.pets = pets;
     }
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level, String areaCall) {
+
+
+    public User(String email, String first_name,int gender, String lastName,String password, int year_of_birth){//,List<String> reviews) {
+        super();
+        //this.id = id;
+        this.gender = gender;
+        this.firstName = first_name;
+        this.lastName = lastName;
+        this.yearOfBirth = year_of_birth;
+        this.email = email;
+        this.password = password;
+        //this.reviews = reviews;
+    }
+
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
+                String biography, String area_call, String phoneNumber, boolean confirmed, String level) {
+        super();
+        this.gender = gender;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.yearOfBirth = yearOfBirth;
+        this.email = email;
+        this.password = password;
+        this.biography = biography;
+        this.areaCall = area_call;
+        this.phoneNumber = phoneNumber;
+        this.confirmed = confirmed;
+        this.level = level;
+    }
+
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -82,7 +122,11 @@ public class User {
         this.areaCall = areaCall;
     }
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, String areaCall, boolean confirmed, String level, int speaking, int smoking, int music, int pets, int carCountry, int carColor, int carType, String carRegistratonNumber, String carBrand, String carBrandModel, int carYear) {
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password,
+                String biography, String areaCall, String phoneNumber, boolean confirmed, String level, int speaking,
+                int smoking, int music, int pets, int carCountry, int carColor, int carType, String carRegistratonNumber,
+                String carBrand, String carBrandModel, int carYear) {
+        super();
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -90,8 +134,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.biography = biography;
-        this.phoneNumber = phoneNumber;
         this.areaCall = areaCall;
+        this.phoneNumber = phoneNumber;
         this.confirmed = confirmed;
         this.level = level;
         this.speaking = speaking;
@@ -107,11 +151,19 @@ public class User {
         this.carYear = carYear;
     }
 
-    public int getGender() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -131,11 +183,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getYearOfBirth() {
+    public Integer getYearOfBirth() {
         return yearOfBirth;
     }
 
-    public void setYearOfBirth(int yearOfBirth) {
+    public void setYearOfBirth(Integer yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
     }
 
@@ -163,6 +215,14 @@ public class User {
         this.biography = biography;
     }
 
+    public String getAreaCall() {
+        return areaCall;
+    }
+
+    public void setAreaCall(String areaCall) {
+        this.areaCall = areaCall;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -171,11 +231,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isConfirmed() {
+    public Boolean getConfirmed() {
         return confirmed;
     }
 
-    public void setConfirmed(boolean confirmed) {
+    public void setConfirmed(Boolean confirmed) {
         this.confirmed = confirmed;
     }
 
@@ -187,75 +247,59 @@ public class User {
         this.level = level;
     }
 
-    public Long getId(){
-        return this.id;
-    }
-
-    public void setId(Long idd){
-        this.id = id;
-    }
-
-    public String getAreaCall() {
-        return areaCall;
-    }
-
-    public void setAreaCall(String areaCall) {
-        this.areaCall = areaCall;
-    }
-
-    public int getSpeaking() {
+    public Integer getSpeaking() {
         return speaking;
     }
 
-    public void setSpeaking(int speaking) {
+    public void setSpeaking(Integer speaking) {
         this.speaking = speaking;
     }
 
-    public int getSmoking() {
+    public Integer getSmoking() {
         return smoking;
     }
 
-    public void setSmoking(int smoking) {
+    public void setSmoking(Integer smoking) {
         this.smoking = smoking;
     }
 
-    public int getMusic() {
+    public Integer getMusic() {
         return music;
     }
 
-    public void setMusic(int music) {
+    public void setMusic(Integer music) {
         this.music = music;
     }
 
-    public int getPets() {
+    public Integer getPets() {
         return pets;
     }
 
-    public void setPets(int pets) {
+    public void setPets(Integer pets) {
         this.pets = pets;
     }
 
-    public int getCarCountry() {
+    public Integer getCarCountry() {
         return carCountry;
     }
 
-    public void setCarCountry(int carCountry) {
+    public void setCarCountry(Integer carCountry) {
         this.carCountry = carCountry;
     }
 
-    public int getCarColor() {
+    public Integer getCarColor() {
         return carColor;
     }
 
-    public void setCarColor(int carColor) {
+    public void setCarColor(Integer carColor) {
         this.carColor = carColor;
     }
 
-    public int getCarType() {
+    public Integer getCarType() {
         return carType;
     }
 
-    public void setCarType(int carType) {
+    public void setCarType(Integer carType) {
         this.carType = carType;
     }
 
@@ -283,11 +327,11 @@ public class User {
         this.carBrandModel = carBrandModel;
     }
 
-    public int getCarYear() {
+    public Integer getCarYear() {
         return carYear;
     }
 
-    public void setCarYear(int carYear) {
+    public void setCarYear(Integer carYear) {
         this.carYear = carYear;
     }
 
@@ -298,4 +342,21 @@ public class User {
     public void setProfileImage(byte[] profileImage) {
         this.profileImage = profileImage;
     }
+
+
+
+
+
+
+    //public List<String> getReviews() {
+    //	return reviews;
+    //}
+
+    //public void setReviews(List<String> reviews) {
+    //	this.reviews = reviews;
+    //}
+
+
+
+
 }

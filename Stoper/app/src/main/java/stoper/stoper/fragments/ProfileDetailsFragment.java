@@ -44,7 +44,7 @@ public class ProfileDetailsFragment extends Fragment implements  View.OnClickLis
         ImageView imageView = (ImageView)view.findViewById(R.id.submitted_image);
         ProfileFragment fragment = (ProfileFragment) getParentFragment();
         User user = fragment.getUser();
-        if(user.isConfirmed()){
+        if(user.getConfirmed()){
             imageView.setImageResource(R.drawable.baseline_check_circle_outline_24);
         }else{
             imageView.setImageResource(R.drawable.baseline_highlight_off_24);

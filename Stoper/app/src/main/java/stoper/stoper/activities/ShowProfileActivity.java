@@ -50,7 +50,7 @@ public class ShowProfileActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.show_profil_submitted_image);
         TextView textView = (TextView) findViewById(R.id.show_profile_email_address_status);
-        if (user.isConfirmed()) {
+        if (user.getConfirmed()) {
             imageView.setImageResource(R.drawable.baseline_check_circle_outline_24);
             textView.setText(R.string.show_profile_email_status_confirmed);
         } else {
