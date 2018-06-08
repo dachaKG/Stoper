@@ -25,10 +25,10 @@ public class RideDetailsActivity extends AppCompatActivity {
         Ride ride = new Gson().fromJson(intent.getExtras().getString("selectedRide"), Ride.class);
 
 
-        startDestination = findViewById(R.id.start_destination_details);
+        /*startDestination = findViewById(R.id.start_destination_details);
         endDestionation = findViewById(R.id.end_destination_details);
         startDestination.setText(ride.getStartDestination());
-        endDestionation.setText(ride.getEndDestination());
+        endDestionation.setText(ride.getEndDestination());*/
 
 
     }
