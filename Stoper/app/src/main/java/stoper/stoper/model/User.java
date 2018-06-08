@@ -4,8 +4,6 @@ package stoper.stoper.model;
 import android.graphics.Bitmap;
 
 
-import org.jetbrains.annotations.Nullable;
-
 public class User {
 
     private Long id;
@@ -85,8 +83,7 @@ public class User {
     }
 
 
-
-    public User(String email, String first_name,int gender, String lastName,String password, int year_of_birth){//,List<String> reviews) {
+    public User(String email, String first_name, int gender, String lastName, String password, int year_of_birth) {//,List<String> reviews) {
         super();
         //this.id = id;
         this.gender = gender;
@@ -114,7 +111,7 @@ public class User {
         this.level = level;
     }
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level, String areaCall) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -252,24 +249,6 @@ public class User {
     public void setLevel(String level) {
         this.level = level;
     }
-
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long idd) {
-        this.id = id;
-    }
-
-    public String getAreaCall() {
-        return areaCall;
-    }
-
-    public void setAreaCall(String areaCall) {
-        this.areaCall = areaCall;
-    }
-
 
     public Integer getSpeaking() {
         return speaking;
