@@ -1,5 +1,11 @@
 package stoper.stoper.model;
 
+import android.graphics.Bitmap;
+
+import com.github.bassaer.chatmessageview.model.IChatUser;
+
+import org.jetbrains.annotations.Nullable;
+
 public class User {
 
     private Long id;
@@ -187,11 +193,11 @@ public class User {
         this.level = level;
     }
 
-    public Long getId(){
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(Long idd){
+    public void setId(Long idd) {
         this.id = id;
     }
 
@@ -298,4 +304,5 @@ public class User {
     public void setProfileImage(byte[] profileImage) {
         this.profileImage = profileImage;
     }
+
 }
