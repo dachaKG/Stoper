@@ -1,10 +1,12 @@
 package stoper.stoper.activities;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -13,9 +15,19 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import stoper.stoper.Api;
+import stoper.stoper.DTO.UserCustomSettingsDTO;
 import stoper.stoper.R;
 import stoper.stoper.model.User;
 import stoper.stoper.util.MockData;
+
+import static java.lang.System.out;
 
 public class UserCustomSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -117,8 +129,10 @@ public class UserCustomSettingsActivity extends AppCompatActivity implements Ada
         user.setSmoking(selectedSmoking);
         user.setMusic(selectedMusic);
         user.setPets(selectedPets);
+        UserCustomSettingsDTO userCustomSettingsDTO = new UserCustomSettingsDTO(user.getEmail(),selectedSpeaking,selectedSmoking,selectedMusic,selectedPets);
+        SaveCustomSettingsDataTask task = new SaveCustomSettingsDataTask();
+        task.execute(userCustomSettingsDTO);
         showMessageSuccess();
-
     }
 
     @Override
@@ -133,5 +147,31 @@ public class UserCustomSettingsActivity extends AppCompatActivity implements Ada
 
         Toast toast = Toast.makeText(contex, text, duration);
         toast.show();
+    }
+
+    private class SaveCustomSettingsDataTask extends AsyncTask<UserCustomSettingsDTO, Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(UserCustomSettingsDTO... customSettingsDTO) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/customSettings";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<UserCustomSettingsDTO> data = new HttpEntity<>(customSettingsDTO[0]);
+                ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.PUT,  data, Boolean.class);
+
+                return proba.getBody();
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+
+            out.println("Boolean jeeeeeee " + aBoolean.toString());
+        }
     }
 }

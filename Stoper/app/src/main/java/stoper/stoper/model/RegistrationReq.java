@@ -1,13 +1,18 @@
 package stoper.stoper.model;
 
 public class RegistrationReq {
+
+    private Long id;
+
+
     private int gender;
 
-    private String firstName;
+    private String first_name;
 
     private String lastName;
 
-    private int yearOfBirth;
+
+    private int year_of_birth;
 
     private String email;
 
@@ -17,11 +22,11 @@ public class RegistrationReq {
         super();
     }
 
-    public RegistrationReq(int gender, String firstName, String lastName, int yearOfBirth, String email, String password) {
+    public RegistrationReq(int gender, String first_name, String lastName, int year_of_birth, String email, String password) {
         this.gender = gender;
-        this.firstName = firstName;
+        this.first_name = first_name;
         this.lastName = lastName;
-        this.yearOfBirth = yearOfBirth;
+        this.year_of_birth = year_of_birth;
         this.email = email;
         this.password = password;
     }
@@ -34,12 +39,12 @@ public class RegistrationReq {
         this.gender = gender;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setfirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
     public String getLastName() {
@@ -50,12 +55,12 @@ public class RegistrationReq {
         this.lastName = lastName;
     }
 
-    public int getYearOfBirth() {
-        return yearOfBirth;
+    public int getyear_of_birth() {
+        return year_of_birth;
     }
 
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
+    public void setyear_of_birth(int year_of_birth) {
+        this.year_of_birth = year_of_birth;
     }
 
     public String getEmail() {
@@ -72,6 +77,14 @@ public class RegistrationReq {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getId(){
+        return this.id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
     }
 
 }

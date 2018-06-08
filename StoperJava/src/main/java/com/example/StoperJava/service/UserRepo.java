@@ -6,4 +6,5 @@ import com.example.StoperJava.model.User;
 
 public interface UserRepo extends CrudRepository<User, Long>{
 
+	public User findUserByEmail(String email);
 }

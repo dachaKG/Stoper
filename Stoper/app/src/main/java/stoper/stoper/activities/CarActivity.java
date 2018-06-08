@@ -2,9 +2,11 @@ package stoper.stoper.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,9 +14,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import stoper.stoper.Api;
+import stoper.stoper.DTO.UserCarDTO;
+import stoper.stoper.DTO.UserCustomSettingsDTO;
 import stoper.stoper.R;
 import stoper.stoper.model.User;
 import stoper.stoper.util.MockData;
+
+import static java.lang.System.out;
 
 public class CarActivity extends AppCompatActivity implements  AdapterView.OnItemSelectedListener{
 
@@ -95,13 +108,21 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
 
     public void onClickSaveCar(View view){
         User user = mockData.UsersDatabase().get(0);
+        int carYear = Integer.parseInt(((EditText)findViewById(R.id.car_edit_year_text)).getText().toString());
+        String carRegistration = ((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString();
+        String carBrand = ((EditText)findViewById(R.id.car_edit_car_brand)).getText().toString();
+        String carBrandModel = ((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString();
+        UserCarDTO carDTO = new UserCarDTO(user.getEmail(), selectedCountry, selectedColor, selectedCarType, carRegistration,
+                carBrand, carBrandModel, carYear);
+        SaveCarDataTask task = new SaveCarDataTask();
+        task.execute(carDTO);
         user.setCarColor(selectedColor);
         user.setCarCountry(selectedCountry);
         user.setCarType(selectedCarType);
-        user.setCarYear(Integer.parseInt(((EditText)findViewById(R.id.car_edit_year_text)).getText().toString()));
-        user.setCarRegistratonNumber(((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString());
-        user.setCarBrand(((EditText)findViewById(R.id.car_edit_car_brand)).getText().toString());
-        user.setCarBrandModel(((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString());
+        user.setCarYear(carYear);
+        user.setCarRegistratonNumber(carRegistration);
+        user.setCarBrand(carBrand);
+        user.setCarBrandModel(carBrandModel);
         showMessageSuccess();
 
     }
@@ -134,5 +155,31 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
 
         Toast toast = Toast.makeText(contex, text, duration);
         toast.show();
+    }
+
+    private class SaveCarDataTask extends AsyncTask<UserCarDTO, Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(UserCarDTO... carDTO) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/car";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<UserCarDTO> data = new HttpEntity<>(carDTO[0]);
+                ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.PUT,  data, Boolean.class);
+
+                return proba.getBody();
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+
+            out.println("Boolean jeeeeeee " + aBoolean.toString());
+        }
     }
 }
