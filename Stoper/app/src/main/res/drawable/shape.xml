@@ -9,14 +9,14 @@
 
     <stroke
         android:width="2dp"
-        android:color="#C4CDE0" >
+        android:color="@color/gray_1" >
     </stroke>
 
     <padding
         android:left="5dp"
         android:top="5dp"
         android:right="5dp"
-        android:bottom="5dp"    >
+        android:bottom="5dp" >
     </padding>
 
     <corners
