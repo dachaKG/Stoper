@@ -44,6 +44,8 @@
             android:name=".activities.PhoneNumberActivity"
             android:parentActivityName=".activities.NavigationActivity" />
         <activity
+            android:name=".activities.RegisterActivity" />
+        <activity
             android:name=".activities.CarActivity"
             android:parentActivityName=".activities.NavigationActivity" />
         <activity

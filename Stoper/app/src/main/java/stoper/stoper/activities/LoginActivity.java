@@ -189,5 +189,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+    public void redirectToRegistration(View view) {
+        intentt = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intentt);
+    }
     
 }
