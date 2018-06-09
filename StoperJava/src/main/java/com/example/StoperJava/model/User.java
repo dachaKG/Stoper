@@ -125,13 +125,13 @@ public class User{
 
 
 
-	public User(String email, String first_name,int gender, String lastName,String password, int year_of_birth){//,List<String> reviews) {
+	public User(String email, String first_name,int gender, String lastName,String password, int yearOfBirth){//,List<String> reviews) {
 		super();
 		//this.id = id;
 		this.gender = gender;
 		this.firstName = first_name;
 		this.lastName = lastName;
-		this.yearOfBirth = year_of_birth;
+		this.yearOfBirth = yearOfBirth;
 		this.email = email;
 		this.password = password;
 		//this.reviews = reviews;

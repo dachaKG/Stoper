@@ -7,12 +7,12 @@ public class RegistrationReq {
 
     private int gender;
 
-    private String first_name;
+    private String firstName;
 
     private String lastName;
 
 
-    private int year_of_birth;
+    private int yearOfBirth;
 
     private String email;
 
@@ -22,11 +22,11 @@ public class RegistrationReq {
         super();
     }
 
-    public RegistrationReq(int gender, String first_name, String lastName, int year_of_birth, String email, String password) {
+    public RegistrationReq(int gender, String firstName, String lastName, int yearOfBirth, String email, String password) {
         this.gender = gender;
-        this.first_name = first_name;
+        this.firstName = firstName;
         this.lastName = lastName;
-        this.year_of_birth = year_of_birth;
+        this.yearOfBirth = yearOfBirth;
         this.email = email;
         this.password = password;
     }
@@ -40,11 +40,11 @@ public class RegistrationReq {
     }
 
     public String getFirst_name() {
-        return first_name;
+        return firstName;
     }
 
-    public void setfirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setfirst_name(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -56,11 +56,11 @@ public class RegistrationReq {
     }
 
     public int getyear_of_birth() {
-        return year_of_birth;
+        return yearOfBirth;
     }
 
-    public void setyear_of_birth(int year_of_birth) {
-        this.year_of_birth = year_of_birth;
+    public void setyear_of_birth(int yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
     }
 
     public String getEmail() {
