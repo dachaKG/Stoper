@@ -1,5 +1,8 @@
 package com.example.StoperJava.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -97,6 +101,12 @@ public class User{
 
 	//private List<String> reviews;
 
+	@OneToMany(mappedBy="evaluator")
+	private List<Rate> assignedComments = new ArrayList<Rate>();
+
+	@OneToMany(mappedBy="reciever")
+	private List<Rate> recievedComments = new ArrayList<Rate>();
+	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -388,11 +398,21 @@ public class User{
 		this.profileImage = profileImage;
 	}
 
+	public List<Rate> getAssignedComments() {
+		return assignedComments;
+	}
 
+	public void setAssignedComments(List<Rate> assignedComments) {
+		this.assignedComments = assignedComments;
+	}
 
-	
-	
-	
+	public List<Rate> getRecievedComments() {
+		return recievedComments;
+	}
+
+	public void setRecievedComments(List<Rate> recievedComments) {
+		this.recievedComments = recievedComments;
+	}	
 	//public List<String> getReviews() {
 	//	return reviews;
 	//}

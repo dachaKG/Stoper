@@ -50,7 +50,8 @@
             android:name=".activities.ShowProfileActivity"
             android:parentActivityName=".activities.NavigationActivity" />
         <activity android:name=".activities.StatisticDataActivity" />
-        <activity android:name=".activities.ChangePasswordActivity"></activity>
+        <activity android:name=".activities.ChangePasswordActivity" />
+        <activity android:name=".activities.RideDetailsActivity"></activity>
     </application>
 
 </manifest>

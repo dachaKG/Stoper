@@ -90,6 +90,9 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/builds" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/data-binding" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/data_binding_base_class_log_artifact" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/data_binding_base_class_logs_dependency_artifacts" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
@@ -129,12 +132,14 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-config-11.0.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-fitness-11.0.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:rules-1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.databinding:adapters-3.1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: javax.inject:javax.inject:1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-appinvite-11.0.4" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.android:spring-android-rest-template:2.0.0.M3@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-fragment-27.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:design-27.1.0" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.core:runtime-1.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.databinding:library-3.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-database-11.0.4" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7-27.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-database-connection-11.0.4" level="project" />
@@ -191,6 +196,7 @@
     <orderEntry type="library" name="Gradle: com.loopj.android:android-async-http:1.4.9@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:runner-1.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-instantapps-11.0.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.databinding:baseLibrary:3.1.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:animated-vector-drawable-27.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-auth-api-phone-11.0.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tagmanager-api-11.0.4" level="project" />

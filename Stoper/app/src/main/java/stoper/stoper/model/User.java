@@ -1,8 +1,10 @@
 package stoper.stoper.model;
 
 
+import android.graphics.Bitmap;
 
-public class User{
+
+public class User {
 
     private Long id;
 
@@ -110,7 +112,7 @@ public class User{
         this.level = level;
     }
 
-    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level,String areaCall) {
+    public User(int gender, String firstName, String lastName, int yearOfBirth, String email, String password, String biography, String phoneNumber, boolean confirmed, String level, String areaCall) {
         this.gender = gender;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -344,6 +346,5 @@ public class User{
     public void setProfileImage(byte[] profileImage) {
         this.profileImage = profileImage;
     }
-
 
 }

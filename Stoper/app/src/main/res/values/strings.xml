@@ -37,6 +37,8 @@
 
     <string name="next">Dalje</string>
     <string name="finish_offer">Zavrsi</string>
+    <string name="ride_details">Detalji o voznji</string>
+    <string name="price_details">Cena voznje</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
