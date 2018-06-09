@@ -26,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 
 import stoper.stoper.R;
 import stoper.stoper.model.LoginReq;
-import stoper.stoper.model.RegistrationReq;
+import stoper.stoper.model.User;
 import stoper.stoper.model.User;
 
 
@@ -71,47 +71,23 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton = view.findViewById(R.id.login);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginReq user = new LoginReq();
-                usernameArg=usernameText.getText().toString().trim();
-                passwordArg=passwordText.getText().toString().trim();
 
-                System.out.println("reagovao na klik jb");
-				 System.out.println(usernameArg);
-				  System.out.println(passwordArg);
-                try {
-
-                    user.setEmail(usernameArg);
-                    user.setPassword(passwordArg);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(user);
-                    System.out.println(json);
-                    new HttpReqTask().execute(user);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
       
     }
 	
 	
   
-  private class HttpReqTask extends AsyncTask<LoginReq, Void, RegistrationReq> {
+  private class HttpReqTask extends AsyncTask<LoginReq, Void, User> {
 
 
         @Override
-        protected RegistrationReq doInBackground(LoginReq... users) {
+        protected User doInBackground(LoginReq... users) {
             try {
                 String apiUrl = "http://192.168.0.11:8080/user/login";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<LoginReq> user = new HttpEntity<>(users[0]);
-                ResponseEntity<RegistrationReq> userTest = restTemplate.exchange(apiUrl, HttpMethod.POST,  user, RegistrationReq.class);
+                ResponseEntity<User> userTest = restTemplate.exchange(apiUrl, HttpMethod.POST,  user, User.class);
                 return userTest.getBody();
             } catch (Exception ex) {
                 Log.e("..", ex.getMessage());
@@ -121,10 +97,10 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(RegistrationReq userLoged) {
+        protected void onPostExecute(User userLoged) {
             super.onPostExecute(userLoged);
 
-            if(userLoged.getEmail()==""){
+            if(userLoged==null){
                 System.out.println("Nema tog korisnika u bazi");
             }
             else {
@@ -136,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                 loggedUserDetails = context.getSharedPreferences(baseName, MODE_PRIVATE);
 
                 SharedPreferences.Editor edit = loggedUserDetails.edit();
-                edit.putString("firstName", userLoged.getFirst_name());
+                edit.putString("firstName", userLoged.getFirstName());
                 edit.putString("lastname", userLoged.getLastName());
                 edit.putString("email", userLoged.getEmail());
                 edit.putInt("gender", userLoged.getGender());
