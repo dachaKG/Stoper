@@ -2,6 +2,7 @@ package stoper.stoper.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -30,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 import stoper.stoper.Api;
+import stoper.stoper.DTO.RideReservationDTO;
 import stoper.stoper.DTO.UserImageDTO;
 import stoper.stoper.DTO.UserPhoneNumberDTO;
 import stoper.stoper.R;
@@ -43,6 +45,7 @@ public class RideDetailsActivity extends AppCompatActivity {
     TextView startDestination;
     TextView endDestionation;
     Ride ride = null;
+    String loggedEmail = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,12 +95,20 @@ public class RideDetailsActivity extends AppCompatActivity {
 
         TaskGetUserByEmail task = new TaskGetUserByEmail();
         task.execute(ride.getUserEmail());
+
+        SharedPreferences loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+
+        loggedEmail = loggedUserDetails.getString("email", "");
     }
 
     public void onClickReserve(View view){
         Long rideId = ride.getId();
+
+        RideReservationDTO rideReservationDTO = new RideReservationDTO();
+        rideReservationDTO.setPassengerEmail(loggedEmail);
+        rideReservationDTO.setRideId(ride.getId());
         TaskReserve task = new TaskReserve();
-        task.execute(rideId);
+        task.execute(rideReservationDTO);
 
     }
 
@@ -189,15 +200,15 @@ public class RideDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private class TaskReserve extends AsyncTask<Long, Void,Boolean> {
+    private class TaskReserve extends AsyncTask<RideReservationDTO, Void,Boolean> {
 
         @Override
-        protected Boolean doInBackground(Long... rideId) {
+        protected Boolean doInBackground(RideReservationDTO... rideReservationDTOS) {
             try {
                 String apiUrl = Api.apiUrl + "/ride/reserve";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                HttpEntity<Long> data = new HttpEntity<>(rideId[0]);
+                HttpEntity<RideReservationDTO> data = new HttpEntity<>(rideReservationDTOS[0]);
                 ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.POST,  data, Boolean.class);
 
                 return proba.getBody();

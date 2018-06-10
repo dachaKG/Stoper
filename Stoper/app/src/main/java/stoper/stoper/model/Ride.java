@@ -2,6 +2,8 @@ package stoper.stoper.model;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Ride implements android.os.Parcelable, Serializable {
 
@@ -29,6 +31,8 @@ public class Ride implements android.os.Parcelable, Serializable {
 
     private String userEmail;
 
+    private Set<User> passengers;
+
     public void writeToParcel(android.os.Parcel out, int flags) {
          out.writeInt(mData);
      }
@@ -47,7 +51,9 @@ public class Ride implements android.os.Parcelable, Serializable {
          mData = in.readInt();
     }
 
-    public Ride(){}
+    public Ride(){
+        passengers = new HashSet<User>();
+    }
 
     public Long getId() {
         return id;
@@ -119,5 +125,20 @@ public class Ride implements android.os.Parcelable, Serializable {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public Set<User> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Set<User> passengers) {
+        this.passengers = passengers;
+    }
+
+    public boolean addPassenger(User passenger) {
+        if(passengers == null) {
+            passengers = new HashSet<User>();
+        }
+        return passengers.add(passenger);
     }
 }
