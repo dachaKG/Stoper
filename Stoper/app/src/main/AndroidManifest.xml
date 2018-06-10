@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".activities.NavigationActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,18 @@
             android:name=".util.MyService"
             android:process=":my_service" />
         <service android:name=".util.MyBroadcastReceiver" />
-
+        <service
+            android:name=".util.FirebaseService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".util.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -57,6 +68,7 @@
         <activity android:name=".activities.StatisticDataActivity" />
         <activity android:name=".activities.ChangePasswordActivity" />
         <activity android:name=".activities.RideDetailsActivity"></activity>
+        <activity android:name=".activities.LoginActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "1041428556494",
+    "firebase_url": "https://stoper-33cba.firebaseio.com",
+    "project_id": "stoper-33cba",
+    "storage_bucket": "stoper-33cba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041428556494:android:9daf5349406cc6d4",
+        "android_client_info": {
+          "package_name": "stoper.stoper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041428556494-srvf9gqq3phru0hhnlijps6dl3in3rqp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "stoper.stoper",
+            "certificate_hash": "424469cd397ddb0d267eeecf161a148d1f5e5e5d"
+          }
+        },
+        {
+          "client_id": "1041428556494-4bol3bsrqmi7o2p80khsrhmin32snum5.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1041428556494-4bol3bsrqmi7o2p80khsrhmin32snum5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbGpy9ifMafijOLWmtbUMUKbKYhzEOCQE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041428556494-4bol3bsrqmi7o2p80khsrhmin32snum5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
