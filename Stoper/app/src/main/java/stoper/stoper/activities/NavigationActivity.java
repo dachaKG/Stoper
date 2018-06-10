@@ -180,7 +180,7 @@ public class NavigationActivity extends AppCompatActivity
                 fragment = new ProfileFragment();
                 getSupportActionBar().setTitle(R.string.app_bar_profile);
                 break;
-            case R.id.nav_chat
+            case R.id.nav_chat:
 
            /* case R.id.nav_share:
                 break;
