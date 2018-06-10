@@ -94,7 +94,7 @@ public class RideDetailsActivity extends AppCompatActivity {
         maxPassengers.setText(ride.getMaxPassengerNum().toString());
 
         TaskGetUserByEmail task = new TaskGetUserByEmail();
-        task.execute(ride.getUserEmail());
+        task.execute(ride.getDriver().getEmail());
 
         SharedPreferences loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
 

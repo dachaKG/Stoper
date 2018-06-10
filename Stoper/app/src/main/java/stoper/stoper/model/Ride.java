@@ -29,7 +29,7 @@ public class Ride implements android.os.Parcelable, Serializable {
 
     private Integer maxPassengerNum;
 
-    private String userEmail;
+    private User driver;
 
     private Set<User> passengers;
 
@@ -119,12 +119,12 @@ public class Ride implements android.os.Parcelable, Serializable {
         this.maxPassengerNum = maxPassengerNum;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public User getDriver() {
+        return driver;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setDriver(User driver) {
+        this.driver = driver;
     }
 
     public Set<User> getPassengers() {
