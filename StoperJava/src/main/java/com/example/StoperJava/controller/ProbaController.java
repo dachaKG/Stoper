@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.StoperJava.model.LoginRequest;
 import com.example.StoperJava.model.Ride;
+import com.example.StoperJava.model.User;
 import com.example.StoperJava.service.AndroidPushNotificationsService;
 import com.example.StoperJava.service.FirebaseRepo;
 import com.example.StoperJava.service.RideService;
+import com.example.StoperJava.service.UserService;
 
 @RestController
 @RequestMapping(value = "/proba")
@@ -33,6 +36,9 @@ public class ProbaController {
 	
 	@Autowired
 	FirebaseRepo firebaseRepo;
+	
+	@Autowired
+	UserService userService;
 	
 	@GetMapping
 	public ResponseEntity<String> probaString() throws JSONException{
@@ -85,8 +91,11 @@ public class ProbaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Ride> addRide(@RequestBody Ride ride) {
-		
+	@RequestMapping(value = "/{driverEmail}")
+	public ResponseEntity<Ride> addRide(@PathVariable String driverEmail, @RequestBody Ride ride) {
+		User driver = userService.findByEmail(driverEmail);
+		ride.setDriver(driver);
+		ride.setMaxPassengerNum(ride.getPassengerNumber());
 		Ride newRide = rideService.saveRide(ride);
 		System.out.println(newRide.toString());
 		return new ResponseEntity<Ride>(newRide, HttpStatus.OK);

@@ -125,7 +125,7 @@
     <string name="button_submit_custom_settings">Sačuvaj podešavanja</string>
     <string-array name="speaking_array">
         <item>Ja sam tiha osoba</item>
-        <item>Pričam u zavisnosti od respoloženja</item>
+        <item>Pričam u zavisnosti od raspoloženja</item>
         <item>Volim da pričam</item>
     </string-array>
     <string-array name="smoking_array">
@@ -256,4 +256,18 @@
 
     <!--added to-->
     <string name="added_mark_to_title">Dato kome</string>
+
+    <!--RIDE DETAILS-->
+    <string name="ride_details_reserve_ride">Rezervišite</string>
+    <string name="ride_details_email_is_confirmed">E-mail adresa je potvrđena</string>
+    <string name="ride_details_email_is_not_confirmed">E-mail adresa nije potvrđena</string>
+    <string name="ride_details_car_default">Podatak o automobilu nije definisan \nod strane korisnika</string>
+    <string name="ride_details_car_color_default">Podatak o boji automobila \nnije definisan od strane korisnika</string>
+    <string name="currency">din</string>
+    <string name="message_success_changed_data">Uspešno se izvršili izmenu Vaših podataka</string>
+    <string name="contact_driver_title">Kontaktiraj vozača</string>
+    <string name="message_error_reserve">Došlo je do grešske, molimo Vas pokušajte ponovo.</string>
+    <string name="back_to_home_title">Naslovna</string>
+    <string name="success_reservation_title">Uspešna rezervacija</string>
+
 </resources>

@@ -78,6 +78,7 @@
         <activity android:name=".activities.ChangePasswordActivity" />
         <activity android:name=".activities.RideDetailsActivity" />
         <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.SuccessReserveActivity"></activity>
         <activity android:name=".chat.ui.activity.ChatActivity" />
         <activity android:name=".chat.ui.activity.UserListingActivity"></activity>
     </application>

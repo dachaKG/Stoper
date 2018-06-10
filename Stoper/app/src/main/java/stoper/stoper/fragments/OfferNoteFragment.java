@@ -2,6 +2,7 @@ package stoper.stoper.fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import stoper.stoper.R;
 import stoper.stoper.activities.NavigationActivity;
 import stoper.stoper.model.Ride;
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.lang.System.out;
 
 /**
@@ -118,7 +120,9 @@ public class OfferNoteFragment extends Fragment {
         @Override
         protected Ride doInBackground(Ride... rides) {
             try {
-                String apiUrl = Api.apiUrl + "/proba";
+                SharedPreferences loggedUserDetails = getActivity().getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+                String driverEmail = loggedUserDetails.getString("email","");
+                String apiUrl = Api.apiUrl + "/proba/"+ driverEmail;
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<Ride> ride = new HttpEntity<>(rides[0]);

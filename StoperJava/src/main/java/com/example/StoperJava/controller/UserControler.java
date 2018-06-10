@@ -98,6 +98,12 @@ public class UserControler {
 	//	return logedUser=userService.findByUsername(email);
 	//}
 	
+	@GetMapping
+	@RequestMapping(value = "/email/{email}")
+	public User getUser(@PathVariable String email) {
+		User user = userService.findByEmail(email);
+		return user;
+	}
 	@PutMapping
 	@RequestMapping(value = "/register")
 	public Boolean Register(@RequestBody User user) {

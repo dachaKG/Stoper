@@ -2,11 +2,19 @@ package com.example.StoperJava.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -36,6 +44,16 @@ public class Ride implements Serializable {
 
 	private String note;
 
+	private Integer maxPassengerNum;
+	
+	@ManyToOne
+	@JoinColumn(name="DRIVER_ID")
+	private User driver;
+		
+	@ManyToMany(cascade=CascadeType.ALL)  
+    @JoinTable(name="rides_passengers", joinColumns=@JoinColumn(name="ride_id"), inverseJoinColumns=@JoinColumn(name="user_id"))  
+	private Set<User> passengers;
+	
 	public Long getId() {
 		return id;
 	}
@@ -92,6 +110,14 @@ public class Ride implements Serializable {
 		this.note = note;
 	}
 
+	public Integer getMaxPassengerNum() {
+		return maxPassengerNum;
+	}
+
+	public void setMaxPassengerNum(Integer maxPassengerNum) {
+		this.maxPassengerNum = maxPassengerNum;
+	}
+
 	@Override
 	public String toString() {
 		return "Ride [id=" + id + ", startDestination=" + startDestination + ", endDestination=" + endDestination
@@ -99,6 +125,28 @@ public class Ride implements Serializable {
 				+ note + "]";
 	}
 	
+	public User getDriver() {
+		return driver;
+	}
+
+	public void setDriver(User driver) {
+		this.driver = driver;
+	}
+
+	public Set<User> getPassengers() {
+		return passengers;
+	}
+
+	public void setPassengers(Set<User> passengers) {
+		this.passengers = passengers;
+	}
+
+	public boolean addPassenger(User passenger) {
+		if(passengers == null) {
+			passengers = new HashSet<User>();
+		}
+		return passengers.add(passenger);
+	}
 	
 
 }
