@@ -3,6 +3,7 @@ package stoper.stoper.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -12,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -41,13 +44,19 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
+import stoper.stoper.Api;
 import stoper.stoper.R;
+import stoper.stoper.activities.RideDetailsActivity;
+import stoper.stoper.adapter.RideFragmentAdapter;
 import stoper.stoper.model.Ride;
 
 
@@ -182,46 +191,135 @@ public class SearchFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*client.get("http://172.16.102.177:8080/search", new JsonHttpResponseHandler() {
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                        Log.i("tagic","stiglo nesto");
-                        Log.i("S",response.toString());
-                        for(int i=0;i<response.length();i++){
-                            Gson gson = new Gson();
-                            try {
-                                Ride object = gson.fromJson(response.getJSONObject(i).toString(), Ride.class);
-                                Log.i("dosao ride",object.toString());
-                            }catch(JSONException ex){
-                                Log.i("GREeska",ex.getMessage());
-                            }
+                Ride r=new Ride();
+                r.setStartDestination(cir2lat(b.getString("startDestination")));
+                r.setEndDestination(cir2lat(b.getString("endDestination")));
+                String s=et3.getText().toString();
+                String[] niz=s.split("/");
+                String zaUbacit="20"+niz[2]+"-"+niz[0]+"-"+niz[1]+" 00:00:00";
+                r.setRideDate(zaUbacit);
+                r.setPassengerNumber(nmpck.getValue());
 
-                        }
-                    }
-                });*/
-                Ride r1=new Ride();
-                r1.setEndDestination("Paragoooovo");
-                r1.setStartDestination("Fojnica");
-                r1.setPrice(345);
-                Ride r2=new Ride();
-                r2.setEndDestination("Pariz");
-                r2.setStartDestination("Nica");
-                r2.setPrice(444);
-                ArrayList<Ride> lista=new ArrayList<>();
-                lista.add(r1);
-                lista.add(r2);
-                Fragment f = new RidesFragment();
-                //f.setArguments(b);
-                b.putParcelableArrayList("rideList",lista);
-                f.setArguments(b);
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.main_screen, f);
-                ft.addToBackStack(null);
-                ft.commit();
+                /*r.setRideDate("2018-06-07 00:00:00");
+                r.setStartDestination("Novi Sad");
+                r.setEndDestination("Kragujevac");
+                r.setPassengerNumber(1);*/
+                new HttpReqTask().execute(r);
+
+
+
             }
         });
 
     }
 
+    private class HttpReqTask extends AsyncTask<Ride, Void, Ride[]> {
+
+
+        @Override
+        protected Ride[] doInBackground(Ride... rides) {
+            try {
+                String apiUrl = Api.apiUrl + "/ride/searchRides";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<Ride> ride = new HttpEntity<>(rides[0]);
+                Ride[] getRides = (Ride[]) restTemplate.postForObject(apiUrl,ride, Ride[].class);
+                return getRides;
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Ride[] rides) {
+            super.onPostExecute(rides);
+            Bundle bundle=new Bundle();
+            bundle.putParcelableArrayList("ridesList", new ArrayList<>(Arrays.asList(rides)));
+
+            Fragment f = new RidesFragment();
+            //f.setArguments(b);
+            f.setArguments(bundle);
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.main_screen, f);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+
+
+    }
+
+    public static String cir2lat(String text) {
+        String ret = "";
+        for (int i = 0; i < text.length(); i++) {
+            char c=text.charAt(i);
+            switch(c){
+                case '\u0430': ret+="a"; break;
+                case '\u0431': ret+="b"; break;
+                case '\u0446': ret+="c"; break;
+                case '\u0434': ret+="d"; break;
+                case '\u0435': ret+="e"; break;
+                case '\u0444': ret+="f"; break;
+                case '\u0433': ret+="g"; break;
+                case '\u0445': ret+="h"; break;
+                case '\u0438': ret+="i"; break;
+                case '\u0458': ret+="j"; break;
+                case '\u043A': ret+="k"; break;
+                case '\u043B': ret+="l"; break;
+                case '\u043C': ret+="m"; break;
+                case '\u043D': ret+="n"; break;
+                case '\u043E': ret+="o"; break;
+                case '\u043F': ret+="p"; break;
+                case '\u0440': ret+="r"; break;
+                case '\u0441': ret+="s"; break;
+                case '\u0442': ret+="t"; break;
+                case '\u0443': ret+="u"; break;
+                case '\u0432': ret+="v"; break;
+                case '\u0437': ret+="z"; break;
+                case '\u0410': ret+="A"; break;
+                case '\u0411': ret+="B"; break;
+                case '\u0426': ret+="C"; break;
+                case '\u0414': ret+="D"; break;
+                case '\u0415': ret+="E"; break;
+                case '\u0424': ret+="F"; break;
+                case '\u0413': ret+="G"; break;
+                case '\u0425': ret+="H"; break;
+                case '\u0418': ret+="I"; break;
+                case '\u0408': ret+="J"; break;
+                case '\u041A': ret+="K"; break;
+                case '\u041B': ret+="L"; break;
+                case '\u041C': ret+="M"; break;
+                case '\u041D': ret+="N"; break;
+                case '\u041E': ret+="O"; break;
+                case '\u041F': ret+="P"; break;
+                case '\u0420': ret+="R"; break;
+                case '\u0421': ret+="S"; break;
+                case '\u0422': ret+="T"; break;
+                case '\u0423': ret+="U"; break;
+                case '\u0412': ret+="V"; break;
+                case '\u0417': ret+="Z"; break;
+                case '\u045B': ret+="\u0107"; break;
+                case '\u0447': ret+="\u010D"; break;
+                case '\u0452': ret+="\u0111"; break;
+                case '\u0448': ret+="\u0161"; break;
+                case '\u0436': ret+="\u017E"; break;
+                case '\u040B': ret+="\u0106"; break;
+                case '\u0427': ret+="\u010C"; break;
+                case '\u0402': ret+="\u0110"; break;
+                case '\u0428': ret+="\u0160"; break;
+                case '\u0416': ret+="\u017D"; break;
+                case '\u045F': ret+="d\u017E";break;
+                case '\u0459': ret+="lj";break;
+                case '\u045A': ret+="nj";break;
+                case '\u040F': ret+="D\u017E";break;
+                case '\u0409': ret+="Lj";break;
+                case '\u040A': ret+="Nj";break;
+                default : ret+=c;
+            }
+        }
+        return ret;
+    }
 
 }

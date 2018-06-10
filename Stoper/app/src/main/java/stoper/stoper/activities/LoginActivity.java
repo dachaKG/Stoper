@@ -3,6 +3,7 @@ package stoper.stoper.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import android.content.Context;
@@ -125,8 +126,23 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 System.out.println("ulogovan user je - " + userName);
-                intentt = new Intent(LoginActivity.this, NavigationActivity.class);
-                startActivity(intentt);
+
+                /**
+                 * Registracija maila za firebase notifikacije
+                 */
+
+                //String mail = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE)
+                //        .getString("email", "");
+                String tokenId = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                        .getString("FIREBASETOKEN", "");
+                Log.i("dsa","**************************************************************************");
+                Log.i("dfsafas",tokenId);
+                LoginReq tokenRequest=new LoginReq();
+                tokenRequest.setEmail(userLoged.getEmail());
+                tokenRequest.setPassword(tokenId);
+                new HttpReqTask1().execute(tokenRequest);
+
+
 
 
             }
@@ -169,4 +185,27 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intentt);
     }
 
+    private class HttpReqTask1 extends AsyncTask<LoginReq, Void, String> {
+        @Override
+        protected String doInBackground(LoginReq... tokenReqs) {
+            try{
+                String apiUrl = Api.apiUrl+"/proba/addToken";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<LoginReq> tokenReq = new HttpEntity<>(tokenReqs[0]);
+                String proba = restTemplate.postForObject(apiUrl,tokenReq, String.class);
+                return proba;
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("Proba: ", String.valueOf(s));
+            intentt = new Intent(LoginActivity.this, NavigationActivity.class);
+            startActivity(intentt);
+        }
+    }
 }

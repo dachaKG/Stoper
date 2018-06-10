@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -29,6 +31,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 import stoper.stoper.Api;
 import stoper.stoper.R;
 import stoper.stoper.fragments.DestinationFragment;
@@ -40,6 +47,7 @@ import stoper.stoper.fragments.ProfileDetailsFragment;
 import stoper.stoper.fragments.ProfileFragment;
 import stoper.stoper.fragments.SearchFragment;
 import stoper.stoper.fragments.StarterFragment;
+import stoper.stoper.model.LoginReq;
 import stoper.stoper.model.User;
 import stoper.stoper.util.MockData;
 
@@ -57,6 +65,7 @@ public class NavigationActivity extends AppCompatActivity
             Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
             startActivity(intent);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -180,7 +189,7 @@ public class NavigationActivity extends AppCompatActivity
                 fragment = new ProfileFragment();
                 getSupportActionBar().setTitle(R.string.app_bar_profile);
                 break;
-            case R.id.nav_chat
+            case R.id.nav_chat:
 
            /* case R.id.nav_share:
                 break;
@@ -198,4 +207,6 @@ public class NavigationActivity extends AppCompatActivity
         super.onDestroy();
         isAppRunning = false;
     }
+
+
 }
