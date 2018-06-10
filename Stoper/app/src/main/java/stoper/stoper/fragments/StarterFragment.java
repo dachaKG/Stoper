@@ -116,12 +116,12 @@ public class StarterFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment f = new RegistrationFragment();
+                /*Fragment f = new RegistrationFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.main_screen, f);
                 ft.addToBackStack(null);
-                ft.commit();
+                ft.commit();*/
             }
         });
 
