@@ -26,7 +26,7 @@ public class ProbaController {
 	
 	@PostMapping
 	public ResponseEntity<Ride> addRide(@RequestBody Ride ride) {
-		
+		ride.setMaxPassengerNum(ride.getPassengerNumber());
 		Ride newRide = rideService.saveRide(ride);
 		System.out.println(newRide.toString());
 		return new ResponseEntity<Ride>(newRide, HttpStatus.OK);

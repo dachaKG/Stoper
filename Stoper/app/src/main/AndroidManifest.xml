@@ -21,6 +21,7 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -29,18 +30,17 @@
             android:name=".util.MyService"
             android:process=":my_service" />
         <service android:name=".util.MyBroadcastReceiver" />
-        <service
-            android:name=".util.FirebaseService">
+        <service android:name=".util.FirebaseService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".util.MyFirebaseMessagingService">
+        <service android:name=".util.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -54,8 +54,7 @@
         <activity
             android:name=".activities.PhoneNumberActivity"
             android:parentActivityName=".activities.NavigationActivity" />
-        <activity
-            android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.RegisterActivity" />
         <activity
             android:name=".activities.CarActivity"
             android:parentActivityName=".activities.NavigationActivity" />
@@ -64,8 +63,9 @@
             android:parentActivityName=".activities.NavigationActivity" />
         <activity android:name=".activities.StatisticDataActivity" />
         <activity android:name=".activities.ChangePasswordActivity" />
-        <activity android:name=".activities.RideDetailsActivity"></activity>
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.RideDetailsActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.SuccessReserveActivity"></activity>
     </application>
 
 </manifest>

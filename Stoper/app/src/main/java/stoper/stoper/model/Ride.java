@@ -25,6 +25,10 @@ public class Ride implements android.os.Parcelable, Serializable {
          return 0;
      }
 
+    private Integer maxPassengerNum;
+
+    private String userEmail;
+
     public void writeToParcel(android.os.Parcel out, int flags) {
          out.writeInt(mData);
      }
@@ -99,5 +103,21 @@ public class Ride implements android.os.Parcelable, Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Integer getMaxPassengerNum() {
+        return maxPassengerNum;
+    }
+
+    public void setMaxPassengerNum(Integer maxPassengerNum) {
+        this.maxPassengerNum = maxPassengerNum;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

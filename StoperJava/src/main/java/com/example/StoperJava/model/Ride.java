@@ -27,7 +27,7 @@ public class Ride implements Serializable {
 
 	private String endDestination;
 
-	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss a z")
 	private Date rideDate;
 
 	private Integer passengerNumber;
@@ -36,6 +36,10 @@ public class Ride implements Serializable {
 
 	private String note;
 
+	private Integer maxPassengerNum;
+	
+	private String userEmail;
+	
 	public Long getId() {
 		return id;
 	}
@@ -92,12 +96,29 @@ public class Ride implements Serializable {
 		this.note = note;
 	}
 
+	public Integer getMaxPassengerNum() {
+		return maxPassengerNum;
+	}
+
+	public void setMaxPassengerNum(Integer maxPassengerNum) {
+		this.maxPassengerNum = maxPassengerNum;
+	}
+
 	@Override
 	public String toString() {
 		return "Ride [id=" + id + ", startDestination=" + startDestination + ", endDestination=" + endDestination
 				+ ", rideDate=" + rideDate + ", passengerNumber=" + passengerNumber + ", price=" + price + ", note="
 				+ note + "]";
 	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	
 	
 	
 

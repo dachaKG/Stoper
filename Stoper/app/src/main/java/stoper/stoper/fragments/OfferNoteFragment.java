@@ -2,6 +2,7 @@ package stoper.stoper.fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import stoper.stoper.R;
 import stoper.stoper.activities.NavigationActivity;
 import stoper.stoper.model.Ride;
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.lang.System.out;
 
 /**
@@ -70,12 +72,15 @@ public class OfferNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
+                    SharedPreferences loggedUserDetails = getActivity().getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+                    String userEmail = loggedUserDetails.getString("email","");
                     Ride ride = new Ride();
                     ride.setStartDestination(bundle.getString("startDestinationOffer"));
                     ride.setEndDestination(bundle.getString("endDestinationOffer"));
                     ride.setPassengerNumber(bundle.getInt("numberOfPassengers"));
                     ride.setPrice(bundle.getInt("priceOffer"));
                     ride.setNote(editTextNote.getText().toString());
+                    ride.setUserEmail(userEmail);
                     String rideDate = String.valueOf(bundle.getInt("yearOffer")) + "-" + String.valueOf(bundle.getInt("monthOffer")) + "-" + String.valueOf(bundle.getInt("dayOffer")) + "T" +
                             String.valueOf(bundle.getInt("hourOffer")) + ":" + String.valueOf(bundle.getInt("minuteOffer")) + ":00";
 

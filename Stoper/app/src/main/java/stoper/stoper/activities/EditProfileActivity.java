@@ -151,12 +151,6 @@ public class EditProfileActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.phone_number_text_view)).setText(loggedUser.getPhoneNumber());
         }
 
-        /*ImageView imageView = (ImageView) findViewById(R.id.profile_image_view);
-        if (loggedUser.getProfileImage() != null) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(loggedUser.getProfileImage(), 0, loggedUser.getProfileImage().length);
-
-            imageView.setImageBitmap(bitmap);
-        }*/
         GetUserDataTask taks = new GetUserDataTask();
         taks.execute();
     }
@@ -226,7 +220,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void showMessageSuccess(){
         Context contex = getApplicationContext();
-        CharSequence text = "Uspešno se izvršili izmenu Vaših podataka";
+        CharSequence text = "@string/message_success_changed_data";
         int duration = Toast.LENGTH_LONG;
 
         Toast toast = Toast.makeText(contex, text, duration);

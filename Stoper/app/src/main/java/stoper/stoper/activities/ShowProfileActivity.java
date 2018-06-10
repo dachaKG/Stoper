@@ -56,7 +56,6 @@ public class ShowProfileActivity extends AppCompatActivity {
         } else {
             imageView.setImageResource(R.drawable.baseline_highlight_off_24);
             textView.setText(R.string.show_profile_email_status_not_confirmed);
-
         }
 
         TextView car_model = (TextView) findViewById(R.id.show_profile_car_model);

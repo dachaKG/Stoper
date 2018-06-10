@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +23,18 @@ public class RideController {
 	public List<Ride> findRides(){
 		System.out.println("usao u ride");
 		return rideService.findAll();
+	}
+	
+	@PostMapping("/reserve")
+	public Boolean reserve(@RequestBody Long id) {
+		boolean result = false;
+		Ride ride = rideService.findOne(id).get();
+		if(ride != null) {
+			ride.setPassengerNumber(ride.getPassengerNumber()-1);
+			rideService.saveRide(ride);
+			result = true;
+		}
+		return result;
 	}
 
 }
