@@ -49,6 +49,9 @@
             android:name=".activities.CarActivity"
             android:parentActivityName=".activities.NavigationActivity" />
         <activity
+            android:name=".activities.CommentActivity"
+            />
+        <activity
             android:name=".activities.ShowProfileActivity"
             android:parentActivityName=".activities.NavigationActivity" />
         <activity android:name=".activities.StatisticDataActivity" />

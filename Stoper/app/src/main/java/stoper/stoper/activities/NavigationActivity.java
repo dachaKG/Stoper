@@ -36,7 +36,6 @@ import stoper.stoper.fragments.PlacesFragment;
 import stoper.stoper.fragments.ProfileAccountFragment;
 import stoper.stoper.fragments.ProfileDetailsFragment;
 import stoper.stoper.fragments.ProfileFragment;
-import stoper.stoper.fragments.RegistrationFragment;
 import stoper.stoper.fragments.SearchFragment;
 import stoper.stoper.fragments.StarterFragment;
 import stoper.stoper.model.User;

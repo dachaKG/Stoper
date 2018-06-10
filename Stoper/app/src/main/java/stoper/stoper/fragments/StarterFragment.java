@@ -112,18 +112,6 @@ public class StarterFragment extends Fragment {
         counterText.setVisibility(View.GONE);
 
         getActivity().setTitle(R.string.find_ride);
-        registerButton = view.findViewById(R.id.register);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment f = new RegistrationFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.main_screen, f);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
 
         loginButton = view.findViewById(R.id.login);
 
