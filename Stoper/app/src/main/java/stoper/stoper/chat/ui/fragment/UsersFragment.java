@@ -91,7 +91,7 @@ public class UsersFragment extends Fragment implements GetUsersContract.View, It
         if (TextUtils.equals(getArguments().getString(ARG_TYPE), TYPE_CHATS)) {
 
         } else if (TextUtils.equals(getArguments().getString(ARG_TYPE), TYPE_ALL)) {
-            mGetUsersPresenter.getAllUsers();
+            mGetUsersPresenter.getChatUsers();
         }
     }
 
