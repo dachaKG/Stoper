@@ -44,7 +44,7 @@ import stoper.stoper.util.MockData;
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    public static boolean isAppRunning;
     MockData mockData;
     private int activeItem = -1;
     @Override
@@ -181,5 +181,11 @@ public class NavigationActivity extends AppCompatActivity
                getSupportActionBar().setTitle(R.string.app_bar_home);
         }
         return fragment;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isAppRunning = false;
     }
 }
