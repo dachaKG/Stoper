@@ -100,58 +100,14 @@ public class StarterFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_starter, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //bundle = getArguments();
-
-        usernameText= view.findViewById(R.id.usernameID);
-        passwordText= view.findViewById(R.id.passwordID);
-        counterText = view.findViewById(R.id.counterID);
-        counterText.setVisibility(View.GONE);
-
         getActivity().setTitle(R.string.find_ride);
-        registerButton = view.findViewById(R.id.register);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*Fragment f = new RegistrationFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.main_screen, f);
-                ft.addToBackStack(null);
-                ft.commit();*/
-            }
-        });
-
-        loginButton = view.findViewById(R.id.login);
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginReq user = new LoginReq();
-                usernameArg=usernameText.getText().toString().trim();
-                passwordArg=passwordText.getText().toString().trim();
-
-
-                try {
-
-                    user.setEmail(usernameArg);
-                    user.setPassword(passwordArg);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(user);
-                    System.out.println(json);
-                    new HttpReqTask().execute(user);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-      
     }
+
 
     private class HttpReqTask extends AsyncTask<LoginReq, Void, RegistrationReq> {
 
@@ -237,4 +193,5 @@ public class StarterFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }*/
+
 }
