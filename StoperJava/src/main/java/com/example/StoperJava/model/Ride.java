@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -44,8 +46,10 @@ public class Ride implements Serializable {
 
 	private Integer maxPassengerNum;
 	
-	private String userEmail;
-	
+	@ManyToOne
+	@JoinColumn(name="DRIVER_ID")
+	private User driver;
+		
 	@ManyToMany(cascade=CascadeType.ALL)  
     @JoinTable(name="rides_passengers", joinColumns=@JoinColumn(name="ride_id"), inverseJoinColumns=@JoinColumn(name="user_id"))  
 	private Set<User> passengers;
@@ -120,15 +124,15 @@ public class Ride implements Serializable {
 				+ ", rideDate=" + rideDate + ", passengerNumber=" + passengerNumber + ", price=" + price + ", note="
 				+ note + "]";
 	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
 	
+	public User getDriver() {
+		return driver;
+	}
+
+	public void setDriver(User driver) {
+		this.driver = driver;
+	}
+
 	public Set<User> getPassengers() {
 		return passengers;
 	}

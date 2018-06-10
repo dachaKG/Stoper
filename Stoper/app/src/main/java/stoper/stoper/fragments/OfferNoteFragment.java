@@ -72,15 +72,12 @@ public class OfferNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    SharedPreferences loggedUserDetails = getActivity().getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
-                    String userEmail = loggedUserDetails.getString("email","");
                     Ride ride = new Ride();
                     ride.setStartDestination(bundle.getString("startDestinationOffer"));
                     ride.setEndDestination(bundle.getString("endDestinationOffer"));
                     ride.setPassengerNumber(bundle.getInt("numberOfPassengers"));
                     ride.setPrice(bundle.getInt("priceOffer"));
                     ride.setNote(editTextNote.getText().toString());
-                    ride.setUserEmail(userEmail);
                     String rideDate = String.valueOf(bundle.getInt("yearOffer")) + "-" + String.valueOf(bundle.getInt("monthOffer")) + "-" + String.valueOf(bundle.getInt("dayOffer")) + "T" +
                             String.valueOf(bundle.getInt("hourOffer")) + ":" + String.valueOf(bundle.getInt("minuteOffer")) + ":00";
 
@@ -123,7 +120,9 @@ public class OfferNoteFragment extends Fragment {
         @Override
         protected Ride doInBackground(Ride... rides) {
             try {
-                String apiUrl = Api.apiUrl + "/proba";
+                SharedPreferences loggedUserDetails = getActivity().getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+                String driverEmail = loggedUserDetails.getString("email","");
+                String apiUrl = Api.apiUrl + "/proba/"+ driverEmail;
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<Ride> ride = new HttpEntity<>(rides[0]);
