@@ -27,7 +27,7 @@ public class Ride implements Serializable {
 
 	private String endDestination;
 
-	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss a z")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date rideDate;
 
 	private Integer passengerNumber;

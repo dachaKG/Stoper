@@ -31,6 +31,14 @@ public class RegistrationReq {
         this.password = password;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public int getGender() {
         return gender;
     }
@@ -39,11 +47,11 @@ public class RegistrationReq {
         this.gender = gender;
     }
 
-    public String getFirst_name() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setfirst_name(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -55,11 +63,11 @@ public class RegistrationReq {
         this.lastName = lastName;
     }
 
-    public int getyear_of_birth() {
+    public int getYearOfBirth() {
         return yearOfBirth;
     }
 
-    public void setyear_of_birth(int yearOfBirth) {
+    public void setYearOfBirth(int yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
     }
 
@@ -78,13 +86,4 @@ public class RegistrationReq {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public Long getId(){
-        return this.id;
-    }
-
-    public void setId(Long id){
-        this.id = id;
-    }
-
 }

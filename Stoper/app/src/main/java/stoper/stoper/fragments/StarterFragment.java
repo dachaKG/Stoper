@@ -107,4 +107,91 @@ public class StarterFragment extends Fragment {
 
         getActivity().setTitle(R.string.find_ride);
     }
+
+
+    private class HttpReqTask extends AsyncTask<LoginReq, Void, RegistrationReq> {
+
+
+        @Override
+        protected RegistrationReq doInBackground(LoginReq... users) {
+            try {
+                String apiUrl = "http://192.168.0.11:8080/user/login";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<LoginReq> user = new HttpEntity<>(users[0]);
+                ResponseEntity<RegistrationReq> userTest = restTemplate.exchange(apiUrl, HttpMethod.POST,  user, RegistrationReq.class);
+                return userTest.getBody();
+            } catch (Exception ex) {
+                Log.e("..", ex.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(RegistrationReq userLoged) {
+            super.onPostExecute(userLoged);
+
+
+            String baseName="detailsUSER";
+            SharedPreferences loggedUserDetails;
+            loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
+
+            SharedPreferences.Editor edit = loggedUserDetails.edit();
+            edit.putString("firstName", userLoged.getFirstName());
+            edit.putString("lastname", userLoged.getLastName());
+			edit.putString("email", userLoged.getEmail());
+			edit.putInt("gender", userLoged.getGender());
+            
+			edit.apply();
+
+            loggedUserDetails = getContext().getSharedPreferences(baseName, MODE_PRIVATE);
+
+            String userName = loggedUserDetails.getString("firstName", "");
+            String password = loggedUserDetails.getString("lastname", "");
+
+            System.out.println(userName);
+            System.out.println(password);
+        }
+    }
+/*
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+*/
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     *//*
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }*/
+
 }

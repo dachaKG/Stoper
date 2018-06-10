@@ -1,5 +1,6 @@
 package com.example.StoperJava.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,26 @@ public class RideController {
 			result = true;
 		}
 		return result;
+	}
+	
+	@PostMapping
+	@RequestMapping(value = "/searchRides")
+	public List<Ride> searchRides(@RequestBody Ride searchRide){
+		List<Ride> rides=rideService.findAll();
+		List<Ride> ridesToSend=new ArrayList<>();
+		for(Ride r : rides) {
+			if(r.getStartDestination().equals(searchRide.getStartDestination())) {
+				if(r.getEndDestination().equals(searchRide.getEndDestination())) {
+					if(r.getRideDate().compareTo(searchRide.getRideDate())==0) {
+						if(r.getPassengerNumber()>=searchRide.getPassengerNumber()) {
+							ridesToSend.add(r);
+						}
+					}
+				}
+			}
+		}
+		
+		return ridesToSend;
 	}
 
 }
