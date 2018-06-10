@@ -4,7 +4,7 @@ import java.util.List;
 
 import stoper.stoper.chat.model.ChatUser;
 
-public class GetUsersPresenter implements GetUsersContract.Presenter, GetUsersContract.OnGetAllUsersListener{
+public class GetUsersPresenter implements GetUsersContract.Presenter, GetUsersContract.OnGetChatUsersListener{
     private GetUsersContract.View mView;
     private GetUsersInteractor mGetUsersInteractor;
 
@@ -12,6 +12,7 @@ public class GetUsersPresenter implements GetUsersContract.Presenter, GetUsersCo
         this.mView = view;
         mGetUsersInteractor = new GetUsersInteractor(this);
     }
+    //GetUsersContract.OnGetAllUsersListener
 
     @Override
     public void getAllUsers() {
@@ -23,7 +24,7 @@ public class GetUsersPresenter implements GetUsersContract.Presenter, GetUsersCo
         mGetUsersInteractor.getChatUsersFromFirebase();
     }
 
-    @Override
+    /*@Override
     public void onGetAllUsersSuccess(List<ChatUser> users) {
         mView.onGetAllUsersSuccess(users);
     }
@@ -31,9 +32,9 @@ public class GetUsersPresenter implements GetUsersContract.Presenter, GetUsersCo
     @Override
     public void onGetAllUsersFailure(String message) {
         mView.onGetAllUsersFailure(message);
-    }
+    }*/
 
-    /*@Override
+    @Override
     public void onGetChatUsersSuccess(List<ChatUser> users) {
         mView.onGetChatUsersSuccess(users);
     }
@@ -41,5 +42,5 @@ public class GetUsersPresenter implements GetUsersContract.Presenter, GetUsersCo
     @Override
     public void onGetChatUsersFailure(String message) {
         mView.onGetChatUsersFailure(message);
-    }*/
+    }
 }
