@@ -261,7 +261,7 @@ public class NavigationActivity extends AppCompatActivity
         SharedPreferences loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
 
         SharedPreferences.Editor edit = loggedUserDetails.edit();
-        edit.putString("firstName", "");
+        edit.putString("email", "");
         edit.apply();
 
         intent = new Intent(this, LoginActivity.class);
