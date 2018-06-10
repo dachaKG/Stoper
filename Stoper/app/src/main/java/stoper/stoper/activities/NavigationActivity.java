@@ -1,5 +1,6 @@
 package stoper.stoper.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -28,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import stoper.stoper.Api;
 import stoper.stoper.R;
 import stoper.stoper.fragments.DestinationFragment;
 import stoper.stoper.fragments.MainFragment;
@@ -47,8 +49,14 @@ public class NavigationActivity extends AppCompatActivity
     public static boolean isAppRunning;
     MockData mockData;
     private int activeItem = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE)
+        if (getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE).getString("firstName", "") == "") {
+            Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,7 +69,7 @@ public class NavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Fragment fragment = null;
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             fragment = getFragmentToShow(activeItem);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -69,20 +77,20 @@ public class NavigationActivity extends AppCompatActivity
             //ft.addToBackStack(null);
             ft.commit();
 
-        }else{
+        } else {
             activeItem = savedInstanceState.getInt("activeItem");
             fragment = getFragmentToShow(activeItem);
         }
         User user = mockData.UsersDatabase().get(0);
         View headerLayout = navigationView.getHeaderView(0);
-        TextView name = (TextView)headerLayout.findViewById(R.id.navigation_header_name);
-        name.setText(String.format("%s %s",user.getFirstName(),user.getLastName()));
+        TextView name = (TextView) headerLayout.findViewById(R.id.navigation_header_name);
+        name.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
 
-        TextView email = (TextView)headerLayout.findViewById(R.id.navigation_header_email);
+        TextView email = (TextView) headerLayout.findViewById(R.id.navigation_header_email);
         email.setText(user.getEmail());
 
-        ImageView profileImage = (ImageView)headerLayout.findViewById(R.id.navigation_header_image);
-        if(user.getProfileImage() != null){
+        ImageView profileImage = (ImageView) headerLayout.findViewById(R.id.navigation_header_image);
+        if (user.getProfileImage() != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
             profileImage.setImageBitmap(bitmap);
         }
@@ -135,7 +143,7 @@ public class NavigationActivity extends AppCompatActivity
         activeItem = item.getItemId();
         Fragment fragment = getFragmentToShow(id);
 
-        if(fragment != null){
+        if (fragment != null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -172,13 +180,15 @@ public class NavigationActivity extends AppCompatActivity
                 fragment = new ProfileFragment();
                 getSupportActionBar().setTitle(R.string.app_bar_profile);
                 break;
+            case R.id.nav_chat
+
            /* case R.id.nav_share:
                 break;
             case R.id.nav_send:
                 break;*/
-           default:
-               fragment = new StarterFragment();
-               getSupportActionBar().setTitle(R.string.app_bar_home);
+            default:
+                fragment = new StarterFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_home);
         }
         return fragment;
     }
