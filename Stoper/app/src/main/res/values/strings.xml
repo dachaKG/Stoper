@@ -10,6 +10,8 @@
     <string name="menu_title_search">Pretraži</string>
     <string name="menu_title_profile">Profil</string>
     <string name="menu_title_chat">Poruke</string>
+    <string name="menu_logout">Odjavi se</string>
+
 
     <string name="start_destination">Polazim iz...</string>
     <string name="end_destination">Idem u...</string>
@@ -59,6 +61,7 @@
     <string name="app_bar_search">Pretraga vožnje</string>
     <string name="app_bar_demand">Tražnja vožnje</string>
     <string name="app_bar_profile">Profil</string>
+    <string name="app_bar_chat">Poruke</string>
 
     <!--PROFILE TABS-->
     <string name="profile_details_tab">Detalji</string>
@@ -239,6 +242,17 @@
         <item>United States</item>
     </string-array>
 
+
+    <string name="user_successfully_added">Uspesno dodat korisnik!</string>
+    <string name="user_unable_to_add">Ne moze se dodati korisnik!</string>
+    <string name="adding_user_to_db">Dodajem korisnika u bazu.</string>
+    <string name="loading">Loading</string>
+    <string name="please_wait">Molimo sacekajte...</string>
+
+    <string name="type_a_message">Kucajte poruku...</string>
+    <string name="note_hint">Dodajte belesku za voznju</string>
+    <string name="are_you_sure">Da li ste sigurni?</string>
+    <string name="cancel">Otkazi</string>
 
     <!--added to-->
     <string name="added_mark_to_title">Dato kome</string>

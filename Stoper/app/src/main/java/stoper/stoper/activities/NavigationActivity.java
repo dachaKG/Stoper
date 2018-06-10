@@ -1,6 +1,8 @@
 package stoper.stoper.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -15,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -38,6 +41,10 @@ import org.springframework.web.client.RestTemplate;
 
 import stoper.stoper.Api;
 import stoper.stoper.R;
+import stoper.stoper.chat.core.logout.LogoutContract;
+import stoper.stoper.chat.core.logout.LogoutPresenter;
+import stoper.stoper.chat.ui.activity.UserListingActivity;
+import stoper.stoper.chat.ui.fragment.UsersFragment;
 import stoper.stoper.fragments.DestinationFragment;
 import stoper.stoper.fragments.MainFragment;
 import stoper.stoper.fragments.OfferFragment;
@@ -52,16 +59,28 @@ import stoper.stoper.model.User;
 import stoper.stoper.util.MockData;
 
 public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LogoutContract.View {
 
+    private static boolean sIsChatActivityOpen = false;
+
+    public static boolean isChatActivityOpen() {
+        return sIsChatActivityOpen;
+    }
+
+    public static void setChatActivityOpen(boolean isChatActivityOpen) {
+        NavigationActivity.sIsChatActivityOpen = isChatActivityOpen;
+    }
     public static boolean isAppRunning;
     MockData mockData;
     private int activeItem = -1;
 
+    Intent intent;
+    private LogoutPresenter mLogoutPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE)
-        if (getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE).getString("firstName", "") == "") {
+        if (getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE).getString("email", "") == "") {
             Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
             intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
@@ -104,6 +123,7 @@ public class NavigationActivity extends AppCompatActivity
             Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
             profileImage.setImageBitmap(bitmap);
         }
+        mLogoutPresenter = new LogoutPresenter(this);
     }
 
     @Override
@@ -192,6 +212,17 @@ public class NavigationActivity extends AppCompatActivity
                 break;
             case R.id.nav_chat:
 
+               // UserListingActivity.startActivity(this, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+               /* fragment = new UsersFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_chat);*/
+                intent = new Intent(this, UserListingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_logout:
+
+                logout();
+
+
            /* case R.id.nav_share:
                 break;
             case R.id.nav_send:
@@ -201,6 +232,45 @@ public class NavigationActivity extends AppCompatActivity
                 getSupportActionBar().setTitle(R.string.app_bar_home);
         }
         return fragment;
+    }
+
+
+    private void logout() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.menu_logout)
+                .setMessage(R.string.are_you_sure)
+                .setPositiveButton(R.string.menu_logout, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        mLogoutPresenter.logout();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void onLogoutSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        SharedPreferences loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+
+        SharedPreferences.Editor edit = loggedUserDetails.edit();
+        edit.putString("email", "");
+        edit.apply();
+
+        intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLogoutFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
