@@ -62,6 +62,17 @@ public class RidesFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(rideFragmentAdapter);
+        rideFragmentAdapter.setListener(new RideFragmentAdapter.Listener() {
+            @Override
+            public void onClick(int position) {
+                Ride selectedRide = bundle.<Ride>getParcelableArrayList("ridesList").get(position);
+                bundle.putSerializable("serRide", selectedRide);
+                Intent intent = new Intent(getActivity(), RideDetailsActivity.class);
+                intent.putExtra("selectedRide", (new Gson()).toJson(selectedRide));
+                startActivity(intent);
+
+            }
+        });
         return recyclerView;
     }
 

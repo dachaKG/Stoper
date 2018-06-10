@@ -192,18 +192,18 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Ride r=new Ride();
-                r.setStartDestination(cir2lat(b.getString("startDestination")));
+                /*r.setStartDestination(cir2lat(b.getString("startDestination")));
                 r.setEndDestination(cir2lat(b.getString("endDestination")));
                 String s=et3.getText().toString();
                 String[] niz=s.split("/");
                 String zaUbacit="20"+niz[2]+"-"+niz[0]+"-"+niz[1]+" 00:00:00";
                 r.setRideDate(zaUbacit);
-                r.setPassengerNumber(nmpck.getValue());
+                r.setPassengerNumber(nmpck.getValue());*/
 
-                /*r.setRideDate("2018-06-07 00:00:00");
+                r.setRideDate("2018-06-07 00:00:00");
                 r.setStartDestination("Novi Sad");
                 r.setEndDestination("Kragujevac");
-                r.setPassengerNumber(1);*/
+                r.setPassengerNumber(1);
                 new HttpReqTask().execute(r);
 
 

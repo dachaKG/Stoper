@@ -63,6 +63,7 @@ public class NavigationActivity extends AppCompatActivity
         //getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE)
         if (getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE).getString("firstName", "") == "") {
             Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
+            intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
         }
 
