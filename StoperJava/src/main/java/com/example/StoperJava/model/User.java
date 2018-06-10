@@ -101,11 +101,11 @@ public class User{
 
 	//private List<String> reviews;
 
-	@OneToMany(mappedBy="evaluator")
+	/*@OneToMany(mappedBy="evaluator")
 	private List<Rate> assignedComments = new ArrayList<Rate>();
 
 	@OneToMany(mappedBy="reciever")
-	private List<Rate> recievedComments = new ArrayList<Rate>();
+	private List<Rate> recievedComments = new ArrayList<Rate>();*/
 	
 	public User() {
 		super();
@@ -398,7 +398,7 @@ public class User{
 		this.profileImage = profileImage;
 	}
 
-	public List<Rate> getAssignedComments() {
+	/*public List<Rate> getAssignedComments() {
 		return assignedComments;
 	}
 
@@ -412,7 +412,7 @@ public class User{
 
 	public void setRecievedComments(List<Rate> recievedComments) {
 		this.recievedComments = recievedComments;
-	}	
+	}	*/
 	//public List<String> getReviews() {
 	//	return reviews;
 	//}
