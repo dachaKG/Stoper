@@ -1,5 +1,7 @@
 package stoper.stoper.activities;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +39,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import org.springframework.http.HttpEntity;
@@ -50,7 +53,12 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import stoper.stoper.Api;
 import stoper.stoper.R;
+import stoper.stoper.chat.core.registration.RegisterContract;
+import stoper.stoper.chat.core.registration.RegisterPresenter;
+import stoper.stoper.chat.core.users.add.AddUserContract;
+import stoper.stoper.chat.core.users.add.AddUserPresenter;
 import stoper.stoper.model.LoginReq;
 import stoper.stoper.model.RegistrationReq;
 
@@ -65,7 +73,7 @@ import stoper.stoper.R;
 
 import static java.security.AccessController.getContext;
 
-public class RegisterActivity  extends AppCompatActivity {
+public class RegisterActivity  extends AppCompatActivity implements  RegisterContract.View, AddUserContract.View {
 
     public Boolean validInputs=true; // polje ko je ce govoriti da li su sva polja popunjena
     //i da li su popunjena kako treba
@@ -95,6 +103,11 @@ public class RegisterActivity  extends AppCompatActivity {
 
     Bundle bundle;
 
+    private RegisterPresenter mRegisterPresenter;
+    private AddUserPresenter mAddUserPresenter;
+    private ProgressDialog mProgressDialog;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +132,7 @@ public class RegisterActivity  extends AppCompatActivity {
         });
         ll=findViewById(R.id.popup);
         ll.setVisibility(View.GONE);
+
 
         /**
          * Gender choice
@@ -174,6 +188,16 @@ public class RegisterActivity  extends AppCompatActivity {
             }
         });
 
+        mRegisterPresenter = new RegisterPresenter(this);
+        mAddUserPresenter = new AddUserPresenter(this);
+
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.please_wait));
+        mProgressDialog.setIndeterminate(true);
+
+
+
     }
 
 
@@ -204,13 +228,15 @@ public class RegisterActivity  extends AppCompatActivity {
                 Gson gson = new Gson();
                 user.setEmail(usernameArg);
                 user.setPassword(passwordArg);
-                user.setfirst_name(nameArg);
+                user.setFirstName(nameArg);
                 user.setLastName(lastnameArg);
-                user.setyear_of_birth(yearOfBirthArg);
+                user.setYearOfBirth(yearOfBirthArg);
                 user.setGender(genderArg);
                 user.setPassword(passwordArg);
                 String json = gson.toJson(user);
                 System.out.println(json);
+                mRegisterPresenter.register(this, usernameArg, passwordArg);
+                mProgressDialog.show();
                 new RegisterActivity.HttpReqTask().execute(user);
             }
             else{
@@ -289,15 +315,47 @@ public class RegisterActivity  extends AppCompatActivity {
         return true;
     }
 
+
+    @Override
+    public void onRegistrationSuccess(FirebaseUser firebaseUser) {
+        mProgressDialog.setMessage(getString(R.string.adding_user_to_db));
+        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+        mAddUserPresenter.addUser(this.getApplicationContext(), firebaseUser);
+    }
+
+    @Override
+    public void onRegistrationFailure(String message) {
+        mProgressDialog.dismiss();
+        mProgressDialog.setMessage(getString(R.string.please_wait));
+        Log.e("ss", "onRegistrationFailure: " + message);
+        Toast.makeText(this, "Registration failed!+\n" + message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAddUserSuccess(String message) {
+        mProgressDialog.dismiss();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        /*UserListingActivity.startActivity(getActivity(),
+                Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);*/
+        //Intent intent =
+    }
+
+    @Override
+    public void onAddUserFailure(String message) {
+        mProgressDialog.dismiss();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
     private class HttpReqTask extends AsyncTask<RegistrationReq, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(RegistrationReq... users) {
             try {
-                String apiUrl = "http://192.168.0.11:8080/user/register";
+                String apiUrl = Api.apiUrl + "/user/register";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 HttpEntity<RegistrationReq> user = new HttpEntity<>(users[0]);
+
                 ResponseEntity<Boolean> userTest = restTemplate.exchange(apiUrl, HttpMethod.PUT,  user, Boolean.class);
 
                 return userTest.getBody();
@@ -313,6 +371,7 @@ public class RegisterActivity  extends AppCompatActivity {
             super.onPostExecute(aBoolean);
             if(aBoolean) {
                 intentt = new Intent(RegisterActivity.this, LoginActivity.class);
+
                 startActivity(intentt);
             }
             else{

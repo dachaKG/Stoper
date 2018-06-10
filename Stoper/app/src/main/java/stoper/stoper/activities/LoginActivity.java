@@ -1,5 +1,6 @@
 package stoper.stoper.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +29,9 @@ import org.springframework.web.client.RestTemplate;
 
 import stoper.stoper.Api;
 import stoper.stoper.R;
+import stoper.stoper.chat.core.login.LoginContract;
+import stoper.stoper.chat.core.login.LoginPresenter;
+import stoper.stoper.chat.ui.activity.UserListingActivity;
 import stoper.stoper.model.LoginReq;
 import stoper.stoper.model.User;
 import stoper.stoper.model.User;
@@ -37,10 +41,11 @@ import static android.content.Context.MODE_PRIVATE;
 import static java.lang.System.out;
 
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import java.security.AccessController;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginContract.View{
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
@@ -56,11 +61,19 @@ public class LoginActivity extends AppCompatActivity {
     int counter = 3;
     Bundle bundle;
 
+    private LoginPresenter mLoginPresenter;
+    private ProgressDialog mProgressDialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         intentt = new Intent(LoginActivity.this, NavigationActivity.class);
+        mLoginPresenter = new LoginPresenter(this);
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.please_wait));
+        mProgressDialog.setIndeterminate(true);
 
     }
 
@@ -75,6 +88,20 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = view.findViewById(R.id.login);
 
 
+    }
+
+    @Override
+    public void onLoginSuccess(String message) {
+        mProgressDialog.dismiss();
+        Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+        /*UserListingActivity.startActivity(this,
+                Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);*/
+    }
+
+    @Override
+    public void onLoginFailure(String message) {
+        mProgressDialog.dismiss();
+        Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -112,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
 
                 SharedPreferences.Editor edit = loggedUserDetails.edit();
+
                 edit.putString("firstName", userLoged.getFirstName());
                 edit.putString("lastname", userLoged.getLastName());
                 edit.putString("email", userLoged.getEmail());
@@ -154,8 +182,10 @@ public class LoginActivity extends AppCompatActivity {
             String json = gson.toJson(user);
             System.out.println(json);
 
-
+            mLoginPresenter.login(this, usernameArg, passwordArg);
+            mProgressDialog.show();
             new HttpReqTask().execute(user);
+
 
         } catch (Exception e) {
             e.printStackTrace();
