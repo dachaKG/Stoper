@@ -173,6 +173,13 @@
         <item>Muški</item>
         <item>Ženski</item>
     </string-array>
+	
+	 <string-array name="marks_array">
+        <item>prva</item>
+        <item>druga</item>
+		<item>treca</item>
+		<item>cetvrta</item>
+    </string-array>
 
     <string-array name="car_types">
         <item>Hečbek</item>
