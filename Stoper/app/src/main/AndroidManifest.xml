@@ -80,7 +80,7 @@
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.SuccessReserveActivity"></activity>
         <activity android:name=".chat.ui.activity.ChatActivity" />
-        <activity android:name=".chat.ui.activity.UserListingActivity"></activity>
+        <activity android:name=".chat.ui.activity.UserListingActivity" android:parentActivityName=".activities.NavigationActivity"></activity>
     </application>
 
 </manifest>

@@ -102,7 +102,7 @@ public class NavigationActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.main_screen, fragment, "starterFragment");
-            //ft.addToBackStack(null);
+            ft.addToBackStack(null);
             ft.commit();
 
         } else {
@@ -191,9 +191,9 @@ public class NavigationActivity extends AppCompatActivity
     private Fragment getFragmentToShow(int id) {
         Fragment fragment = null;
         switch (id) {
-            case R.id.nav_camera:
-                fragment = new MainFragment();
-                getSupportActionBar().setTitle(R.string.app_bar_offer);
+            case R.id.nav_home:
+                fragment = new StarterFragment();
+                getSupportActionBar().setTitle(R.string.app_bar_home);
                 break;
             case R.id.nav_gallery:
                 fragment = new SearchFragment();
@@ -210,10 +210,6 @@ public class NavigationActivity extends AppCompatActivity
                 getSupportActionBar().setTitle(R.string.app_bar_profile);
                 break;
             case R.id.nav_chat:
-
-               // UserListingActivity.startActivity(this, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-               /* fragment = new UsersFragment();
-                getSupportActionBar().setTitle(R.string.app_bar_chat);*/
                 intent = new Intent(this, UserListingActivity.class);
                 startActivity(intent);
                 break;
