@@ -16,6 +16,11 @@
         android:text="@string/account_statistic_data_title" />
 
     <TextView
+        android:id="@+id/account_link_to_recieved_rates"
+        style="@style/AccountContent"
+        android:text="@string/account_recieved_data_link_title"/>
+
+    <TextView
         android:id="@+id/account_link_to_statistic_data"
         style="@style/AccountContent"
         android:text="@string/account_statistic_data_link_title"/>

@@ -164,7 +164,7 @@
         android:textColor="@color/white"
         android:onClick="onClickSaveDataForProfil"/>
 
-    <TextView
+   <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email_title"
@@ -207,7 +207,7 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:onClick="onClickSaveEmail"
-        android:text="@string/save_email_button_title"/>
+        android:text="@string/save_email_button_title"/>-->
 
     <TextView
         android:layout_width="wrap_content"

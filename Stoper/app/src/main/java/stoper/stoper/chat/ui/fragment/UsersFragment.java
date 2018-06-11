@@ -1,6 +1,7 @@
 package stoper.stoper.chat.ui.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Iterator;
 import java.util.List;
 
 import stoper.stoper.R;
@@ -20,6 +28,7 @@ import stoper.stoper.chat.core.users.getAll.GetUsersPresenter;
 import stoper.stoper.chat.model.ChatUser;
 import stoper.stoper.chat.ui.activity.ChatActivity;
 import stoper.stoper.chat.ui.adapter.UserListingRecyclerAdapter;
+import stoper.stoper.chat.utils.Constants;
 import stoper.stoper.chat.utils.ItemClickSupport;
 
 /**
@@ -94,6 +103,7 @@ public class UsersFragment extends Fragment implements GetUsersContract.View, It
             mGetUsersPresenter.getChatUsers();
         }
     }
+
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {

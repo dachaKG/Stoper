@@ -34,6 +34,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -56,7 +58,6 @@ import stoper.stoper.fragments.SearchFragment;
 import stoper.stoper.fragments.StarterFragment;
 import stoper.stoper.model.LoginReq;
 import stoper.stoper.model.User;
-import stoper.stoper.util.MockData;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LogoutContract.View {
@@ -71,9 +72,9 @@ public class NavigationActivity extends AppCompatActivity
         NavigationActivity.sIsChatActivityOpen = isChatActivityOpen;
     }
     public static boolean isAppRunning;
-    MockData mockData;
     private int activeItem = -1;
-
+    private User user;
+    private SharedPreferences preferences;
     Intent intent;
     private LogoutPresenter mLogoutPresenter;
 
@@ -94,6 +95,10 @@ public class NavigationActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        user =  new Gson().fromJson(preferences.getString("userJson", ""), User.class);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Fragment fragment = null;
@@ -109,7 +114,6 @@ public class NavigationActivity extends AppCompatActivity
             activeItem = savedInstanceState.getInt("activeItem");
             fragment = getFragmentToShow(activeItem);
         }
-        User user = mockData.UsersDatabase().get(0);
         View headerLayout = navigationView.getHeaderView(0);
         TextView name = (TextView) headerLayout.findViewById(R.id.navigation_header_name);
         name.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
@@ -118,7 +122,7 @@ public class NavigationActivity extends AppCompatActivity
         email.setText(user.getEmail());
 
         ImageView profileImage = (ImageView) headerLayout.findViewById(R.id.navigation_header_image);
-        if (user.getProfileImage() != null) {
+        if (user.getProfileImage() != null && user.getProfileImage().length> 0) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
             profileImage.setImageBitmap(bitmap);
         }
@@ -263,8 +267,35 @@ public class NavigationActivity extends AppCompatActivity
         edit.putString("email", "");
         edit.apply();
 
-        intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        LoginReq loginReq=new LoginReq();
+        loginReq.setEmail(loggedUserDetails.getString("email", ""));
+        loginReq.setPassword("");
+        new HttpReqTask1().execute(loginReq);
+
+    }
+
+    private class HttpReqTask1 extends AsyncTask<LoginReq, Void, String> {
+        @Override
+        protected String doInBackground(LoginReq... tokenReqs) {
+            try{
+                String apiUrl = Api.apiUrl+"/proba/removeToken";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<LoginReq> tokenReq = new HttpEntity<>(tokenReqs[0]);
+                String proba = restTemplate.postForObject(apiUrl,tokenReq, String.class);
+                return proba;
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("Proba: ", String.valueOf(s));
+            intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

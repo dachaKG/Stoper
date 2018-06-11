@@ -61,33 +61,6 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
         });
     }
 
-    public List<ChatUser> getAllUsers() {
-        final List<ChatUser> userList = new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference().child(Constants.ARG_USERS).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
-                List<ChatUser> users = new ArrayList<>();
-                while (dataSnapshots.hasNext()) {
-                    DataSnapshot dataSnapshotChild = dataSnapshots.next();
-
-                    ChatUser user = dataSnapshotChild.getValue(ChatUser.class);
-                    if (!TextUtils.equals(user.uid, FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                        users.add(user);
-                    }
-                }
-
-                userList.addAll(users);
-                //mOnGetAllUsersListener.onGetAllUsersSuccess(users);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                mOnGetAllUsersListener.onGetAllUsersFailure(databaseError.getMessage());
-            }
-        });
-        return userList;
-    }
 
     @Override
     public void getChatUsersFromFirebase() {
@@ -98,10 +71,6 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
                 List<ChatUser> users = new ArrayList<>();
                 while (dataSnapshots.hasNext()) {
                     DataSnapshot dataSnapshotChild = dataSnapshots.next();
-                    //ChatUser user1 = dataSnapshot.getValue(
-                    //Chat chat = dataSnapshotChild.getValue(Chat.class);
-                    // users = getAllUsers();
-                    getAllUsersFromFirebase();
                     System.out.println(chatUsers.size());
                     HashMap<Object, HashMap<Object, Object>> mapa = (HashMap<Object, HashMap<Object, Object>>) dataSnapshotChild.getValue();
                     if (mapa != null) {
@@ -114,13 +83,14 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
                             chat.setSender((String) firstMap.get("sender"));
                             chat.setSenderUid((String) firstMap.get("senderUid"));
                             if (TextUtils.equals(chat.getSenderUid(), FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-
+                                users.add(new ChatUser(chat.getReceiverUid(), chat.getReceiver()));
+                                break;
+                            } else if (TextUtils.equals(chat.getReceiverUid(), FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                users.add(new ChatUser(chat.getSenderUid(), chat.getSender()));
+                                break;
                             }
                         }
                     }
-                   /* if (!TextUtils.equals(chat., FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                        users.add(user);
-                    }*/
                 }
                 onGetChatUsersListener.onGetChatUsersSuccess(users);
             }

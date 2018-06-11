@@ -78,6 +78,7 @@ public class MockData extends Application {
                 String name = names.get(rand.nextInt(names.size()));
                 rateDTO.setMark(mark);
                 rateDTO.setRecieverFirstName(name);
+                rateDTO.setEvaluatorFirstName(name);
                 rateDTO.setDate(new Date());
 
                 rates.add(rateDTO);

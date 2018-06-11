@@ -1,5 +1,7 @@
 package stoper.stoper.chat.fcm;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +30,8 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        preferences.edit().putString("FIREBASETOKEN", refreshedToken).apply();
         sendRegistrationToServer(refreshedToken);
     }
     // [END refresh_token]

@@ -12,7 +12,8 @@ public class Chat {
 
     }
 
-    public Chat(String sender, String receiver, String senderUid, String receiverUid, String message, long timestamp){
+    public Chat(String sender, String receiver, String senderUid,
+                String receiverUid, String message, long timestamp){
         this.sender = sender;
         this.receiver = receiver;
         this.senderUid = senderUid;
@@ -69,6 +70,9 @@ public class Chat {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
+
+
 
     @Override
     public String toString() {

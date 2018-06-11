@@ -45,7 +45,6 @@ import java.util.List;
 
 import stoper.stoper.Api;
 import stoper.stoper.DTO.UserCustomSettingsDTO;
-import stoper.stoper.DTO.UserEmailDTO;
 import stoper.stoper.DTO.UserImageDTO;
 import stoper.stoper.DTO.UserPersonalDataDTO;
 import stoper.stoper.DTO.UserPhoneNumberDTO;
@@ -54,7 +53,6 @@ import stoper.stoper.R;
 import stoper.stoper.fragments.OfferNoteFragment;
 import stoper.stoper.model.Ride;
 import stoper.stoper.model.User;
-import stoper.stoper.util.MockData;
 
 import static java.lang.System.out;
 
@@ -63,7 +61,6 @@ public class EditProfileActivity extends AppCompatActivity {
     public static final String EXTRA_SCROLL_TO_ELEMENT = Integer.toString(R.id.first_name_text_view);
     private static int RESULT_LOAD_IMAGE = 1;
 
-    //private MockData mockData;
     private EditText scrollTo;
     private NestedScrollView scrollView;
 
@@ -72,7 +69,6 @@ public class EditProfileActivity extends AppCompatActivity {
     String lastName = "";
     String birthYear = "";
     String biography = "";
-    String email = "";
     String areaNumber = "";
     String phoneNumber = "";
     private User loggedUser;
@@ -124,19 +120,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-        TextView confirmedStatus = findViewById(R.id.email_status_text_view);
-        if (loggedUser.getConfirmed() != null && loggedUser.getConfirmed()){
-            confirmedStatus.setText(R.string.show_profile_email_status_confirmed);
-        }else{
-            confirmedStatus.setText(R.string.show_profile_email_status_not_confirmed);
-        }
+
         if (savedInstanceState != null) {
             ((TextView) findViewById(R.id.gender_text_view)).setText(savedInstanceState.getString("gender"));
             ((TextView) findViewById(R.id.first_name_text_view)).setText(savedInstanceState.getString("firstName"));
             ((TextView) findViewById(R.id.last_name_text_view)).setText(savedInstanceState.getString("lastName"));
             ((TextView) findViewById(R.id.birth_year_text_view)).setText(savedInstanceState.getString("birthYear"));
             ((TextView) findViewById(R.id.biography_text_view)).setText(savedInstanceState.getString("biography"));
-            ((TextView) findViewById(R.id.email_text_view)).setText(savedInstanceState.getString("email_text"));
             ((TextView) findViewById(R.id.area_call_text_view)).setText(savedInstanceState.getString("area_number"));
             ((TextView) findViewById(R.id.phone_number_text_view)).setText(savedInstanceState.getString("phone_number"));
         } else {
@@ -153,7 +143,6 @@ public class EditProfileActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.last_name_text_view)).setText(loggedUser.getLastName());
             ((TextView) findViewById(R.id.birth_year_text_view)).setText(Integer.toString(loggedUser.getYearOfBirth()));
             ((TextView) findViewById(R.id.biography_text_view)).setText(loggedUser.getBiography());
-            ((TextView) findViewById(R.id.email_text_view)).setText(loggedUser.getEmail());
             ((TextView) findViewById(R.id.area_call_text_view)).setText(loggedUser.getAreaCall());
             ((TextView) findViewById(R.id.phone_number_text_view)).setText(loggedUser.getPhoneNumber());
         }
@@ -170,7 +159,6 @@ public class EditProfileActivity extends AppCompatActivity {
         String last_name_text = ((TextView)findViewById(R.id.last_name_text_view)).getText().toString();
         String birth_year_text = ((TextView)findViewById(R.id.birth_year_text_view)).getText().toString();
         String biography_text = ((TextView)findViewById(R.id.biography_text_view)).getText().toString();
-        String email_text = ((TextView)findViewById(R.id.email_text_view)).getText().toString();
         String area_number_text = ((TextView)findViewById(R.id.area_call_text_view)).getText().toString();
         String phone_number_text = ((TextView)findViewById(R.id.phone_number_text_view)).getText().toString();
         outState.putString("gender", gender_text);
@@ -178,7 +166,6 @@ public class EditProfileActivity extends AppCompatActivity {
         outState.putString("lastName",last_name_text);
         outState.putString("birthYear", birth_year_text);
         outState.putString("biography",biography_text);
-        outState.putString("email_text",email_text);
         outState.putString("area_number", area_number_text);
         outState.putString("phone_number", phone_number_text);
     }
@@ -207,7 +194,7 @@ public class EditProfileActivity extends AppCompatActivity {
         showMessageSuccess();
     }
 
-    public void onClickSaveEmail(View view){
+    /*public void onClickSaveEmail(View view){
         String edited_email = ((TextView)findViewById(R.id.email_text_view)).getText().toString();
         UserEmailDTO userEmailDTO = new UserEmailDTO(loggedUser.getEmail(),edited_email, false);
         loggedUser.setEmail(edited_email);
@@ -219,7 +206,7 @@ public class EditProfileActivity extends AppCompatActivity {
         loggedUser.setConfirmed(false);
         updateUser();
         //to do confirmation new mail
-    }
+    }*/
 
     public void onClickSavePhoneNumber(View view){
         String area_call_edited = ((TextView)findViewById(R.id.area_call_text_view)).getText().toString();
@@ -303,7 +290,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    private class SaveEmailDataTask extends AsyncTask<UserEmailDTO, Void,Boolean> {
+    /*private class SaveEmailDataTask extends AsyncTask<UserEmailDTO, Void,Boolean> {
 
         @Override
         protected Boolean doInBackground(UserEmailDTO... userEmail) {
@@ -327,7 +314,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             out.println("Boolean jeeeeeee " + aBoolean.toString());
         }
-    }
+    }*/
 
     private class SavePhoneNumberDataTask extends AsyncTask<UserPhoneNumberDTO, Void,Boolean> {
 

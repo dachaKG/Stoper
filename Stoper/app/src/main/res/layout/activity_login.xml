@@ -46,7 +46,12 @@
             android:inputType="textPassword"
             android:hint="Lozinka" />
 
-
+        <Button
+            android:onClick="login"
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:text="@string/login" />
         <Button
             android:onClick="redirectToRegistration"
             android:id="@+id/register"
@@ -54,12 +59,7 @@
             android:layout_height="42dp"
             android:text="@string/register" />
 
-        <Button
-            android:onClick="login"
-            android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:text="@string/login" />
+
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -14,4 +14,9 @@ public class ChatUser {
         this.email = email;
         this.firebaseToken = firebaseToken;
     }
+
+    public ChatUser(String uid, String email) {
+        this.uid = uid;
+        this.email = email;
+    }
 }
