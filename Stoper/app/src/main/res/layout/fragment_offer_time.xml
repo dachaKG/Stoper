@@ -24,6 +24,8 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:id="@+id/button_offer_time_id"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:text="@string/next"/>
 
     </LinearLayout>
