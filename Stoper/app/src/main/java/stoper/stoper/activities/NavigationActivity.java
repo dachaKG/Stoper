@@ -81,13 +81,18 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE)
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navigation);
         if (getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE).getString("email", "") == "") {
             Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
             intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
+            finish();
+            return;
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

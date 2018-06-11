@@ -93,7 +93,7 @@
             android:name=".chat.ui.activity.UserListingActivity" />
         <activity
             android:name=".activities.RecievedRatesActivity"
-            android:parentActivityName=".activities.NavigationActivity"></activity>
+            android:parentActivityName=".activities.NavigationActivity"/>
     </application>
 
 </manifest>
