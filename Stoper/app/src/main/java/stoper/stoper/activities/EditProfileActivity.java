@@ -3,6 +3,7 @@ package stoper.stoper.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -62,7 +63,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public static final String EXTRA_SCROLL_TO_ELEMENT = Integer.toString(R.id.first_name_text_view);
     private static int RESULT_LOAD_IMAGE = 1;
 
-    private MockData mockData;
+    //private MockData mockData;
     private EditText scrollTo;
     private NestedScrollView scrollView;
 
@@ -75,6 +76,7 @@ public class EditProfileActivity extends AppCompatActivity {
     String areaNumber = "";
     String phoneNumber = "";
     private User loggedUser;
+    private SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,9 @@ public class EditProfileActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.edit_profile_app_bar_title);
+
+        preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        loggedUser =  new Gson().fromJson(preferences.getString("userJson", ""), User.class);
 
         TextView genderView = (TextView) findViewById(R.id.gender_text_view);
         final List<String> gender_array = Arrays.asList(getResources().getStringArray(R.array.gender_array));
@@ -119,7 +124,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-
+        TextView confirmedStatus = findViewById(R.id.email_status_text_view);
+        if (loggedUser.getConfirmed() != null && loggedUser.getConfirmed()){
+            confirmedStatus.setText(R.string.show_profile_email_status_confirmed);
+        }else{
+            confirmedStatus.setText(R.string.show_profile_email_status_not_confirmed);
+        }
         if (savedInstanceState != null) {
             ((TextView) findViewById(R.id.gender_text_view)).setText(savedInstanceState.getString("gender"));
             ((TextView) findViewById(R.id.first_name_text_view)).setText(savedInstanceState.getString("firstName"));
@@ -133,9 +143,6 @@ public class EditProfileActivity extends AppCompatActivity {
             int focusElement = (int) getIntent().getExtras().get(EXTRA_SCROLL_TO_ELEMENT);
             EditText b = (EditText) findViewById(focusElement);
             b.requestFocus();
-            ;
-            mockData = (MockData) getApplicationContext();
-            loggedUser = mockData.UsersDatabase().get(0);
             if (loggedUser.getGender() == 0) {
                 ((TextView) findViewById(R.id.gender_text_view)).setText("Muski");
 
@@ -177,7 +184,6 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     public void onClickSaveDataForProfil(View view){
-        User user = mockData.UsersDatabase().get(0);
         String edited_gender = ((TextView)findViewById(R.id.gender_text_view)).getText().toString();
         int gender = 0;
         List<String> gender_array = Arrays.asList(getResources().getStringArray(R.array.gender_array));
@@ -188,39 +194,48 @@ public class EditProfileActivity extends AppCompatActivity {
         int year= Integer.parseInt(edited_birth_year);
         String edited_biography = ((TextView)findViewById(R.id.biography_text_view)).getText().toString();
 
-        UserPersonalDataDTO userPersonalDataDTO = new UserPersonalDataDTO(user.getEmail(),gender,edited_first_name,edited_last_name,year,edited_biography);
+        UserPersonalDataDTO userPersonalDataDTO = new UserPersonalDataDTO(loggedUser.getEmail(),gender,edited_first_name,edited_last_name,year,edited_biography);
         SavePersonalDataTask savePersonalDataTask = new SavePersonalDataTask();
         savePersonalDataTask.execute(userPersonalDataDTO);
+
+        loggedUser.setGender(gender);
+        loggedUser.setFirstName(edited_first_name);
+        loggedUser.setYearOfBirth(year);
+        loggedUser.setLastName(edited_last_name);
+        loggedUser.setBiography(edited_biography);
+        updateUser();
+        showMessageSuccess();
     }
 
     public void onClickSaveEmail(View view){
         String edited_email = ((TextView)findViewById(R.id.email_text_view)).getText().toString();
-        User user = mockData.UsersDatabase().get(0);
-        UserEmailDTO userEmailDTO = new UserEmailDTO(user.getEmail(),edited_email, false);
-        user.setEmail(edited_email);
+        UserEmailDTO userEmailDTO = new UserEmailDTO(loggedUser.getEmail(),edited_email, false);
+        loggedUser.setEmail(edited_email);
 
         SaveEmailDataTask saveEmailDataTask = new SaveEmailDataTask();
         saveEmailDataTask.execute(userEmailDTO);
         showMessageSuccess();
+        loggedUser.setEmail(edited_email);
+        loggedUser.setConfirmed(false);
+        updateUser();
         //to do confirmation new mail
     }
 
     public void onClickSavePhoneNumber(View view){
-        User user = mockData.UsersDatabase().get(0);
         String area_call_edited = ((TextView)findViewById(R.id.area_call_text_view)).getText().toString();
         String phone_number_edited = ((TextView)findViewById(R.id.phone_number_text_view)).getText().toString();
-        UserPhoneNumberDTO userPhoneNumberDTO = new UserPhoneNumberDTO(user.getEmail(),area_call_edited,phone_number_edited);
+        UserPhoneNumberDTO userPhoneNumberDTO = new UserPhoneNumberDTO(loggedUser.getEmail(),area_call_edited,phone_number_edited);
         SavePhoneNumberDataTask task = new SavePhoneNumberDataTask();
         task.execute(userPhoneNumberDTO);
-        user.setAreaCall(area_call_edited);
-        user.setPhoneNumber(phone_number_edited);
-
+        loggedUser.setAreaCall(area_call_edited);
+        loggedUser.setPhoneNumber(phone_number_edited);
+        updateUser();
         showMessageSuccess();
     }
 
     private void showMessageSuccess(){
         Context contex = getApplicationContext();
-        CharSequence text = "@string/message_success_changed_data";
+        CharSequence text = getResources().getString(R.string.message_success_changed_data);
         int duration = Toast.LENGTH_LONG;
 
         Toast toast = Toast.makeText(contex, text, duration);
@@ -251,12 +266,12 @@ public class EditProfileActivity extends AppCompatActivity {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
             byte[] byteArray = stream.toByteArray();
-            User user = mockData.UsersDatabase().get(0);
-            UserImageDTO userImageDTO = new UserImageDTO(user.getEmail(), byteArray);
+            UserImageDTO userImageDTO = new UserImageDTO(loggedUser.getEmail(), byteArray);
             SaveImageDataTask task = new SaveImageDataTask();
             task.execute(userImageDTO);
 
-            user.setProfileImage(byteArray);
+            loggedUser.setProfileImage(byteArray);
+            updateUser();
             ImageView imageView = (ImageView)findViewById(R.id.profile_image_view);
             imageView.setImageBitmap(bitmap);
         }
@@ -400,5 +415,11 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void updateUser(){
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString("userJson", (new Gson()).toJson(loggedUser));
+        edit.apply();
+    }
 
 }

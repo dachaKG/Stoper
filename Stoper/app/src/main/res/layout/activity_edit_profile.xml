@@ -195,7 +195,6 @@
         android:id="@+id/email_status_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="E-mail adresa je potvrdjena"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="10dp"
         android:textColor="@color/black"

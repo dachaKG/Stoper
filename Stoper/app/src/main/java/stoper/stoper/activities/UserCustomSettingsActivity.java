@@ -1,6 +1,7 @@
 package stoper.stoper.activities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -31,11 +34,14 @@ import static java.lang.System.out;
 
 public class UserCustomSettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private MockData mockData;
+    //private MockData mockData;
     private int selectedSmoking = 1;
     private int selectedSpeaking = 1;
     private int selectedPets = 1;
     private int selectedMusic = 1;
+    private User user;
+    private SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,9 @@ public class UserCustomSettingsActivity extends AppCompatActivity implements Ada
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.user_custom_settings_app_bar_title);
+
+        preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        user =  new Gson().fromJson(preferences.getString("userJson", ""), User.class);
 
         Spinner spinner = (Spinner) findViewById(R.id.speaking_spinner);
         spinner.setOnItemSelectedListener(this);
@@ -83,11 +92,19 @@ public class UserCustomSettingsActivity extends AppCompatActivity implements Ada
             selectedPets = savedInstanceState.getInt("pets");
         }
         else{
-            User user = mockData.UsersDatabase().get(0);
-            selectedSpeaking = user.getSpeaking();
-            selectedSmoking = user.getSmoking();
-            selectedMusic = user.getMusic();
-            selectedPets = user.getPets();
+            if (user.getSpeaking() != null) {
+                selectedSpeaking = user.getSpeaking();
+            }
+            if (user.getSmoking() != null) {
+                selectedSmoking = user.getSmoking();
+            }
+
+            if (user.getMusic() != null) {
+                selectedMusic = user.getMusic();
+            }
+            if (user.getPets() != null) {
+                selectedPets = user.getPets();
+            }
         }
 
         spinner.setSelection(selectedSpeaking);
@@ -124,7 +141,6 @@ public class UserCustomSettingsActivity extends AppCompatActivity implements Ada
     }
 
     public void onClickSaveCustomSettings(View view){
-        User user = mockData.UsersDatabase().get(0);
         user.setSpeaking(selectedSpeaking);
         user.setSmoking(selectedSmoking);
         user.setMusic(selectedMusic);
@@ -132,6 +148,7 @@ public class UserCustomSettingsActivity extends AppCompatActivity implements Ada
         UserCustomSettingsDTO userCustomSettingsDTO = new UserCustomSettingsDTO(user.getEmail(),selectedSpeaking,selectedSmoking,selectedMusic,selectedPets);
         SaveCustomSettingsDataTask task = new SaveCustomSettingsDataTask();
         task.execute(userCustomSettingsDTO);
+        updateUser();
         showMessageSuccess();
     }
 
@@ -173,5 +190,12 @@ public class UserCustomSettingsActivity extends AppCompatActivity implements Ada
 
             out.println("Boolean jeeeeeee " + aBoolean.toString());
         }
+    }
+
+    private void updateUser(){
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString("userJson", (new Gson()).toJson(user));
+        edit.apply();
     }
 }

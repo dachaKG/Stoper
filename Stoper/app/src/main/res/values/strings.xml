@@ -270,4 +270,6 @@
     <string name="back_to_home_title">Naslovna</string>
     <string name="success_reservation_title">Uspešna rezervacija</string>
 
+    <string name="show_profile_custom_settings_not_defined">Ne znam</string>
+    <string name="car">Automobil</string>
 </resources>
