@@ -18,12 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/price_offer"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:hint="@string/price_details"/>
 
     <Button
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button_offer_price_id"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
         android:text="@string/next"/>
     </LinearLayout>
 

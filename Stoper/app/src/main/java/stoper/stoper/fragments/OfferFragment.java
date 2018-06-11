@@ -3,6 +3,7 @@ package stoper.stoper.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -119,6 +121,9 @@ public class OfferFragment extends Fragment {
 
     }
 
+
+
+
     private class HttpReqTask extends AsyncTask<Void, Void, String>{
 
         @Override
@@ -145,6 +150,5 @@ public class OfferFragment extends Fragment {
             //Log.i("Proba: ", String.valueOf(s));
         }
     }
-
 
 }

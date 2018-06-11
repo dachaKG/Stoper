@@ -4,7 +4,7 @@ public class Api {
 
     public static String apiUrl = "http://192.168.0.15:8080";
 
-    public static String baseName = "base";
+    public static String baseName = "app";
 
     public static String cir2lat(String text) {
         String ret = "";

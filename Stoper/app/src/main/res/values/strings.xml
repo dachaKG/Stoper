@@ -59,7 +59,7 @@
     <string name="app_bar_home">Početna</string>
     <string name="app_bar_offer">Ponuda vožnje</string>
     <string name="app_bar_search">Pretraga vožnje</string>
-    <string name="app_bar_demand">Tražnja vožnje</string>
+    <string name="app_bar_demand">Ponuda vožnje</string>
     <string name="app_bar_profile">Profil</string>
     <string name="app_bar_chat">Poruke</string>
 

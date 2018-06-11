@@ -2,6 +2,7 @@ package stoper.stoper.fragments;
 
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -54,6 +55,7 @@ public class OfferDate extends Fragment {
         datePicker = view.findViewById(R.id.start_date_offer);
 
         datePicker.setMinDate(minDate);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         nextButton = view.findViewById(R.id.button_offer2_id);
         System.out.println("Pocetna adresa: " + bundle.getString("endDestinationOffer"));

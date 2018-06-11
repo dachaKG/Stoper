@@ -20,9 +20,11 @@
             android:id="@+id/number_of_passengers"></NumberPicker>
 
         <Button
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button_offer_passengers_id"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:text="@string/next"/>
 
     </LinearLayout>

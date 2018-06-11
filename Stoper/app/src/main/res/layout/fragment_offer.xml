@@ -9,30 +9,33 @@
 
     <LinearLayout
         android:id="@+id/groupNumbers"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_weight="0.7"
         android:layout_width="200dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.7"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/start_destination_offer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/start_destination"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:hint="@string/start_destination" />
+
         <EditText
             android:id="@+id/end_destination_offer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/end_destination"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:hint="@string/end_destination" />
 
         <Button
             android:id="@+id/button_offer_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/next"/>
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:text="@string/next" />
     </LinearLayout>
 </FrameLayout>

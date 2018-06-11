@@ -86,23 +86,6 @@ public class CommentActivity extends AppCompatActivity {
 		
 		marksEditText=findViewById(R.id.marks);
         commentEditText=findViewById(R.id.comment);
-       /* marksEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final CharSequence marks[] = new CharSequence[]	{"Izvanredno", "Odlično", "Dobro","Loše","Veoma razočaravajuće"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
-                builder.setItems(marks, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        marksEditText.setText(marks[which]);
-                        TextInputLayout til = findViewById(R.id.textInputLayout1);
-                        til.setErrorEnabled(false);
-                    }
-                });
-                builder.show();
-            }
-        });	*/
 		
 	}
 
@@ -141,10 +124,16 @@ public class CommentActivity extends AppCompatActivity {
 				//dodaj datum
 
 
+				
                 SharedPreferences loggedUserDetails;
                 loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
 
                 String userName = loggedUserDetails.getString("email", "");
+
+                Intent intent = getIntent();
+                Bundle extras = getIntent().getExtras();
+
+                mailReceivcerArg= extras.getString("mailOcenjivanog");
 
 
 				rate.setRecieverEmail(mailReceivcerArg);
