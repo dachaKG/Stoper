@@ -5,18 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -28,14 +21,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -44,19 +36,12 @@ import stoper.stoper.R;
 import stoper.stoper.chat.core.logout.LogoutContract;
 import stoper.stoper.chat.core.logout.LogoutPresenter;
 import stoper.stoper.chat.ui.activity.UserListingActivity;
-import stoper.stoper.chat.ui.fragment.UsersFragment;
-import stoper.stoper.fragments.DestinationFragment;
-import stoper.stoper.fragments.MainFragment;
 import stoper.stoper.fragments.OfferFragment;
-import stoper.stoper.fragments.PlacesFragment;
-import stoper.stoper.fragments.ProfileAccountFragment;
-import stoper.stoper.fragments.ProfileDetailsFragment;
 import stoper.stoper.fragments.ProfileFragment;
 import stoper.stoper.fragments.SearchFragment;
 import stoper.stoper.fragments.StarterFragment;
 import stoper.stoper.model.LoginReq;
 import stoper.stoper.model.User;
-import stoper.stoper.util.MockData;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LogoutContract.View {
@@ -71,22 +56,25 @@ public class NavigationActivity extends AppCompatActivity
         NavigationActivity.sIsChatActivityOpen = isChatActivityOpen;
     }
     public static boolean isAppRunning;
-    MockData mockData;
     private int activeItem = -1;
-
+    private User user;
+    private SharedPreferences preferences;
     Intent intent;
     private LogoutPresenter mLogoutPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE)
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navigation);
         if (getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE).getString("email", "") == "") {
             Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
             intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
+            finish();
+            return;
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -94,6 +82,10 @@ public class NavigationActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        user =  new Gson().fromJson(preferences.getString("userJson", ""), User.class);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Fragment fragment = null;
@@ -109,7 +101,6 @@ public class NavigationActivity extends AppCompatActivity
             activeItem = savedInstanceState.getInt("activeItem");
             fragment = getFragmentToShow(activeItem);
         }
-        User user = mockData.UsersDatabase().get(0);
         View headerLayout = navigationView.getHeaderView(0);
         TextView name = (TextView) headerLayout.findViewById(R.id.navigation_header_name);
         name.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
@@ -118,7 +109,7 @@ public class NavigationActivity extends AppCompatActivity
         email.setText(user.getEmail());
 
         ImageView profileImage = (ImageView) headerLayout.findViewById(R.id.navigation_header_image);
-        if (user.getProfileImage() != null) {
+        if (user.getProfileImage() != null && user.getProfileImage().length> 0) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
             profileImage.setImageBitmap(bitmap);
         }

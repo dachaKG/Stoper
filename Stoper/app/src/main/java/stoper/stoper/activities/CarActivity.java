@@ -2,6 +2,7 @@ package stoper.stoper.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -34,8 +37,9 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
     private int selectedCountry;
     private int selectedColor;
     private int selectedCarType;
-
-    private MockData mockData;
+    private User user;
+    private SharedPreferences loggedUserDetails;
+    //private MockData mockData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +74,9 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
         car_types_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         car_types_spinner.setAdapter(car_types_adapter);
 
+        loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        user =  new Gson().fromJson(loggedUserDetails.getString("userJson", ""), User.class);
+
         if(savedInstanceState != null){
             selectedCountry = savedInstanceState.getInt("selectedCountry");
             selectedColor = savedInstanceState.getInt("selectedColor");
@@ -79,14 +86,27 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
             ((EditText)findViewById(R.id.car_edit_car_brand_model)).setText(savedInstanceState.getString("carBrandModel"));
             ((EditText)findViewById(R.id.car_edit_year_text)).setText(savedInstanceState.getString("carYear"));
         }else{
-            User user = mockData.UsersDatabase().get(0);
-            selectedCarType = user.getCarType();
-            selectedColor = user.getCarColor();
-            selectedCountry = user.getCarCountry();
-            ((EditText)findViewById(R.id.car_edit_registration_number_text)).setText(user.getCarRegistratonNumber());
-            ((EditText)findViewById(R.id.car_edit_car_brand)).setText(user.getCarBrand());
-            ((EditText)findViewById(R.id.car_edit_car_brand_model)).setText(user.getCarBrandModel());
-            ((EditText)findViewById(R.id.car_edit_year_text)).setText(String.valueOf(user.getCarYear()));
+            if (user.getCarType() != null) {
+                selectedCarType = user.getCarType();
+            }
+            if(user.getCarColor() != null) {
+                selectedColor = user.getCarColor();
+            }
+            if(user.getCarCountry() !=null) {
+                selectedCountry = user.getCarCountry();
+            }
+            if(user.getCarRegistratonNumber() != null) {
+                ((EditText) findViewById(R.id.car_edit_registration_number_text)).setText(user.getCarRegistratonNumber());
+            }
+            if(user.getCarBrand() != null) {
+                ((EditText) findViewById(R.id.car_edit_car_brand)).setText(user.getCarBrand());
+            }
+            if(user.getCarBrandModel() != null) {
+                ((EditText) findViewById(R.id.car_edit_car_brand_model)).setText(user.getCarBrandModel());
+            }
+            if(user.getCarYear() != null && user.getCarYear() != 0) {
+                ((EditText) findViewById(R.id.car_edit_year_text)).setText(String.valueOf(user.getCarYear()));
+            }
         }
 
         spinner.setSelection(selectedCountry);
@@ -107,9 +127,12 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
     }
 
     public void onClickSaveCar(View view){
-        User user = mockData.UsersDatabase().get(0);
-        int carYear = Integer.parseInt(((EditText)findViewById(R.id.car_edit_year_text)).getText().toString());
-        String carRegistration = ((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString();
+        String stringCarYear = ((EditText)findViewById(R.id.car_edit_year_text)).getText().toString();
+        int carYear = 0;
+        if (tryParseInt(stringCarYear)) {
+            carYear = Integer.parseInt(stringCarYear);
+        }
+        String carRegistration = ((EditText)findViewById(R.id.car_edit_registration_number_text)).getText().toString();
         String carBrand = ((EditText)findViewById(R.id.car_edit_car_brand)).getText().toString();
         String carBrandModel = ((EditText)findViewById(R.id.car_edit_car_brand_model)).getText().toString();
         UserCarDTO carDTO = new UserCarDTO(user.getEmail(), selectedCountry, selectedColor, selectedCarType, carRegistration,
@@ -119,10 +142,16 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
         user.setCarColor(selectedColor);
         user.setCarCountry(selectedCountry);
         user.setCarType(selectedCarType);
-        user.setCarYear(carYear);
+        if(carYear != 0){
+            user.setCarYear(carYear);
+        }
         user.setCarRegistratonNumber(carRegistration);
         user.setCarBrand(carBrand);
         user.setCarBrandModel(carBrandModel);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString("userJson", (new Gson()).toJson(user));
+        edit.apply();
         showMessageSuccess();
 
     }
@@ -180,6 +209,15 @@ public class CarActivity extends AppCompatActivity implements  AdapterView.OnIte
             super.onPostExecute(aBoolean);
 
             out.println("Boolean jeeeeeee " + aBoolean.toString());
+        }
+    }
+
+    boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

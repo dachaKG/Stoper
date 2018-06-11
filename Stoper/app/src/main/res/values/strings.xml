@@ -76,6 +76,7 @@
     <string name="link_to_show_profil_title">Prikaži moj javni profil</string>
     <string name="account_statistic_data_title">Vaši statistički podaci</string>
     <string name="account_statistic_data_link_title">Date ocene</string>
+    <string name="account_recieved_data_link_title">Dobijene ocene</string>
     <string name="account_settings_title">Podešavanja</string>
     <string name="account_settings_link_notifications_title">Obaveštenja</string>
     <string name="account_settings_link_change_password_title">Promena lozinke</string>
@@ -161,7 +162,7 @@
 
     <!--STATISTIC DATA ACTIVITY-->
     <string name="statistic_data_app_bar_title">Date ocene</string>
-
+    <string name="recieved_rates_app_bar_title">Dobijene ocene</string>
     <!--CHANGE PASSWORD ACTIVITY-->
     <string name="change_password_app_tar_title">Promena lozinke</string>
     <string name="change_password_old_hint">Tekuća lozinka</string>
@@ -173,12 +174,12 @@
         <item>Muški</item>
         <item>Ženski</item>
     </string-array>
-	
-	 <string-array name="marks_array">
+
+    <string-array name="marks_array">
         <item>prva</item>
         <item>druga</item>
-		<item>treca</item>
-		<item>cetvrta</item>
+        <item>treca</item>
+        <item>cetvrta</item>
     </string-array>
 
     <string-array name="car_types">
@@ -256,7 +257,7 @@
 
     <!--added to-->
     <string name="added_mark_to_title">Dato kome</string>
-
+    <string name="recieved_mark_from_title">Ocenu dao</string>
     <!--RIDE DETAILS-->
     <string name="ride_details_reserve_ride">Rezervišite</string>
     <string name="ride_details_email_is_confirmed">E-mail adresa je potvrđena</string>
@@ -270,4 +271,6 @@
     <string name="back_to_home_title">Naslovna</string>
     <string name="success_reservation_title">Uspešna rezervacija</string>
 
+    <string name="show_profile_custom_settings_not_defined">Ne znam</string>
+    <string name="car">Automobil</string>
 </resources>

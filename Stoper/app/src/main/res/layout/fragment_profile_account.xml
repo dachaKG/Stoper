@@ -16,6 +16,11 @@
         android:text="@string/account_statistic_data_title" />
 
     <TextView
+        android:id="@+id/account_link_to_recieved_rates"
+        style="@style/AccountContent"
+        android:text="@string/account_recieved_data_link_title"/>
+
+    <TextView
         android:id="@+id/account_link_to_statistic_data"
         style="@style/AccountContent"
         android:text="@string/account_statistic_data_link_title"/>
@@ -53,7 +58,7 @@
         style="@style/AccountContent"
         android:text="@string/account_about_us_privacy_title"/>
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,6 +67,8 @@
         android:textColor="@color/colorPrimary"
         android:gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:text="@string/account_logout_title"/>
+        android:text="@string/account_logout_title"/>-->
+    <View
+        style="@style/Divider"/>
 </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

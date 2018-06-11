@@ -36,7 +36,7 @@
         <TextView
             android:id="@+id/show_profile_custom_settings_speking_content"
             style="@style/ShowProfileCustomSettingsContent"
-            android:layout_height="55dp" />
+            android:text="@string/show_profile_custom_settings_not_defined"/>
 
         <TextView
             style="@style/ShowProfileCustomSettingsTitle"
@@ -45,18 +45,16 @@
         <TextView
             android:id="@+id/show_profile_custom_settings_smoking_content"
             style="@style/ShowProfileCustomSettingsContent"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical" />
+            android:text="@string/show_profile_custom_settings_not_defined"/>
 
         <TextView
             style="@style/ShowProfileCustomSettingsTitle"
-            android:layout_height="38dp"
             android:text="@string/show_profile_music_title" />
 
         <TextView
             android:id="@+id/show_profile_custom_settings_music_content"
             style="@style/ShowProfileCustomSettingsContent"
-            android:text="@string/show_profile_speking_title" />
+            android:text="@string/show_profile_custom_settings_not_defined"/>
 
         <TextView
             style="@style/ShowProfileCustomSettingsTitle"
@@ -65,7 +63,7 @@
         <TextView
             android:id="@+id/show_profile_custom_settings_pets_content"
             style="@style/ShowProfileCustomSettingsContent"
-            android:text="@string/show_profile_speking_title" />
+            android:text="@string/show_profile_custom_settings_not_defined"/>
     </GridLayout>
 
     <View style="@style/Divider" />
@@ -89,16 +87,44 @@
             android:paddingLeft="16dp"
             android:textSize="@dimen/tabs_content_link_font_size" />
     </LinearLayout>
+    <View style="@style/Divider" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="16dp"
+        android:textColor="@color/black"
+        android:text="@string/car"
+        android:textSize="18dp"/>
     <TextView
         android:id="@+id/show_profile_car_model"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:paddingLeft="50dp"
-        android:textSize="@dimen/tabs_content_link_font_size"
         android:visibility="gone"
+        android:textSize="@dimen/tabs_content_link_font_size"
         android:paddingTop="15dp"/>
-    <View style="@style/Divider" />
+    <TextView
+        android:id="@+id/show_profile_car_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingLeft="50dp"
+        android:visibility="gone"
 
+        android:textSize="@dimen/tabs_content_link_font_size"
+        android:paddingTop="15dp"/>
+
+    <TextView
+        android:id="@+id/show_profile_car_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingLeft="50dp"
+        android:visibility="gone"
+
+        android:textSize="@dimen/tabs_content_link_font_size"
+        android:paddingTop="15dp"/>
 </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

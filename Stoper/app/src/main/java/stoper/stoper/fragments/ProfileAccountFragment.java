@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import stoper.stoper.R;
 import stoper.stoper.activities.ChangePasswordActivity;
+import stoper.stoper.activities.RecievedRatesActivity;
 import stoper.stoper.activities.StatisticDataActivity;
 
 /**
@@ -48,8 +49,8 @@ public class ProfileAccountFragment extends Fragment implements View.OnClickList
         TextView terms_of_service = (TextView) view.findViewById(R.id.account_link_to_terms_of_service_title);
         terms_of_service.setOnClickListener(this);
 
-        TextView logout = (TextView)view.findViewById(R.id.logout);
-        logout.setOnClickListener(this);
+        TextView recieved_rates = (TextView)view.findViewById(R.id.account_link_to_recieved_rates);
+        recieved_rates.setOnClickListener(this);
         return view;
     }
 
@@ -72,7 +73,8 @@ public class ProfileAccountFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.account_link_to_terms_of_service_title:
                 break;
-            case R.id.logout:
+            case R.id.account_link_to_recieved_rates:
+                intent = new Intent(getActivity(), RecievedRatesActivity.class);
                 break;
         }
         if (intent != null){

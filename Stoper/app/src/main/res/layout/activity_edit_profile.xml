@@ -164,7 +164,7 @@
         android:textColor="@color/white"
         android:onClick="onClickSaveDataForProfil"/>
 
-    <TextView
+   <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email_title"
@@ -195,7 +195,6 @@
         android:id="@+id/email_status_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="E-mail adresa je potvrdjena"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="10dp"
         android:textColor="@color/black"
@@ -208,7 +207,7 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:onClick="onClickSaveEmail"
-        android:text="@string/save_email_button_title"/>
+        android:text="@string/save_email_button_title"/>-->
 
     <TextView
         android:layout_width="wrap_content"

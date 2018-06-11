@@ -28,7 +28,7 @@ import stoper.stoper.util.MockData;
  */
 public class ProfileDetailsFragment extends Fragment implements  View.OnClickListener {
 
-    MockData mockData;
+    //MockData mockData;
 
     public ProfileDetailsFragment() {
         // Required empty public constructor
@@ -40,11 +40,13 @@ public class ProfileDetailsFragment extends Fragment implements  View.OnClickLis
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile_details, container, false);
-
-        ImageView imageView = (ImageView)view.findViewById(R.id.submitted_image);
         ProfileFragment fragment = (ProfileFragment) getParentFragment();
         User user = fragment.getUser();
-        if(user.getConfirmed()){
+
+        TextView email = view.findViewById(R.id.email_address_checked);
+        email.setText(user.getEmail());
+        ImageView imageView = (ImageView)view.findViewById(R.id.submitted_image);
+        if(user.getConfirmed() != null && user.getConfirmed()){
             imageView.setImageResource(R.drawable.baseline_check_circle_outline_24);
         }else{
             imageView.setImageResource(R.drawable.baseline_highlight_off_24);

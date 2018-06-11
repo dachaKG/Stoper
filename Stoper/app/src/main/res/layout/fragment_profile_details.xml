@@ -58,8 +58,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:paddingLeft="16dp"
-                android:textSize="@dimen/tabs_content_link_font_size"
-                android:text="danilo.acimovci@yahoo.com"/>
+                android:textSize="@dimen/tabs_content_link_font_size" />
         </LinearLayout>
         <View
             android:id="@+id/divider2"
