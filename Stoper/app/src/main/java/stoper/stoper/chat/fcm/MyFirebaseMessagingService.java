@@ -81,6 +81,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 return;
             }else if(remoteMessage.getData().get("type").equals("ocena")){
                 Intent notificationIntent = new Intent(this, CommentActivity.class);
+                notificationIntent.putExtra("korisnikZaOcenjivanje",remoteMessage.getData().get("mailOcenjivanjog"));
                 notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 final PendingIntent pendingIntent = PendingIntent.getActivity(this,
                         0 /* Request code */, notificationIntent,
