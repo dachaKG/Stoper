@@ -2,6 +2,7 @@ package stoper.stoper.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -138,8 +139,16 @@ public class CommentActivity extends AppCompatActivity {
 				mailReceivcerArg="d@gmail.com";
 				mailSenderArg="s@gmail.com";
 				//dodaj datum
+
+
+                SharedPreferences loggedUserDetails;
+                loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+
+                String userName = loggedUserDetails.getString("email", "");
+
+
 				rate.setRecieverEmail(mailReceivcerArg);
-				rate.setEvaluatorEmail(mailSenderArg);
+				rate.setEvaluatorEmail(userName);
 				rate.setMark(markArg);
 				rate.setComment(commentArg);
 				//na backu namesti trenutni datum i user-a dva na osnovu email adresa...

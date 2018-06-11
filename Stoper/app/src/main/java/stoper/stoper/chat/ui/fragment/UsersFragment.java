@@ -150,5 +150,7 @@ public class UsersFragment extends Fragment implements GetUsersContract.View, It
         });
         Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
     }
+
+
 }
 
