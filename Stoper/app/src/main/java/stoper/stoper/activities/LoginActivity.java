@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void onLoginSuccess(String message) {
         mProgressDialog.dismiss();
-        Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Uspesno ste se prijavili", Toast.LENGTH_SHORT).show();
         /*UserListingActivity.startActivity(this,
                 Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);*/
     }
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void onLoginFailure(String message) {
         mProgressDialog.dismiss();
-        Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Greska: Pogresan email ili lozinka " , Toast.LENGTH_SHORT).show();
     }
 
 

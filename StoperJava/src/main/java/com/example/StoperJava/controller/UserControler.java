@@ -40,7 +40,7 @@ public class UserControler {
 	UserService userService;
 	
 	
-	private User logedUser=new User();
+	private User logedUser = new User();
 	
 	
 	private List<User> users = new ArrayList<User>();
@@ -86,10 +86,11 @@ public class UserControler {
 					
 					logedUser=userService.findByUsername(loginRequest.getEmail());
 					System.out.println("ssssssss  ---- "+logedUser.getEmail());
+					return logedUser;
 				}
 			}
 		}
-		return logedUser;
+		return null;
 	}
 	
 	//@PostMapping

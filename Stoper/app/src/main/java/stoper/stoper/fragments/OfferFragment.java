@@ -145,4 +145,6 @@ public class OfferFragment extends Fragment {
             //Log.i("Proba: ", String.valueOf(s));
         }
     }
+
+
 }

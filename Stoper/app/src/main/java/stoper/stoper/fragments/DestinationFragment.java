@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import stoper.stoper.Api;
 import stoper.stoper.R;
 import stoper.stoper.util.HttpDataHandler;
 import stoper.stoper.util.MyService;
@@ -99,9 +100,9 @@ public class DestinationFragment extends Fragment{
                         //SearchFragment f1= (SearchFragment) fragmentManager.findFragmentByTag("searchFragment");
                         //f1.setStartDestination(addresses.get(0).getLocality());
                         if(b.getString("type").equals("startDestination"))
-                            b.putString("startDestination",addresses.get(0).getLocality());
+                            b.putString("startDestination", Api.cir2lat(addresses.get(0).getLocality()));
                         else if(b.getString("type").equals("endDestination"))
-                            b.putString("endDestination",addresses.get(0).getLocality());
+                            b.putString("endDestination",Api.cir2lat(addresses.get(0).getLocality()));
                         Fragment f1;
                         if(b.getString("fragment")==null)
                             f1=new SearchFragment();

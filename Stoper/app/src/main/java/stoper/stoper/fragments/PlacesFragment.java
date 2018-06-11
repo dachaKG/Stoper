@@ -20,6 +20,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
+import stoper.stoper.Api;
 import stoper.stoper.R;
 
 /**
@@ -85,9 +86,9 @@ public class PlacesFragment extends Fragment {
                 //SearchFragment f1= (SearchFragment) fragmentManager.findFragmentByTag("searchFragment");
                 //f1.setStartDestination(addresses.get(0).getLocality());
                 if(b.getString("type").equals("startDestination"))
-                    b.putString("startDestination", (String)place.getName());
+                    b.putString("startDestination", Api.cir2lat((String)place.getName()));
                 else if(b.getString("type").equals("endDestination"))
-                    b.putString("endDestination",(String)place.getName());
+                    b.putString("endDestination",Api.cir2lat((String)place.getName()));
                 Fragment f1;
                 if(b.getString("fragment")==null)
                     f1=new SearchFragment();
@@ -140,6 +141,8 @@ public class PlacesFragment extends Fragment {
         return view;
 
     }
+
+
 /*
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
