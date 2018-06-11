@@ -1,6 +1,7 @@
 package stoper.stoper.fragments;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,9 +20,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import stoper.stoper.Api;
 import stoper.stoper.R;
 import stoper.stoper.model.User;
 import stoper.stoper.util.MockData;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +36,7 @@ public class ProfileFragment extends Fragment {
 
     private int activeTab = 0;
     private User user = null;
+    SharedPreferences loggedUserDetails;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -37,7 +44,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = MockData.UsersDatabase().get(0);
+        //user = MockData.UsersDatabase().get(0);
+        loggedUserDetails = getActivity().getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
+        user =  new Gson().fromJson(loggedUserDetails.getString("userJson", ""), User.class);
     }
 
     @Override

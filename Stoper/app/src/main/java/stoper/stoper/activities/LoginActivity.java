@@ -145,12 +145,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 edit.putString("lastname", userLoged.getLastName());
                 edit.putString("email", userLoged.getEmail());
                 edit.putInt("gender", userLoged.getGender());
-
+                edit.putString("userJson", (new Gson()).toJson(userLoged));
                 edit.apply();
 
                 loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
 
                 String userName = loggedUserDetails.getString("firstName", "");
+                User user =  new Gson().fromJson(loggedUserDetails.getString("userJson", ""), User.class);
 
 
                 System.out.println("ulogovan user je - " + userName);
