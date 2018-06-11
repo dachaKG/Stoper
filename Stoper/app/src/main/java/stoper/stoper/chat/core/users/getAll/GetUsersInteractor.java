@@ -26,9 +26,9 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
 
     List<ChatUser> chatUsers = new ArrayList<>();
 
-    public GetUsersInteractor(GetUsersContract.OnGetAllUsersListener onGetAllUsersListener) {
+    /*public GetUsersInteractor(GetUsersContract.OnGetAllUsersListener onGetAllUsersListener) {
         this.mOnGetAllUsersListener = onGetAllUsersListener;
-    }
+    }*/
 
     public GetUsersInteractor(GetUsersContract.OnGetChatUsersListener onGetChatUsersListener) {
         this.onGetChatUsersListener = onGetChatUsersListener;
@@ -61,7 +61,7 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
         });
     }
 
-    public List<ChatUser> getAllUsers(){
+    public List<ChatUser> getAllUsers() {
         final List<ChatUser> userList = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference().child(Constants.ARG_USERS).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -76,6 +76,7 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
                         users.add(user);
                     }
                 }
+
                 userList.addAll(users);
                 //mOnGetAllUsersListener.onGetAllUsersSuccess(users);
             }
@@ -112,7 +113,7 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
                             chat.setReceiverUid((String) firstMap.get("receiverUid"));
                             chat.setSender((String) firstMap.get("sender"));
                             chat.setSenderUid((String) firstMap.get("senderUid"));
-                            if(TextUtils.equals(chat.getSenderUid(), FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            if (TextUtils.equals(chat.getSenderUid(), FirebaseAuth.getInstance().getCurrentUser().getUid())) {
 
                             }
                         }
@@ -130,5 +131,7 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
             }
         });
     }
+
+
 }
 
