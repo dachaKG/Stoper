@@ -18,4 +18,8 @@ public class FirebaseRepo {
 		return repo.get(username);
 	}
 	
+	public void removeFromRepo(String username) {
+		repo.put(username, null);
+	}
+	
 }

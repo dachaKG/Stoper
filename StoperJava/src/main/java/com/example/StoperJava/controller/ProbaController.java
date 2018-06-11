@@ -1,5 +1,6 @@
 package com.example.StoperJava.controller;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -108,5 +109,14 @@ public class ProbaController {
 		System.out.println(lr.getPassword());
 		return new ResponseEntity<String>(lr.getEmail(), HttpStatus.OK);
 	}
+	
+	@PostMapping
+	@RequestMapping(value = "/removeToken")
+	public ResponseEntity<String> removeToken(@RequestBody LoginRequest lr) {
+		firebaseRepo.removeFromRepo(lr.getEmail());
+		System.out.println("Izlogovan i iobrisan s firebasea "+lr.getEmail());
+		return new ResponseEntity<String>(lr.getEmail(), HttpStatus.OK);
+	}
 
+	
 }

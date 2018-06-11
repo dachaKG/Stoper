@@ -263,8 +263,35 @@ public class NavigationActivity extends AppCompatActivity
         edit.putString("email", "");
         edit.apply();
 
-        intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        LoginReq loginReq=new LoginReq();
+        loginReq.setEmail(loggedUserDetails.getString("email", ""));
+        loginReq.setPassword("");
+        new HttpReqTask1().execute(loginReq);
+
+    }
+
+    private class HttpReqTask1 extends AsyncTask<LoginReq, Void, String> {
+        @Override
+        protected String doInBackground(LoginReq... tokenReqs) {
+            try{
+                String apiUrl = Api.apiUrl+"/proba/removeToken";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<LoginReq> tokenReq = new HttpEntity<>(tokenReqs[0]);
+                String proba = restTemplate.postForObject(apiUrl,tokenReq, String.class);
+                return proba;
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("Proba: ", String.valueOf(s));
+            intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
