@@ -58,8 +58,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String charSequenceNew = ((EditText)findViewById(R.id.change_password_new)).getText().toString();
         String charSequenceNewConfirmed = ((EditText)findViewById(R.id.change_password_new_confirmed)).getText().toString();
 
+
+
         if(!charSequenceNew.equals(charSequenceNewConfirmed) || !charSequenceOld.equals(user.getPassword())){
-            Toast.makeText(getApplicationContext(), "Ne poklapaju se nove sifre ili stara nije tacna", Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), "Ne poklapaju se nove sifre ili stara nije tacna", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(charSequenceNew.length() < 8){
+            Toast.makeText(getApplicationContext(), "Lozinka mora sadržati minimum osam cifara.", Toast.LENGTH_SHORT).show();
             return;
         }
         UserPasswordDTO userPasswordDTO = new UserPasswordDTO(user.getEmail(),charSequenceOld,charSequenceNew,charSequenceNewConfirmed);

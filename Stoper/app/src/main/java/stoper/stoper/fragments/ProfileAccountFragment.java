@@ -34,11 +34,13 @@ public class ProfileAccountFragment extends Fragment implements View.OnClickList
         TextView statistic_data = (TextView) view.findViewById(R.id.account_link_to_statistic_data);
         statistic_data.setOnClickListener(this);
 
+        TextView password_change = (TextView) view.findViewById(R.id.account_link_to_password_change);
+        password_change.setOnClickListener(this);
+
         /*TextView notifications_settings = (TextView) view.findViewById(R.id.account_link_to_notifications_settings);
         notifications_settings.setOnClickListener(this);
 
-        TextView password_change = (TextView) view.findViewById(R.id.account_link_to_password_change);
-        password_change.setOnClickListener(this);
+
 
         TextView help = (TextView) view.findViewById(R.id.account_link_to_help);
         help.setOnClickListener(this);
