@@ -133,10 +133,10 @@ public class CommentActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 Bundle extras = getIntent().getExtras();
 
-                mailReceivcerArg= extras.getString("mailOcenjivanog");
+                mailReceivcerArg= getIntent().getExtras().getString("korisnikZaOcenjivanje");
 
-
-				rate.setRecieverEmail(mailReceivcerArg);
+                //Toast.makeText(getApplicationContext(), mailReceivcerArg, Toast.LENGTH_SHORT).show();
+                rate.setRecieverEmail(mailReceivcerArg);
 				rate.setEvaluatorEmail(userName);
 				rate.setMark(markArg);
 				rate.setComment(commentArg);

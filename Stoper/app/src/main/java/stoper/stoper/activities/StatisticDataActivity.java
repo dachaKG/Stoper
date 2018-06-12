@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -56,17 +55,6 @@ public class StatisticDataActivity extends AppCompatActivity {
         task.execute(loggedUser.getId());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()) {
-            case
-                    android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     private class TaskGetByEvaluatorId extends AsyncTask<Long, Void, RateDTO[]> {
 
@@ -89,7 +77,6 @@ public class StatisticDataActivity extends AppCompatActivity {
             }
             return null;
         }
-
 
         @Override
         protected void onPostExecute(RateDTO[] rates) {

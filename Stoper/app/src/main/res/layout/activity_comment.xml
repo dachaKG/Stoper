@@ -33,7 +33,8 @@
                 android:id="@+id/marks"
 				android:layout_width="363dp"
 				android:layout_height="wrap_content"
-				android:hint="Klinite da odaberete ocenu" />
+				android:hint="Klinite da odaberete ocenu"
+                android:focusable="false"/>
         </android.support.design.widget.TextInputLayout>
 
         <EditText
@@ -50,8 +51,6 @@
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
             android:onClick="submitMarks"
             android:text="Potvrdi" />
 

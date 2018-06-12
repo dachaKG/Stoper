@@ -20,6 +20,11 @@
             tools:context=".activities.RegisterActivity"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/register_with_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/connect_with_facebook" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -31,7 +36,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="Registracija"
+                    android:text="ili"
                     android:textColor="#000000"/>
                 <View
                     android:layout_width="match_parent"
@@ -59,8 +64,6 @@
                     android:id="@+id/textInputLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/TextLabel">
                     <EditText
@@ -75,8 +78,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
                     app:errorTextAppearance="@style/TextLabel">
                     <EditText
                         android:id="@+id/name"
@@ -88,8 +89,6 @@
                     android:id="@+id/textInputLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/TextLabel">
                     <EditText
@@ -102,8 +101,6 @@
                     android:id="@+id/textInputLayout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/TextLabel">
                     <EditText
@@ -118,8 +115,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
                     app:errorTextAppearance="@style/TextLabel">
                     <EditText
                         android:id="@+id/e_mail"
@@ -133,8 +128,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
                     app:errorTextAppearance="@style/TextLabel">
                     <EditText
                         android:id="@+id/password"
@@ -149,8 +142,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="134dp"
                     app:errorEnabled="true"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
                     app:errorTextAppearance="@style/TextLabel">
 
                     <Button
@@ -159,8 +150,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/colorPrimary"
-                        android:textColor="@color/white"
                         android:text="Potvrdi" />
 
                     <EditText
@@ -177,15 +166,28 @@
                     android:focusable="true"
                     android:gravity="left"
                     android:orientation="horizontal" >
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="false"
+                        android:text="@string/newsletter"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_weight="1" />
+                    <CheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:text=""
+                        android:clickable="true" />
                 </LinearLayout>
             </LinearLayout>
             <Button
                 android:id="@+id/register_with_mail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/white"
                 android:text="@string/register_with_mail" />
             <TextView
                 android:layout_width="match_parent"

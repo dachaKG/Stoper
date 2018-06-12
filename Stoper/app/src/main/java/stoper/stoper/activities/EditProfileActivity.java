@@ -18,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -285,7 +284,6 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-
     private class SavePersonalDataTask extends AsyncTask<UserPersonalDataDTO, Void,Boolean> {
 
         @Override
@@ -310,23 +308,35 @@ public class EditProfileActivity extends AppCompatActivity {
 
             out.println("Boolean jeeeeeee " + aBoolean.toString());
         }
-
     }
 
+    /*private class SaveEmailDataTask extends AsyncTask<UserEmailDTO, Void,Boolean> {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()) {
-            case
-            android.R.id.home:
-            finish();
-            return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        @Override
+        protected Boolean doInBackground(UserEmailDTO... userEmail) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/email";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                HttpEntity<UserEmailDTO> data = new HttpEntity<>(userEmail[0]);
+                ResponseEntity<Boolean> proba = restTemplate.exchange(apiUrl, HttpMethod.PUT,  data, Boolean.class);
+
+                return proba.getBody();
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
         }
-    }
 
-       private class SavePhoneNumberDataTask extends AsyncTask<UserPhoneNumberDTO, Void,Boolean> {
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+
+            out.println("Boolean jeeeeeee " + aBoolean.toString());
+        }
+    }*/
+
+    private class SavePhoneNumberDataTask extends AsyncTask<UserPhoneNumberDTO, Void,Boolean> {
 
         @Override
         protected Boolean doInBackground(UserPhoneNumberDTO... phoneNumber) {
