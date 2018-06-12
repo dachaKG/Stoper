@@ -18,7 +18,7 @@ insert into rate (comment,mark,date,evaluator_id,reciever_id) values ("Malinari 
 
 insert into rate (comment,mark,date,evaluator_id,reciever_id) values ("Jedan cica je ustopirao hladnjacu", "Izvanredno", '2018-06-07 15:48:00', 3, 2)
 
-insert into rate (comment,mark,date,evaluator_id,reciever_id) values ("Vozac je prica o Djokovicu", "Veoma razocaravajuce", '2018-06-07 15:49:00', 1, 2)
+insert into rate (comment,mark,date,evaluator_id,reciever_id) values ("Vozac je prica o Djokovicu", "Veoma razočaravajuće", '2018-06-07 15:49:00', 1, 2)
 
 
 

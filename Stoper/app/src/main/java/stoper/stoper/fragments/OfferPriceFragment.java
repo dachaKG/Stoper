@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -74,7 +75,10 @@ public class OfferPriceFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(priceOffer.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Morate uneti cenu", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 fragment = new OfferNoteFragment();
                 bundle.putInt("priceOffer", Integer.valueOf(priceOffer.getText().toString()));
                 fragment.setArguments(bundle);

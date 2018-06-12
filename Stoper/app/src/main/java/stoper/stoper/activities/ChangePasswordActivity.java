@@ -105,11 +105,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                     if(task.isSuccessful())
                                     {
                                         dialog.cancel();
-                                        Toast.makeText(getApplicationContext(),R.string.message_success_changed_data, Toast.LENGTH_LONG);
+                                        Toast.makeText(getApplicationContext(),R.string.message_success_changed_data, Toast.LENGTH_LONG).show();
                                         finish();
                                     } else {
                                         dialog.cancel();
-                                        Toast.makeText(getApplicationContext(), "Sifra nije uspesno promenjena", Toast.LENGTH_LONG);
+                                        Toast.makeText(getApplicationContext(), "Sifra nije uspesno promenjena", Toast.LENGTH_LONG).show();
                                         finish();
                                     }
                                 }

@@ -98,7 +98,7 @@ public class PlacesFragment extends Fragment {
                 android.support.v4.app.FragmentTransaction ft = fragmentManager.beginTransaction();
 
                 ft.replace(R.id.main_screen, f1);
-                //ft.addToBackStack(null);
+                ft.addToBackStack(null);
                 ft.commitAllowingStateLoss();
             }
 

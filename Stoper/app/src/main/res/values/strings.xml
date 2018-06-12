@@ -53,7 +53,8 @@
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="google_maps_key">AIzaSyDT9LFTvIEcj1GhGxjZkp8_CO2gFjkyBPY</string>
-
+    <string name="start_dest">Mesto polaska</string>
+    <string name="end_dest">Mesto dolaska</string>
 
     <!--APP BAR TITLE-->
     <string name="app_bar_home">Početna</string>

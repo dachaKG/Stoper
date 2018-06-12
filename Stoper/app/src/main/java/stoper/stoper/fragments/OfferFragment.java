@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -106,6 +107,10 @@ public class OfferFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(startDestination.getText().toString().equals("")  || endDestination.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Morate uneti pocetnu i krajnju destinaciju", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 fragment = new OfferDate();
                 bundle.putString("startDestinationOffer", startDestination.getText().toString().trim());
                 bundle.putString("endDestinationOffer", endDestination.getText().toString().trim());
@@ -115,7 +120,6 @@ public class OfferFragment extends Fragment {
                 ft.replace(R.id.main_screen, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
-                //new HttpReqTask().execute();
             }
         });
 

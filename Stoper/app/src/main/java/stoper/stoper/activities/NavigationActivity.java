@@ -242,7 +242,7 @@ public class NavigationActivity extends AppCompatActivity
 
     @Override
     public void onLogoutSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Uspesno ste se odjavili", Toast.LENGTH_SHORT).show();
         SharedPreferences loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
 
         SharedPreferences.Editor edit = loggedUserDetails.edit();
@@ -282,7 +282,7 @@ public class NavigationActivity extends AppCompatActivity
 
     @Override
     public void onLogoutFailure(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Niste se uspesno odjavili", Toast.LENGTH_SHORT).show();
     }
 
     @Override
