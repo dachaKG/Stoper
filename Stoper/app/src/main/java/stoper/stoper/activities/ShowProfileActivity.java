@@ -3,15 +3,20 @@ package stoper.stoper.activities;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +30,7 @@ import stoper.stoper.util.MockData;
 public class ShowProfileActivity extends AppCompatActivity {
 
     //MockData mockData;
-    User user;
+    User loggedUser;
     SharedPreferences loggedUserDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,22 @@ public class ShowProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_profile);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
-        user = new Gson().fromJson(loggedUserDetails.getString("userJson", ""), User.class);
+        loggedUser = new Gson().fromJson(loggedUserDetails.getString("userJson", ""), User.class);
+        String email = null;
+        if (getIntent().getExtras() != null){
+            email = (String) getIntent().getExtras().getString("userReference");
+        }
+
+        if (email == null){
+            setUser(loggedUser);
+        }else{
+            TaskGetUserByEmail task = new TaskGetUserByEmail();
+            task.execute(email);
+        }
+    }
+
+    public void setUser(User user) {
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.show_profile_app_bar_title);
@@ -103,6 +123,11 @@ public class ShowProfileActivity extends AppCompatActivity {
             carYear.setVisibility(View.VISIBLE);
         }
 
+        if (user.getBiography() != null){
+            TextView biography = (TextView)findViewById(R.id.show_profile_biography);
+            biography.setText(user.getBiography());
+            biography.setVisibility(View.VISIBLE);
+        }
 
         ImageView profile_image = (ImageView) findViewById(R.id.profile_image);
         if (user.getProfileImage() != null) {
@@ -110,17 +135,29 @@ public class ShowProfileActivity extends AppCompatActivity {
 
             profile_image.setImageBitmap(bitmap);
         }
-
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()) {
-            case
-                    android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+
+    private class TaskGetUserByEmail extends AsyncTask<String, Void, User> {
+
+        @Override
+        protected User doInBackground(String... email) {
+            try {
+                String apiUrl = Api.apiUrl + "/user/email/" + email[0];
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                User proba = restTemplate.getForObject(apiUrl, User.class);
+
+                return proba;
+            } catch (Exception ex) {
+                Log.e("", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            super.onPostExecute(user);
+            setUser(user);
         }
     }
 }

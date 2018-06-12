@@ -62,15 +62,15 @@ public class RideFragmentAdapter extends RecyclerView.Adapter<RideFragmentAdapte
         TextView startDestinationHolder = listView.findViewById(R.id.start_destination_fragment);
         TextView endDestinationHolder = listView.findViewById(R.id.end_destination_fragment);
         TextView priceHolder = listView.findViewById(R.id.price_ride_fragment);
-        CircleImageView image = listView.findViewById(R.id.ride_image_view);
+        //CircleImageView image = listView.findViewById(R.id.ride_image_view);
         startDestinationHolder.setText(rides.get(position).getStartDestination());
         endDestinationHolder.setText(rides.get(position).getEndDestination());
         priceHolder.setText(String.valueOf(rides.get(position).getPrice()));
         User user = mockData.UsersDatabase().get(0);
-        if(user.getProfileImage() != null && user.getProfileImage().length > 0){
+        /*if(user.getProfileImage() != null && user.getProfileImage().length > 0){
             Bitmap bitmap = BitmapFactory.decodeByteArray(user.getProfileImage(), 0, user.getProfileImage().length);
             image.setImageBitmap(bitmap);
-        }
+        }*/
         listView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

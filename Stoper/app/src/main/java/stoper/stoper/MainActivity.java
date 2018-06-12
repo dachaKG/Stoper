@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.END);
                 return true;
-            case R.id.action_settings:
-                return true;
+            /*case R.id.action_settings:
+                return true;*/
         }
 
         return super.onOptionsItemSelected(item);
