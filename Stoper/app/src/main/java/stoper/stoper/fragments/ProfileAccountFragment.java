@@ -54,6 +54,8 @@ public class ProfileAccountFragment extends Fragment implements View.OnClickList
         return view;
     }
 
+
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -81,4 +83,5 @@ public class ProfileAccountFragment extends Fragment implements View.OnClickList
             startActivity(intent);
         }
     }
+
 }
