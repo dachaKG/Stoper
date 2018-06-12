@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -367,10 +368,6 @@ public class EditProfileActivity extends AppCompatActivity {
             out.println("Boolean jeeeeeee " + aBoolean.toString());
         }
     }
-
-
-
-
 
     private class GetUserDataTask extends AsyncTask<Void, Void,User> {
 
