@@ -12,4 +12,8 @@ public interface RateService {
 	public Rate saveRate(Rate rate);
 	
 	public Optional<Rate> findOne(Long id);
+	
+	public List<Rate> findByEvaluatorId(Long id);
+	
+	public List<Rate> findByRecieverId(Long id);
 }

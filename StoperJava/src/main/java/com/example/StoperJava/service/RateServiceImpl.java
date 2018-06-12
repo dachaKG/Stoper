@@ -33,4 +33,16 @@ public class RateServiceImpl implements RateService {
 		return repository.findById(id);
 	}
 
+	@Override
+	public List<Rate> findByEvaluatorId(Long id) {
+		// TODO Auto-generated method stub
+		return repository.findByEvaluatorId(id);
+	}
+
+	@Override
+	public List<Rate> findByRecieverId(Long id) {
+		// TODO Auto-generated method stub
+		return repository.findByRecieverId(id);
+	}
+
 }

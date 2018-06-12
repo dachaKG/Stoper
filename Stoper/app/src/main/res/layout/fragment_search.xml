@@ -57,9 +57,9 @@
             android:id="@+id/search_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text="@string/find_ride"
             android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:text="@string/find_ride" />
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 </FrameLayout>

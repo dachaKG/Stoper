@@ -12,5 +12,19 @@ insert into ride(start_destination, end_destination, ride_date, passenger_number
 insert into ride(start_destination, end_destination, ride_date, passenger_number, max_passenger_num, price, note,driver_id) values ('Novi Sad', 'Kragujevac', '2018-06-07 18:22:00', '3', '3','222',  'notes',3)
 
 
+insert into rate (comment,mark,date,evaluator_id,reciever_id) values ("Iber zokna ispala u sred voznje", "Izvanredno", '2018-06-07 15:44:00', 2, 3);
+
+insert into rate (comment,mark,date,evaluator_id,reciever_id) values ("Malinari bolirali put , inace sve dobro", "Dobro",'2018-06-07 15:46:00', 2, 1)
+
+insert into rate (comment,mark,date,evaluator_id,reciever_id) values ("Jedan cica je ustopirao hladnjacu", "Izvanredno", '2018-06-07 15:48:00', 3, 2)
+
+insert into rate (comment,mark,date,evaluator_id,reciever_id) values ("Vozac je prica o Djokovicu", "Veoma razocaravajuce", '2018-06-07 15:49:00', 1, 2)
+
+
+
+
+
+
+
 
 
