@@ -56,6 +56,7 @@ public class RideDetailsActivity extends AppCompatActivity {
     TextView startDestination;
     TextView endDestionation;
     Ride ride = null;
+    String driverEmail;
     String loggedEmail = null;
 
     @Override
@@ -184,6 +185,8 @@ public class RideDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(User user) {
             super.onPostExecute(user);
+            driverEmail = user.getEmail();
+
             SharedPreferences loggedUserDetails;
 
             loggedUserDetails = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
@@ -211,7 +214,6 @@ public class RideDetailsActivity extends AppCompatActivity {
                 TextView level = (TextView) findViewById(R.id.ride_driver_level);
                 level.setText(user.getLevel());
             }
-
 
             List<String> speaking = Arrays.asList(getResources().getStringArray(R.array.speaking_array));
             List<String> smoking = Arrays.asList(getResources().getStringArray(R.array.smoking_array));
@@ -284,6 +286,13 @@ public class RideDetailsActivity extends AppCompatActivity {
                 showMessageSuccess();
             }
         }
+    }
+
+    public void onClickShowDriverProfile(View view){
+        TextView nameView = (TextView)view;
+        Intent intent = new Intent(RideDetailsActivity.this, ShowProfileActivity.class);
+        intent.putExtra("userReference", driverEmail);
+        startActivity(intent);
     }
 
     private void showMessageSuccess() {

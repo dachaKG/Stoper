@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -180,7 +181,22 @@ public class EditProfileActivity extends AppCompatActivity {
         String edited_birth_year = ((TextView)findViewById(R.id.birth_year_text_view)).getText().toString();
         int year= Integer.parseInt(edited_birth_year);
         String edited_biography = ((TextView)findViewById(R.id.biography_text_view)).getText().toString();
-
+        if (edited_first_name.equals("")){
+            Toast.makeText(this, "Morate uneti Vaše ime", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (edited_last_name.equals("")){
+            Toast.makeText(this, "Morate uneti Vaše prezime", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (edited_birth_year.equals("")){
+            Toast.makeText(this, "Morate uneti Vašu godinu rodjenja", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (edited_birth_year.length() != 4){
+            Toast.makeText(this, "Morate uneti godinu rodjenja u pravom formatu", Toast.LENGTH_SHORT).show();
+            return;
+        }
         UserPersonalDataDTO userPersonalDataDTO = new UserPersonalDataDTO(loggedUser.getEmail(),gender,edited_first_name,edited_last_name,year,edited_biography);
         SavePersonalDataTask savePersonalDataTask = new SavePersonalDataTask();
         savePersonalDataTask.execute(userPersonalDataDTO);
@@ -211,6 +227,10 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onClickSavePhoneNumber(View view){
         String area_call_edited = ((TextView)findViewById(R.id.area_call_text_view)).getText().toString();
         String phone_number_edited = ((TextView)findViewById(R.id.phone_number_text_view)).getText().toString();
+        if (area_call_edited.equals("") || phone_number_edited.equals("")){
+            Toast.makeText(this, "Morate uneti sva polja vezana za broj telefona", Toast.LENGTH_SHORT).show();
+            return;
+        }
         UserPhoneNumberDTO userPhoneNumberDTO = new UserPhoneNumberDTO(loggedUser.getEmail(),area_call_edited,phone_number_edited);
         SavePhoneNumberDataTask task = new SavePhoneNumberDataTask();
         task.execute(userPhoneNumberDTO);
@@ -367,10 +387,6 @@ public class EditProfileActivity extends AppCompatActivity {
             out.println("Boolean jeeeeeee " + aBoolean.toString());
         }
     }
-
-
-
-
 
     private class GetUserDataTask extends AsyncTask<Void, Void,User> {
 
