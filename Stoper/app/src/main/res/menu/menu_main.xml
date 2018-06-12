@@ -3,9 +3,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="start"
     tools:context=".MainActivity">
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
 
-        android:orderInCategory="100"
-        app:showAsAction="never"/>
 </menu>

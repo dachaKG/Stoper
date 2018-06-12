@@ -24,6 +24,8 @@
             android:id="@+id/my_location"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:text="@string/my_location" />
     </LinearLayout>
 
