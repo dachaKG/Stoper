@@ -1,5 +1,6 @@
 package com.example.StoperJava.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -8,8 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,20 +74,21 @@ public class RideController {
 	@RequestMapping(value = "/searchRides")
 	public List<Ride> searchRides(@RequestBody Ride searchRide){
 		List<Ride> rides=rideService.findAll();
-		/*List<Ride> ridesToSend=new ArrayList<>();
+		List<Ride> ridesToSend=new ArrayList<>();
 		for(Ride r : rides) {
 			if(r.getStartDestination().equals(searchRide.getStartDestination())) {
 				if(r.getEndDestination().equals(searchRide.getEndDestination())) {
-					if(r.getRideDate().compareTo(searchRide.getRideDate())==0) {
+					//if(r.getRideDate().compareTo(searchRide.getRideDate())==0) {
 						if(r.getPassengerNumber()>=searchRide.getPassengerNumber()) {
 							ridesToSend.add(r);
 						}
-					}
+					//}
 				}
 			}
-		}*/
-		
-		return rides;
+		}
+		System.out.println(ridesToSend.size());
+		return ridesToSend;
+		//return rides;
 	}
 
 	

@@ -181,7 +181,7 @@ public class CommentActivity extends AppCompatActivity {
             super.onPostExecute(aBoolean);
             if(aBoolean) {
 
-                intentt = new Intent(CommentActivity.this, LoginActivity.class);
+                intentt = new Intent(CommentActivity.this, NavigationActivity.class);
                 startActivity(intentt);
             }
             else{

@@ -66,6 +66,7 @@ public class RidesFragment extends Fragment {
             @Override
             public void onClick(int position) {
                 Ride selectedRide = bundle.<Ride>getParcelableArrayList("ridesList").get(position);
+                selectedRide.getDriver().setProfileImage(null);
                 bundle.putSerializable("serRide", selectedRide);
                 Intent intent = new Intent(getActivity(), RideDetailsActivity.class);
                 intent.putExtra("selectedRide", (new Gson()).toJson(selectedRide));
