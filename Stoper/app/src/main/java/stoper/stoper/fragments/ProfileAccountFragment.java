@@ -34,7 +34,7 @@ public class ProfileAccountFragment extends Fragment implements View.OnClickList
         TextView statistic_data = (TextView) view.findViewById(R.id.account_link_to_statistic_data);
         statistic_data.setOnClickListener(this);
 
-        TextView notifications_settings = (TextView) view.findViewById(R.id.account_link_to_notifications_settings);
+        /*TextView notifications_settings = (TextView) view.findViewById(R.id.account_link_to_notifications_settings);
         notifications_settings.setOnClickListener(this);
 
         TextView password_change = (TextView) view.findViewById(R.id.account_link_to_password_change);
@@ -47,7 +47,7 @@ public class ProfileAccountFragment extends Fragment implements View.OnClickList
         privacy.setOnClickListener(this);
 
         TextView terms_of_service = (TextView) view.findViewById(R.id.account_link_to_terms_of_service_title);
-        terms_of_service.setOnClickListener(this);
+        terms_of_service.setOnClickListener(this);*/
 
         TextView recieved_rates = (TextView)view.findViewById(R.id.account_link_to_recieved_rates);
         recieved_rates.setOnClickListener(this);
@@ -62,17 +62,17 @@ public class ProfileAccountFragment extends Fragment implements View.OnClickList
             case R.id.account_link_to_statistic_data:
                 intent = new Intent(getActivity(), StatisticDataActivity.class);
                 break;
-            case R.id.account_link_to_notifications_settings:
-                break;
+            /*case R.id.account_link_to_notifications_settings:
+                break;*/
             case R.id.account_link_to_password_change:
                 intent = new Intent(getActivity(), ChangePasswordActivity.class);
                 break;
-            case R.id.account_link_to_help:
+            /*case R.id.account_link_to_help:
                 break;
             case R.id.account_link_to_privacy:
                 break;
             case R.id.account_link_to_terms_of_service_title:
-                break;
+                break;*/
             case R.id.account_link_to_recieved_rates:
                 intent = new Intent(getActivity(), RecievedRatesActivity.class);
                 break;
