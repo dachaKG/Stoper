@@ -273,4 +273,13 @@
 
     <string name="show_profile_custom_settings_not_defined">Ne znam</string>
     <string name="car">Automobil</string>
+    <string name="recieved_rates_number">Statistika ocenjivanja</string>
+
+    <string name="rate_perfect">Izvanredno</string>
+    <string name="rate_excellent">Odlično</string>
+    <string name="rate_good">Dobro</string>
+    <string name="rate_bad">Loše</string>
+    <string name="rate_very_disappointing">Veoma razočaravajuće</string>
+
+    <string name="recieved_rates_history_title">Istorija ocenjivanja</string>
 </resources>
