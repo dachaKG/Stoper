@@ -1,16 +1,23 @@
 package stoper.stoper.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import org.springframework.http.HttpEntity;
@@ -32,6 +39,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     private User user;
     private SharedPreferences preferences;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +48,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.change_password_app_tar_title);
-
+        dialog = new ProgressDialog(this);
         preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
         user =  new Gson().fromJson(preferences.getString("userJson", ""), User.class);
     }
@@ -51,6 +59,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String charSequenceNewConfirmed = ((EditText)findViewById(R.id.change_password_new_confirmed)).getText().toString();
 
         if(!charSequenceNew.equals(charSequenceNewConfirmed) || !charSequenceOld.equals(user.getPassword())){
+            Toast.makeText(getApplicationContext(), "Ne poklapaju se nove sifre ili stara nije tacna", Toast.LENGTH_SHORT);
             return;
         }
         UserPasswordDTO userPasswordDTO = new UserPasswordDTO(user.getEmail(),charSequenceOld,charSequenceNew,charSequenceNewConfirmed);
@@ -83,10 +92,35 @@ public class ChangePasswordActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
+            if(aBoolean) {
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (firebaseUser != null) {
+                    dialog.setMessage("Promena sifre je u toku");
+                    dialog.show();
 
+                    firebaseUser.updatePassword(((EditText)findViewById(R.id.change_password_new)).getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful())
+                                    {
+                                        dialog.cancel();
+                                        Toast.makeText(getApplicationContext(),R.string.message_success_changed_data, Toast.LENGTH_LONG);
+                                        finish();
+                                    } else {
+                                        dialog.cancel();
+                                        Toast.makeText(getApplicationContext(), "Sifra nije uspesno promenjena", Toast.LENGTH_LONG);
+                                        finish();
+                                    }
+                                }
+                            });
+                }
+            }
             out.println("Boolean jeeeeeee " + aBoolean.toString());
         }
     }
+
+
     private void updateUser(){
         SharedPreferences preferences = getApplicationContext().getSharedPreferences(Api.baseName, MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
@@ -96,10 +130,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     private void showMessageSuccess(){
         Context contex = getApplicationContext();
-        CharSequence text = getResources().getString(R.string.message_success_changed_data);
+        //CharSequence text = getResources().getString(R.string.message_success_changed_data);
         int duration = Toast.LENGTH_LONG;
 
-        Toast toast = Toast.makeText(contex, text, duration);
-        toast.show();
+        //Toast toast = Toast.makeText(contex, text, duration);
+        //toast.show();
     }
 }
