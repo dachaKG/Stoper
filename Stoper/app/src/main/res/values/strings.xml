@@ -281,4 +281,5 @@
     <string name="rate_bad">Loše</string>
     <string name="rate_very_disappointing">Veoma razočaravajuće</string>
 
+    <string name="recieved_rates_history_title">Istorija ocenjivanja</string>
 </resources>

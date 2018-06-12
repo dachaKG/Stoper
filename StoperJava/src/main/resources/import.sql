@@ -12,5 +12,3 @@ insert into ride(start_destination, end_destination, ride_date, passenger_number
 insert into ride(start_destination, end_destination, ride_date, passenger_number, max_passenger_num, price, note,driver_id) values ('Novi Sad', 'Kragujevac', '2018-06-07 18:22:00', '3', '3','222',  'notes',3)
 
 
-
-
