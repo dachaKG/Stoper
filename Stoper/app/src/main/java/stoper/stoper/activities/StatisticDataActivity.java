@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -86,6 +87,17 @@ public class StatisticDataActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             GridLayoutManager layoutManager = new GridLayoutManager(activity, 1);
             recyclerView.setLayoutManager(layoutManager);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

@@ -52,6 +52,8 @@
             android:layout_marginRight="80dp"
             android:layout_height="wrap_content"
             android:onClick="submitMarks"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:text="Potvrdi" />
 
 
