@@ -223,15 +223,12 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="4dp"
             android:clickable="true"
             android:onClick="onClickContactDriver"
             android:text="@string/contact_driver_title"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.19"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ride_details_hint" />
 
@@ -286,9 +283,8 @@
             android:id="@+id/ride_car_brand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="8dp"
             android:text="@string/ride_details_car_default"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -298,9 +294,8 @@
             android:id="@+id/ride_car_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="12dp"
             android:text="@string/ride_details_car_color_default"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -435,16 +430,18 @@
             app:layout_constraintTop_toBottomOf="@+id/ride_driver_email_address_status" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom">
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:textColor="@color/white"
+            android:onClick="onClickReserve"
             android:text="@string/ride_details_reserve_ride"
-            android:onClick="onClickReserve"/>
+            android:textColor="@color/white" />
     </RelativeLayout>
 </FrameLayout>

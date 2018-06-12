@@ -128,6 +128,18 @@ public class ChangePasswordActivity extends AppCompatActivity {
         edit.apply();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()) {
+            case
+                    android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void showMessageSuccess(){
         Context contex = getApplicationContext();
         //CharSequence text = getResources().getString(R.string.message_success_changed_data);

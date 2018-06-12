@@ -95,10 +95,10 @@ public class RideDetailsActivity extends AppCompatActivity {
         endTime.setText(String.format(" - "));
 
         TextView startAddress = (TextView) findViewById(R.id.ride_starting_address);
-        startAddress.setText("Dogovor");
+        startAddress.setText("Adresa po dogovoru");
 
         TextView endAddress = (TextView) findViewById(R.id.ride_target_address);
-        endAddress.setText("Dogovor");
+        endAddress.setText("Adresa po dogovoru");
 
         TextView freeSpace = (TextView) findViewById(R.id.ride_free_space);
         freeSpace.setText(ride.getPassengerNumber().toString());

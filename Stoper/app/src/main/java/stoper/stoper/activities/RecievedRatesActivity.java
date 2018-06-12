@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,6 +54,18 @@ public class RecievedRatesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);*/
         TaskGetByRecieverId task = new TaskGetByRecieverId(this);
         task.execute(loggedUser.getId());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()) {
+            case
+                    android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class TaskGetByRecieverId extends AsyncTask<Long, Void, RateDTO[]> {
